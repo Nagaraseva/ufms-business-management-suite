@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+coverage/
+.DS_Store
+packages/database/prisma/migrations/*/migration_lock.toml.bak
+_incoming/
+/history/

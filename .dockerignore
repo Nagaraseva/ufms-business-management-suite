@@ -1,0 +1,9 @@
+node_modules
+apps/web/dist
+apps/api/dist
+.git
+.env
+backups
+migration/reconciliation/reports
+*.md
+.vscode

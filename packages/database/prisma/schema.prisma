@@ -1,0 +1,2848 @@
+// UFMS Business Management Suite — core tenancy & identity schema
+// Phase 1 foundation. Every tenant-owned table carries tenant_id.
+// Money uses Decimal. Timestamps are timestamptz (UTC storage, tz-aware read).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// PLATFORM LAYER (not tenant-owned)
+// ---------------------------------------------------------------------------
+
+enum TenantStatus {
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  SUSPENDED
+  CANCELLED
+}
+
+model Tenant {
+  id          String       @id @default(uuid()) @db.Uuid
+  slug        String       @unique
+  legalName   String
+  displayName String
+  status      TenantStatus @default(TRIAL)
+  isPlatform  Boolean      @default(false) // true only for the UFMS home tenant
+  whiteLabel  Boolean      @default(false)
+  timezone    String       @default("Asia/Kolkata")
+  currency    String       @default("INR")
+  trialEndsAt DateTime?    @db.Timestamptz(3)
+  createdAt   DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime     @updatedAt @db.Timestamptz(3)
+  deletedAt   DateTime?    @db.Timestamptz(3)
+
+  domains       TenantDomain[]
+  branding      TenantBranding?
+  settings      TenantSetting[]
+  companies     Company[]
+  branches      Branch[]
+  departments   Department[]
+  sites         Site[]
+  roles         Role[]
+  users         User[]
+  subscriptions Subscription[]
+  featureFlags  TenantFeatureFlag[]
+  leads         Lead[]
+  auditLogs     AuditLog[]
+
+  @@index([status])
+  @@map("tenants")
+}
+
+enum DomainType {
+  SUBDOMAIN
+  CUSTOM
+}
+
+model TenantDomain {
+  id          String     @id @default(uuid()) @db.Uuid
+  tenantId    String     @db.Uuid
+  hostname    String     @unique
+  type        DomainType @default(SUBDOMAIN)
+  verified    Boolean    @default(false)
+  verifyToken String?
+  createdAt   DateTime   @default(now()) @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("tenant_domains")
+}
+
+model TenantBranding {
+  id             String   @id @default(uuid()) @db.Uuid
+  tenantId       String   @unique @db.Uuid
+  logoUrl        String?
+  faviconUrl     String?
+  primaryColor   String   @default("#E9682D")
+  secondaryColor String   @default("#18212B")
+  accentColor    String   @default("#2D7D67")
+  loginHeadline  String?
+  emailFromName  String?
+  reportHeader   String?
+  footerText     String?
+  contactInfo    Json?
+  updatedAt      DateTime @updatedAt @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("tenant_branding")
+}
+
+model TenantSetting {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  key       String
+  value     Json
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, key])
+  @@map("tenant_settings")
+}
+
+model TenantFeatureFlag {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  key       String
+  enabled   Boolean  @default(false)
+  config    Json?
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, key])
+  @@map("tenant_feature_flags")
+}
+
+// ---------------------------------------------------------------------------
+// ORGANISATION HIERARCHY: tenant -> company -> branch -> site
+// ---------------------------------------------------------------------------
+
+model Company {
+  id          String    @id @default(uuid()) @db.Uuid
+  tenantId    String    @db.Uuid
+  code        String
+  legalName   String
+  displayName String
+  gstin       String?
+  pan         String?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt   DateTime? @db.Timestamptz(3)
+
+  tenant   Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  branches Branch[]
+  sites    Site[]
+  users    UserCompanyAccess[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("companies")
+}
+
+model Branch {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  companyId String   @db.Uuid
+  code      String
+  name      String
+  address   String?
+  city      String?
+  state     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sites   Site[]
+
+  @@unique([companyId, code])
+  @@index([tenantId])
+  @@map("branches")
+}
+
+model Department {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  name      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  users  User[]
+
+  @@unique([tenantId, name])
+  @@map("departments")
+}
+
+model Site {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  companyId String   @db.Uuid
+  branchId  String?  @db.Uuid
+  code      String
+  name      String
+  address   String?
+  city      String?
+  state     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  branch  Branch? @relation(fields: [branchId], references: [id], onDelete: SetNull)
+
+  @@unique([companyId, code])
+  @@index([tenantId])
+  @@map("sites")
+}
+
+// ---------------------------------------------------------------------------
+// IDENTITY, ROLES, PERMISSIONS
+// ---------------------------------------------------------------------------
+
+model Role {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String?  @db.Uuid // null = platform-level role template
+  code        String
+  name        String
+  isSystem    Boolean  @default(false)
+  description String?
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  tenant          Tenant?          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userRoles       UserRole[]
+  rolePermissions RolePermission[]
+
+  @@unique([tenantId, code])
+  @@map("roles")
+}
+
+model Permission {
+  id          String  @id @default(uuid()) @db.Uuid
+  code        String  @unique // e.g. "leads:read", "payroll:approve"
+  module      String
+  action      String
+  description String?
+
+  rolePermissions RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String @db.Uuid
+  permissionId String @db.Uuid
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model User {
+  id                 String    @id @default(uuid()) @db.Uuid
+  tenantId           String    @db.Uuid
+  email              String
+  name               String
+  passwordHash       String // Argon2id — never a PIN, never logged
+  phone              String?
+  departmentId       String?   @db.Uuid
+  active             Boolean   @default(true)
+  mustChangePassword Boolean   @default(false)
+  mfaEnabled         Boolean   @default(false)
+  mfaSecret          String? // encrypted at rest by the app
+  lastLoginAt        DateTime? @db.Timestamptz(3)
+  failedAttempts     Int       @default(0)
+  lockedUntil        DateTime? @db.Timestamptz(3)
+  createdAt          DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt          DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt          DateTime? @db.Timestamptz(3)
+
+  tenant        Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  department    Department?         @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  userRoles     UserRole[]
+  sessions      Session[]
+  companyAccess UserCompanyAccess[]
+  auditLogs     AuditLog[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("users")
+}
+
+model UserRole {
+  userId String @db.Uuid
+  roleId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model UserCompanyAccess {
+  id        String @id @default(uuid()) @db.Uuid
+  userId    String @db.Uuid
+  companyId String @db.Uuid
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@map("user_company_access")
+}
+
+model Session {
+  id         String    @id @default(uuid()) @db.Uuid
+  tenantId   String    @db.Uuid
+  userId     String    @db.Uuid
+  tokenHash  String    @unique // SHA-256 of the opaque refresh token
+  ip         String?
+  userAgent  String?
+  expiresAt  DateTime  @db.Timestamptz(3)
+  revokedAt  DateTime? @db.Timestamptz(3)
+  lastSeenAt DateTime  @default(now()) @db.Timestamptz(3)
+  createdAt  DateTime  @default(now()) @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([userId])
+  @@map("sessions")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  tenantId  String    @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique
+  expiresAt DateTime  @db.Timestamptz(3)
+  usedAt    DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model LoginHistory {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  userId    String?  @db.Uuid
+  email     String
+  success   Boolean
+  reason    String?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([tenantId, createdAt])
+  @@map("login_history")
+}
+
+// ---------------------------------------------------------------------------
+// AUDIT (tenant-scoped, append-only)
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id            BigInt   @id @default(autoincrement())
+  tenantId      String   @db.Uuid
+  actorUserId   String?  @db.Uuid
+  actorEmail    String?
+  action        String
+  entityType    String
+  entityId      String?
+  before        Json?
+  after         Json?
+  ip            String?
+  userAgent     String?
+  correlationId String?
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  actor  User?  @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, entityType, entityId])
+  @@map("audit_logs")
+}
+
+// ---------------------------------------------------------------------------
+// COMMERCIAL SAAS: plans, subscriptions, billing
+// ---------------------------------------------------------------------------
+
+model Plan {
+  id           String   @id @default(uuid()) @db.Uuid
+  code         String   @unique
+  name         String
+  description  String?
+  monthlyPrice Decimal  @db.Decimal(12, 2) // configurable by platform admin
+  annualPrice  Decimal  @db.Decimal(12, 2)
+  currency     String   @default("INR")
+  trialDays    Int      @default(14)
+  userLimit    Int?
+  storageMb    Int?
+  whiteLabel   Boolean  @default(false)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime @updatedAt @db.Timestamptz(3)
+
+  modules       PlanModule[]
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Module {
+  id     String  @id @default(uuid()) @db.Uuid
+  code   String  @unique // crm, tenders, hr, payroll, accounts, assets, marketing, ai, sla
+  name   String
+  active Boolean @default(true)
+
+  planModules PlanModule[]
+
+  @@map("modules")
+}
+
+model PlanModule {
+  planId   String @db.Uuid
+  moduleId String @db.Uuid
+
+  plan   Plan   @relation(fields: [planId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@id([planId, moduleId])
+  @@map("plan_modules")
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  GRACE
+  SUSPENDED
+  CANCELLED
+}
+
+model Subscription {
+  id                 String             @id @default(uuid()) @db.Uuid
+  tenantId           String             @db.Uuid
+  planId             String             @db.Uuid
+  status             SubscriptionStatus @default(TRIALING)
+  billingCycle       String             @default("MONTHLY") // MONTHLY | ANNUAL
+  currentPeriodStart DateTime           @db.Timestamptz(3)
+  currentPeriodEnd   DateTime           @db.Timestamptz(3)
+  trialEndsAt        DateTime?          @db.Timestamptz(3)
+  graceEndsAt        DateTime?          @db.Timestamptz(3)
+  cancelledAt        DateTime?          @db.Timestamptz(3)
+  createdAt          DateTime           @default(now()) @db.Timestamptz(3)
+  updatedAt          DateTime           @updatedAt @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  plan   Plan   @relation(fields: [planId], references: [id])
+
+  @@index([tenantId])
+  @@map("subscriptions")
+}
+
+model UsageRecord {
+  id         BigInt   @id @default(autoincrement())
+  tenantId   String   @db.Uuid
+  metric     String // users, storage_mb, ai_tokens, emails_sent
+  value      Decimal  @db.Decimal(14, 3)
+  recordedAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([tenantId, metric, recordedAt])
+  @@map("usage_records")
+}
+
+// ---------------------------------------------------------------------------
+// BUSINESS MODULE (representative Phase 1 slice — proves isolation end-to-end)
+// ---------------------------------------------------------------------------
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  SURVEY_SCHEDULED
+  QUOTED
+  WON
+  LOST
+}
+
+model Lead {
+  id             String     @id @default(uuid()) @db.Uuid
+  tenantId       String     @db.Uuid
+  companyId      String?    @db.Uuid
+  leadNo         String // business identifier, unique per tenant
+  customerName   String
+  companyName    String?
+  mobile         String?
+  email          String?
+  source         String?
+  serviceType    String?
+  requirement    String?
+  status         LeadStatus @default(NEW)
+  assignedToId   String?    @db.Uuid
+  nextFollowupAt DateTime?  @db.Timestamptz(3)
+  createdAt      DateTime   @default(now()) @db.Timestamptz(3)
+  createdById    String?    @db.Uuid
+  updatedAt      DateTime   @updatedAt @db.Timestamptz(3)
+  deletedAt      DateTime?  @db.Timestamptz(3)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, leadNo])
+  @@index([tenantId, status])
+  @@index([tenantId, assignedToId])
+  @@map("leads")
+}
+
+// ---------------------------------------------------------------------------
+// CRM FLOW: follow-ups, surveys, quotations
+// ---------------------------------------------------------------------------
+
+model LeadFollowup {
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @db.Uuid
+  leadId         String    @db.Uuid
+  createdById    String?   @db.Uuid
+  type           String
+  outcome        String?
+  notes          String
+  nextFollowupAt DateTime? @db.Timestamptz(3)
+  newStatus      String?
+  createdAt      DateTime  @default(now()) @db.Timestamptz(3)
+
+  @@index([tenantId, leadId])
+  @@map("lead_followups")
+}
+
+enum SurveyStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Survey {
+  id                String       @id @default(uuid()) @db.Uuid
+  tenantId          String       @db.Uuid
+  leadId            String       @db.Uuid
+  executiveId       String?      @db.Uuid
+  scheduledDate     DateTime     @db.Date
+  scheduledTime     String?
+  status            SurveyStatus @default(SCHEDULED)
+  siteContact       String?
+  siteMobile        String?
+  address           String?
+  inspectionSummary String?
+  manpowerRequired  Int?
+  materialsRequired String?
+  areaSqFt          Decimal?     @db.Decimal(12, 2)
+  scopeOfWork       String?
+  createdById       String?      @db.Uuid
+  createdAt         DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt         DateTime     @updatedAt @db.Timestamptz(3)
+
+  @@index([tenantId, leadId])
+  @@map("surveys")
+}
+
+enum QuotationStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SENT
+  WON
+  LOST
+  EXPIRED
+}
+
+/// Management-fee modes preserved from the legacy engine.
+enum FeeMode {
+  NONE
+  PERCENTAGE
+  LUMPSUM
+  BASIC_VDA_PCT
+  ST2_PCT
+  CTC_PCT
+}
+
+model Quotation {
+  id             String          @id @default(uuid()) @db.Uuid
+  tenantId       String          @db.Uuid
+  companyId      String?         @db.Uuid
+  quotationNo    String
+  revision       Int             @default(1)
+  leadId         String?         @db.Uuid
+  surveyId       String?         @db.Uuid
+  status         QuotationStatus @default(DRAFT)
+  issueDate      DateTime        @db.Date
+  validUntil     DateTime?       @db.Date
+  customerName   String
+  companyName    String?
+  billingAddress String?
+  serviceType    String?
+
+  // Money — Decimal, never float.
+  subtotal            Decimal @default(0) @db.Decimal(14, 2)
+  managementFeeMode   FeeMode @default(NONE)
+  managementFeeValue  Decimal @default(0) @db.Decimal(14, 2)
+  managementFeeAmount Decimal @default(0) @db.Decimal(14, 2)
+  amountBeforeTax     Decimal @default(0) @db.Decimal(14, 2)
+  taxPercent          Decimal @default(0) @db.Decimal(6, 3)
+  taxAmount           Decimal @default(0) @db.Decimal(14, 2)
+  grandTotal          Decimal @default(0) @db.Decimal(14, 2)
+
+  /// Full wage-breakup input + computed snapshot (see wage-engine.ts).
+  wageBreakupJson Json?
+  /// Immutable revision snapshots.
+  notes           String?
+  terms           String?
+  createdById     String?   @db.Uuid
+  approvedById    String?   @db.Uuid
+  approvedAt      DateTime? @db.Timestamptz(3)
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt       DateTime? @db.Timestamptz(3)
+
+  items    QuotationItem[]
+  versions QuotationVersion[]
+
+  @@unique([tenantId, quotationNo, revision])
+  @@index([tenantId, status])
+  @@map("quotations")
+}
+
+model QuotationItem {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  quotationId String   @db.Uuid
+  sortOrder   Int      @default(0)
+  description String
+  unit        String?
+  quantity    Decimal  @default(1) @db.Decimal(12, 3)
+  rate        Decimal  @default(0) @db.Decimal(14, 2)
+  amount      Decimal  @default(0) @db.Decimal(14, 2)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  quotation Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, quotationId])
+  @@map("quotation_items")
+}
+
+model QuotationVersion {
+  id            String   @id @default(uuid()) @db.Uuid
+  tenantId      String   @db.Uuid
+  quotationId   String   @db.Uuid
+  revision      Int
+  snapshot      Json
+  changedById   String?  @db.Uuid
+  changeSummary String?
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+
+  quotation Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, quotationId])
+  @@map("quotation_versions")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 3 — TENDER MANAGEMENT
+// ---------------------------------------------------------------------------
+
+/// Legacy TENDER_STATUSES, order preserved.
+enum TenderStatus {
+  DRAFT // wizard staging only — hidden from lists/reports
+  NEW
+  ON_HOLD // present in legacy, outside TENDER_STATUSES
+  DOCUMENTS_PENDING
+  READY_TO_SUBMIT
+  SUBMITTED
+  TECHNICALLY_QUALIFIED
+  FINANCIALLY_WON
+  LOST
+  CANCELLED
+}
+
+enum SecurityDepositForm {
+  PBG
+  TD
+  FDR
+}
+
+model Tender {
+  id        String @id @default(uuid()) @db.Uuid
+  tenantId  String @db.Uuid
+  companyId String @db.Uuid
+
+  /// Legacy record identifier, shape TND-yyyyMMdd-XXXXXXXX. Preserved verbatim.
+  legacyTenderId   String?
+  /// Business number: TND-YYYY-NNNN (auto) or the operator's portal number.
+  tenderNo         String
+  /// true when tenderNo was typed by an operator rather than auto-generated.
+  tenderNoIsManual Boolean @default(false)
+
+  tenderTitle  String
+  portal       String
+  portalUrl    String?
+  organization String?
+  sector       String
+  location     String?
+
+  tenderFee   Decimal @default(0) @db.Decimal(14, 2)
+  emdAmount   Decimal @default(0) @db.Decimal(14, 2)
+  bgAmount    Decimal @default(0) @db.Decimal(14, 2)
+  amcAmount   Decimal @default(0) @db.Decimal(14, 2)
+  tenderValue Decimal @default(0) @db.Decimal(14, 2)
+
+  securityDepositPercent Decimal              @default(0) @db.Decimal(6, 2)
+  securityDepositForm    SecurityDepositForm?
+
+  manpowerCount String?
+  tenureMonths  Int     @default(0)
+
+  postedDate     DateTime? @db.Date
+  preBidDate     DateTime? @db.Date
+  submissionDate DateTime  @db.Date
+  openingDate    DateTime? @db.Date
+
+  status            TenderStatus @default(NEW)
+  resultReason      String?
+  scope             String?
+  eligibility       String?
+  documentsRequired String?
+  documentsPending  String?
+
+  assignedToId   String?   @db.Uuid
+  nextFollowupAt DateTime? @db.Timestamptz(3)
+  notes          String?
+
+  createdById String?   @db.Uuid
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt   DateTime? @db.Timestamptz(3)
+
+  followups TenderFollowup[]
+  order     TenderOrder?
+
+  /// Legacy uniqueness: number is unique per COMPANY, case-insensitively.
+  @@unique([companyId, tenderNo])
+  @@index([tenantId, status])
+  @@index([tenantId, submissionDate])
+  @@map("tenders")
+}
+
+model TenderFollowup {
+  id               String       @id @default(uuid()) @db.Uuid
+  tenantId         String       @db.Uuid
+  tenderId         String       @db.Uuid
+  status           TenderStatus
+  notes            String
+  documentsPending String?
+  nextFollowupAt   DateTime?    @db.Timestamptz(3)
+  amountQuoted     Decimal      @default(0) @db.Decimal(14, 2)
+  resultReason     String?
+  createdById      String?      @db.Uuid
+  createdAt        DateTime     @default(now()) @db.Timestamptz(3)
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, tenderId])
+  @@map("tender_followups")
+}
+
+/// Created automatically when a tender reaches FINANCIALLY_WON.
+model TenderOrder {
+  id            String    @id @default(uuid()) @db.Uuid
+  tenantId      String    @db.Uuid
+  companyId     String    @db.Uuid
+  tenderId      String    @unique @db.Uuid
+  orderNo       String?
+  beneficiary   String?
+  awardDate     DateTime? @db.Date
+  startDate     DateTime? @db.Date
+  endDate       DateTime? @db.Date
+  contractValue Decimal   @default(0) @db.Decimal(14, 2)
+  tenureMonths  Int       @default(0)
+  paymentTerms  String?
+  status        String    @default("ACTIVE")
+  createdAt     DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime  @updatedAt @db.Timestamptz(3)
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("tender_orders")
+}
+
+/// Security-deposit instruments (PBG / TD / FDR) tracked per tender.
+model SecurityDeposit {
+  id           String              @id @default(uuid()) @db.Uuid
+  tenantId     String              @db.Uuid
+  tenderId     String?             @db.Uuid
+  entryType    SecurityDepositForm
+  instrumentNo String?
+  bankName     String?
+  amount       Decimal             @default(0) @db.Decimal(14, 2)
+  issuedDate   DateTime?           @db.Date
+  expiryDate   DateTime?           @db.Date
+  status       String              @default("ACTIVE")
+  createdAt    DateTime            @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime            @updatedAt @db.Timestamptz(3)
+
+  @@index([tenantId, tenderId])
+  @@map("security_deposits")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 3 — CLIENTS, CONTRACTS, MOBILISATION
+// ---------------------------------------------------------------------------
+
+model Client {
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @db.Uuid
+  companyId      String?   @db.Uuid
+  legacyClientId String?
+  clientCode     String
+  companyName    String
+  legalName      String?
+  gstin          String?
+  pan            String?
+  billingAddress String?
+  serviceAddress String?
+  primaryEmail   String?
+  primaryPhone   String?
+  paymentTerms   String?
+  status         String    @default("ACTIVE")
+  createdAt      DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt      DateTime? @db.Timestamptz(3)
+
+  contacts  ClientContact[]
+  contracts Contract[]
+
+  @@unique([tenantId, clientCode])
+  @@index([tenantId, status])
+  @@map("clients")
+}
+
+model ClientContact {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  clientId    String   @db.Uuid
+  name        String
+  designation String?
+  department  String?
+  mobile      String?
+  email       String?
+  isPrimary   Boolean  @default(false)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, clientId])
+  @@map("client_contacts")
+}
+
+enum ContractStatus {
+  DRAFT
+  ACTIVE
+  EXPIRING
+  EXPIRED
+  TERMINATED
+  RENEWED
+}
+
+model Contract {
+  id               String         @id @default(uuid()) @db.Uuid
+  tenantId         String         @db.Uuid
+  companyId        String?        @db.Uuid
+  clientId         String         @db.Uuid
+  contractNo       String
+  quotationId      String?        @db.Uuid
+  serviceType      String?
+  contractValue    Decimal        @default(0) @db.Decimal(14, 2)
+  startDate        DateTime       @db.Date
+  endDate          DateTime       @db.Date
+  paymentTerms     String?
+  serviceScope     String?
+  status           ContractStatus @default(DRAFT)
+  /// Mobilisation handover: the point at which operations took over the site.
+  mobilisedAt      DateTime?      @db.Timestamptz(3)
+  mobilisedById    String?        @db.Uuid
+  renewalAlertDays Int            @default(60)
+  createdAt        DateTime       @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime       @updatedAt @db.Timestamptz(3)
+  deletedAt        DateTime?      @db.Timestamptz(3)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, contractNo])
+  @@index([tenantId, status, endDate])
+  @@map("contracts")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 3 — SLA AND CLIENT CARE
+// ---------------------------------------------------------------------------
+
+model SlaAgreement {
+  id              String    @id @default(uuid()) @db.Uuid
+  tenantId        String    @db.Uuid
+  clientId        String    @db.Uuid
+  contractId      String?   @db.Uuid
+  agreementNo     String
+  title           String
+  responseHours   Int       @default(24)
+  resolutionHours Int       @default(72)
+  uptimeTarget    Decimal?  @db.Decimal(5, 2)
+  penaltyClause   String?
+  startDate       DateTime  @db.Date
+  endDate         DateTime? @db.Date
+  status          String    @default("ACTIVE")
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime  @updatedAt @db.Timestamptz(3)
+
+  complaints Complaint[]
+
+  @@unique([tenantId, agreementNo])
+  @@index([tenantId, clientId])
+  @@map("sla_agreements")
+}
+
+enum ComplaintPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ComplaintStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  ESCALATED
+  REOPENED
+}
+
+model Complaint {
+  id              String            @id @default(uuid()) @db.Uuid
+  tenantId        String            @db.Uuid
+  clientId        String            @db.Uuid
+  slaId           String?           @db.Uuid
+  ticketNo        String
+  subject         String
+  description     String
+  priority        ComplaintPriority @default(MEDIUM)
+  status          ComplaintStatus   @default(OPEN)
+  category        String?
+  /// SLA clock: computed from the agreement's response/resolution targets.
+  dueAt           DateTime?         @db.Timestamptz(3)
+  firstResponseAt DateTime?         @db.Timestamptz(3)
+  resolvedAt      DateTime?         @db.Timestamptz(3)
+  breached        Boolean           @default(false)
+  assignedToId    String?           @db.Uuid
+  resolution      String?
+  feedbackRating  Int?
+  feedbackNotes   String?
+  createdById     String?           @db.Uuid
+  createdAt       DateTime          @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime          @updatedAt @db.Timestamptz(3)
+
+  sla SlaAgreement? @relation(fields: [slaId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, ticketNo])
+  @@index([tenantId, status])
+  @@index([tenantId, dueAt])
+  @@map("complaints")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 4 — HR & WORKFORCE
+// Legacy: HR.gs (employees, documents, salary slip scaffolding),
+//         MinimumWages.gs (rate sets/rates/zone map), ClientWageProfiles.
+// Verified against source: the legacy system has NO attendance, leave, roster
+// or shift tables. Those are recorded in docs/phase-4-gap-analysis.md as new
+// capability, not migrations — nothing in the source files was overlooked.
+// ---------------------------------------------------------------------------
+
+enum EmployeeStatus {
+  ACTIVE
+  NOTICE_PERIOD
+  ON_HOLD
+  LEFT
+}
+
+enum EmployeeDocCategory {
+  AADHAAR
+  PAN
+  UAN
+  ESI
+  PF
+  BANK
+  EDUCATION
+  EXPERIENCE
+  MEDICAL
+  PHOTO
+  OTHER
+}
+
+/// Wage category used by every minimum-wage schedule in the source.
+enum WageCategory {
+  UNSKILLED
+  SEMI_SKILLED
+  SKILLED
+  HIGHLY_SKILLED
+}
+
+/// Legacy WAGE_STATUSES_() — a rate set is provisional until reviewed.
+enum StatutoryStatus {
+  PROVISIONAL
+  CONFIRMED
+  CONTESTED
+}
+
+enum AllocationStatus {
+  ACTIVE
+  RELEASED
+  REPLACED
+}
+
+model Employee {
+  id        String  @id @default(uuid()) @db.Uuid
+  tenantId  String  @db.Uuid
+  companyId String? @db.Uuid
+
+  /// Legacy record identifier, EMP-yyyyMMdd-XXXXXXXX. Preserved verbatim.
+  legacyEmployeeId     String?
+  /// Business code: EMP-YYYY-NNNN (auto) or the operator's own value.
+  employeeCode         String
+  employeeCodeIsManual Boolean @default(false)
+
+  name          String
+  fatherName    String?
+  dob           DateTime? @db.Date
+  gender        String?
+  bloodGroup    String?
+  maritalStatus String?
+
+  mobile          String?
+  alternateMobile String?
+  email           String?
+
+  /// ---- Sensitive identifiers -------------------------------------------
+  /// Stored ONLY as AES-256-GCM ciphertext (see apps/api/src/common/field-crypto.ts).
+  /// The API never returns these; it returns a masked hint instead.
+  /// The legacy system kept all of them in plaintext in a shared sheet (D5).
+  aadhaarEnc      String?
+  panEnc          String?
+  uanEnc          String?
+  esiNoEnc        String?
+  bankAccountEnc  String?
+  /// Masked display hint, e.g. "XXXX XXXX 1234". Safe to return.
+  aadhaarHint     String?
+  panHint         String?
+  uanHint         String?
+  esiNoHint       String?
+  bankAccountHint String?
+
+  /// Legacy PFNo is not a financial instrument; kept as a plain reference.
+  pfNo     String?
+  bankName String?
+  ifsc     String?
+  branch   String?
+
+  addressPermanent String?
+  addressCurrent   String?
+  photoUrl         String?
+
+  designation   String?
+  department    String?
+  dateOfJoining DateTime?      @db.Date
+  dateOfLeaving DateTime?      @db.Date
+  status        EmployeeStatus @default(ACTIVE)
+
+  /// Deployment anchor. Legacy carried Site/ClientID/TenderOrderID as loose
+  /// text columns on the employee row; here they are real references and the
+  /// authoritative deployment record is EmployeeAllocation.
+  siteId        String? @db.Uuid
+  clientId      String? @db.Uuid
+  contractId    String? @db.Uuid
+  tenderOrderId String? @db.Uuid
+
+  /// Monthly wage structure, as saved by saveEmployee_.
+  basic           Decimal @default(0) @db.Decimal(12, 2)
+  hra             Decimal @default(0) @db.Decimal(12, 2)
+  da              Decimal @default(0) @db.Decimal(12, 2)
+  otherAllowances Decimal @default(0) @db.Decimal(12, 2)
+
+  esiApplicable Boolean @default(true)
+  pfApplicable  Boolean @default(true)
+  ptState       String?
+
+  emergencyContactName   String?
+  emergencyContactMobile String?
+
+  createdById String?   @db.Uuid
+  updatedById String?   @db.Uuid
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(3)
+  /// Legacy deactivateEmployee_ sets Active=FALSE; rows are never deleted.
+  active      Boolean   @default(true)
+  deletedAt   DateTime? @db.Timestamptz(3)
+
+  documents         EmployeeDocument[]
+  allocations       EmployeeAllocation[] @relation("EmployeeAllocations")
+  replacedFor       EmployeeAllocation[] @relation("EmployeeReplacements")
+  attendanceRecords AttendanceRecord[]
+  salarySlips       SalarySlip[]
+
+  @@unique([tenantId, employeeCode])
+  @@index([tenantId, status])
+  @@index([tenantId, clientId])
+  @@index([tenantId, siteId])
+  @@map("employees")
+}
+
+/// Document REGISTER. Binary content lives in object storage, never on the app
+/// server's filesystem (Rule 4). `storageKey` is written by the storage adapter;
+/// until that adapter is provisioned a row can exist with storageKey = null and
+/// status PENDING_UPLOAD, which is honest rather than simulated.
+model EmployeeDocument {
+  id         String @id @default(uuid()) @db.Uuid
+  tenantId   String @db.Uuid
+  employeeId String @db.Uuid
+
+  category   EmployeeDocCategory
+  fileName   String
+  mimeType   String?
+  fileSize   Int?
+  storageKey String?
+  checksum   String?
+  expiryDate DateTime?           @db.Date
+  notes      String?
+  status     String              @default("REGISTERED") // REGISTERED | PENDING_UPLOAD | VERIFIED
+
+  uploadedById String?   @db.Uuid
+  createdAt    DateTime  @default(now()) @db.Timestamptz(3)
+  deletedAt    DateTime? @db.Timestamptz(3)
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, employeeId])
+  @@index([tenantId, expiryDate])
+  @@map("employee_documents")
+}
+
+/// The authoritative deployment record: who is working where, from when to when.
+/// Enables the Phase 4 exit criterion — deployed strength reconciled against
+/// the contracted manpower requirement, per site and per designation.
+model EmployeeAllocation {
+  id         String @id @default(uuid()) @db.Uuid
+  tenantId   String @db.Uuid
+  employeeId String @db.Uuid
+
+  clientId   String? @db.Uuid
+  contractId String? @db.Uuid
+  siteId     String? @db.Uuid
+
+  /// Designation held AT THIS SITE, which can differ from the employee master.
+  designation String?
+  /// Wage category governs the applicable minimum-wage floor.
+  category    WageCategory @default(UNSKILLED)
+
+  startDate DateTime         @db.Date
+  endDate   DateTime?        @db.Date
+  status    AllocationStatus @default(ACTIVE)
+
+  /// Replacement chain, preserved so site history is never rewritten.
+  replacedByIdString   String?   @db.Uuid
+  replacedBy           Employee? @relation("EmployeeReplacements", fields: [replacedByIdString], references: [id], onDelete: SetNull)
+  replacedAllocationId String?   @db.Uuid
+
+  releaseReason String?
+  createdById   String?  @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+
+  employee Employee @relation("EmployeeAllocations", fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, contractId, status])
+  @@index([tenantId, siteId, status])
+  @@index([tenantId, employeeId, status])
+  @@map("employee_allocations")
+}
+
+/// Contracted manpower: the headcount a site is supposed to have.
+/// Populated from a quotation/tender manpower schedule or entered by ops.
+model ManpowerRequirement {
+  id         String  @id @default(uuid()) @db.Uuid
+  tenantId   String  @db.Uuid
+  clientId   String? @db.Uuid
+  contractId String? @db.Uuid
+  siteId     String? @db.Uuid
+
+  designation   String
+  category      WageCategory @default(UNSKILLED)
+  requiredCount Int
+  /// Which way the headcount is measured — the source plans tenders by
+  /// headcount and quotations by monthly billing heads.
+  basis         String       @default("HEADCOUNT") // HEADCOUNT | BILLING_HEADS
+
+  effectiveFrom DateTime  @db.Date
+  effectiveTo   DateTime? @db.Date
+  notes         String?
+  createdById   String?   @db.Uuid
+  createdAt     DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime  @updatedAt @db.Timestamptz(3)
+
+  @@index([tenantId, contractId, effectiveFrom])
+  @@map("manpower_requirements")
+}
+
+/// An effective-dated bundle of statutory values. Exactly one set per regime
+/// may be in force on a given date; the service enforces non-overlap.
+/// Rule 15: nothing statutory is hardcoded — every percentage, ceiling and
+/// slab is a row in one of these sets, and each set names its source.
+model StatutoryRateSet {
+  id       String  @id @default(uuid()) @db.Uuid
+  /// null = platform default available to every tenant; set = tenant override.
+  tenantId String? @db.Uuid
+
+  code         String // e.g. "EPFO-CENTRAL-2026", "KA-PT-2026"
+  name         String
+  /// Regime or state this set governs: CENTRAL | KARNATAKA | TAMIL_NADU | <state>
+  jurisdiction String          @default("CENTRAL")
+  status       StatutoryStatus @default(PROVISIONAL)
+
+  effectiveFrom DateTime  @db.Date
+  effectiveTo   DateTime? @db.Date
+
+  /// Where these numbers came from — a gazette notification, circular number
+  /// or portal URL. Required before a set can be CONFIRMED.
+  sourceReference String?
+  sourceUrl       String?
+  reviewNotes     String?
+  /// Set true once a human has checked the figures against the official source.
+  reviewedAt      DateTime? @db.Timestamptz(3)
+  reviewedById    String?   @db.Uuid
+
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  rates StatutoryRate[]
+  slabs PtSlab[]
+
+  @@unique([tenantId, code, effectiveFrom])
+  @@index([jurisdiction, effectiveFrom])
+  @@map("statutory_rate_sets")
+}
+
+/// One statutory value inside a set. `code` is stable and machine-readable so
+/// the payroll engine never hardcodes a number.
+model StatutoryRate {
+  id        String @id @default(uuid()) @db.Uuid
+  tenantId  String @db.Uuid
+  rateSetId String @db.Uuid
+
+  code  String // PF_EE_PCT, PF_ER_PCT, PF_WAGE_CAP, ESI_EE_PCT, ...
+  label String
+  value Decimal @db.Decimal(14, 4)
+  unit  String  @default("PERCENT") // PERCENT | AMOUNT | MONTHS
+
+  notes String?
+
+  rateSet StatutoryRateSet @relation(fields: [rateSetId], references: [id], onDelete: Cascade)
+
+  @@unique([rateSetId, code])
+  @@index([tenantId])
+  @@map("statutory_rates")
+}
+
+/// Professional-tax slab. Legacy hrPtFor_ hardcoded Karnataka slabs and the
+/// February surcharge; here they are rows with a period and an explicit
+/// "which months" rule so other states can be added without a code change.
+model PtSlab {
+  id        String @id @default(uuid()) @db.Uuid
+  tenantId  String @db.Uuid
+  rateSetId String @db.Uuid
+
+  fromGross      Decimal  @db.Decimal(14, 2)
+  toGross        Decimal  @db.Decimal(14, 2)
+  amount         Decimal  @db.Decimal(14, 2)
+  /// Legacy Karnataka rule: Rs 200 in a normal month, Rs 300 in February so a
+  /// full year totals Rs 2,500. Structured, not hardcoded.
+  overrideMonth  Int? // 2 = February
+  overrideAmount Decimal? @db.Decimal(14, 2)
+
+  rateSet StatutoryRateSet @relation(fields: [rateSetId], references: [id], onDelete: Cascade)
+
+  @@index([rateSetId])
+  @@map("pt_slabs")
+}
+
+/// Effective-dated minimum wage. Legacy MinimumWages.gs modelled this as rate
+/// sets + per-zone/category rates with PROVISIONAL/CONFIRMED status; the shape
+/// is preserved and the hardcoded Tamil Nadu VDA is lifted into a column.
+model MinimumWageRate {
+  id       String  @id @default(uuid()) @db.Uuid
+  tenantId String? @db.Uuid
+
+  regime   String // CENTRAL | KARNATAKA | TAMIL_NADU
+  zone     String // Zone as published in the notification
+  sector   String? // Some schedules vary by sector
+  category WageCategory
+
+  /// Monthly wage floor (Basic + DA). Daily rate is derived, never stored twice.
+  monthlyWage Decimal  @db.Decimal(12, 2)
+  /// Optional published daily rate when the schedule quotes one directly.
+  dailyWage   Decimal? @db.Decimal(12, 2)
+
+  status          StatutoryStatus @default(PROVISIONAL)
+  effectiveFrom   DateTime        @db.Date
+  effectiveTo     DateTime?       @db.Date
+  sourceReference String?
+  sourceUrl       String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([regime, zone, category, effectiveFrom])
+  @@map("minimum_wage_rates")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 5 — ATTENDANCE & PAYROLL
+//
+// Legacy reference: HR.gs:787-1190 (payroll runs, registers, exports).
+// Attendance has NO legacy equivalent — see docs/phase-4-gap-analysis.md,
+// finding P4-1. It is introduced here because payroll needs a real source for
+// the daysWorked / daysPresent values the legacy slip asked a human to type.
+// ---------------------------------------------------------------------------
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  PAID_LEAVE
+  UNPAID_LEAVE
+  WEEKLY_OFF
+  HOLIDAY
+}
+
+enum AttendanceSource {
+  MANUAL
+  IMPORT
+  BIOMETRIC
+}
+
+enum SalarySlipStatus {
+  DRAFT
+  GENERATED
+  SENT
+  CANCELLED
+}
+
+/// Legacy PAYROLL_RUN_STATUSES_ plus DRAFT, which Rule 16 requires as the
+/// preparer's working state before the run is frozen and sent for approval.
+enum PayrollRunStatus {
+  DRAFT
+  LOCKED
+  APPROVED
+  DISBURSED
+  CANCELLED
+}
+
+enum AdjustmentType {
+  REVERSAL
+  ADDITION
+}
+
+enum AdjustmentStatus {
+  PENDING
+  APPLIED
+  VOID
+}
+
+/// One row per employee per calendar day. The unique key makes double-entry
+/// impossible and lets an import be idempotent via upsert.
+model AttendanceRecord {
+  id         String @id @default(uuid()) @db.Uuid
+  tenantId   String @db.Uuid
+  employeeId String @db.Uuid
+
+  date        DateTime         @db.Date
+  status      AttendanceStatus @default(PRESENT)
+  /// Paid hours actually worked; drives the OT calculation.
+  hoursWorked Decimal          @default(8) @db.Decimal(5, 2)
+  otHours     Decimal          @default(0) @db.Decimal(5, 2)
+
+  /// Deployment context at the time of attendance, so a later reallocation
+  /// cannot rewrite history.
+  allocationId String? @db.Uuid
+  siteId       String? @db.Uuid
+  contractId   String? @db.Uuid
+
+  source          AttendanceSource @default(MANUAL)
+  note            String?
+  /// Increments on every correction. The row is edited in place so the
+  /// (employee, day) key stays intact; the before/after values live in
+  /// AttendanceCorrection, so nothing is lost or silently overwritten.
+  correctionCount Int              @default(0)
+
+  markedById String?  @db.Uuid
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime @updatedAt @db.Timestamptz(3)
+
+  employee    Employee               @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  corrections AttendanceCorrection[]
+
+  @@unique([tenantId, employeeId, date])
+  @@index([tenantId, date])
+  @@index([tenantId, contractId, date])
+  @@map("attendance_records")
+}
+
+/// An append-only record of every change made to a marked day: what it was,
+/// what it became, why, and by whom. The legacy system had no attendance at
+/// all, so there was nothing comparable — this exists because attendance now
+/// directly determines pay and must be defensible.
+model AttendanceCorrection {
+  id           String   @id @default(uuid()) @db.Uuid
+  tenantId     String   @db.Uuid
+  attendanceId String   @db.Uuid
+  employeeId   String   @db.Uuid
+  date         DateTime @db.Date
+
+  fromStatus  AttendanceStatus
+  toStatus    AttendanceStatus
+  fromOtHours Decimal          @default(0) @db.Decimal(5, 2)
+  toOtHours   Decimal          @default(0) @db.Decimal(5, 2)
+  reason      String
+
+  correctedById String?  @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+
+  attendance AttendanceRecord @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, attendanceId])
+  @@map("attendance_corrections")
+}
+
+/// A computed slip for one employee-month. Upsertable while DRAFT, frozen once
+/// attached to a payroll run (defect D-P5-2 in the legacy system, where a slip
+/// could be silently recomputed after the run that used it was approved).
+model SalarySlip {
+  id         String @id @default(uuid()) @db.Uuid
+  tenantId   String @db.Uuid
+  employeeId String @db.Uuid
+
+  slipNumber String
+  month      Int
+  year       Int
+
+  daysInMonth Int
+  daysWorked  Decimal @db.Decimal(5, 2)
+  daysPresent Decimal @db.Decimal(5, 2)
+  otDays      Decimal @db.Decimal(5, 2)
+
+  basic            Decimal @default(0) @db.Decimal(12, 2)
+  hra              Decimal @default(0) @db.Decimal(12, 2)
+  da               Decimal @default(0) @db.Decimal(12, 2)
+  specialAllowance Decimal @default(0) @db.Decimal(12, 2)
+  otAmount         Decimal @default(0) @db.Decimal(12, 2)
+  bonus            Decimal @default(0) @db.Decimal(12, 2)
+  grossEarnings    Decimal @default(0) @db.Decimal(12, 2)
+
+  esiEmployee     Decimal @default(0) @db.Decimal(12, 2)
+  esiEmployer     Decimal @default(0) @db.Decimal(12, 2)
+  pfEmployee      Decimal @default(0) @db.Decimal(12, 2)
+  pfEmployer      Decimal @default(0) @db.Decimal(12, 2)
+  pt              Decimal @default(0) @db.Decimal(12, 2)
+  tds             Decimal @default(0) @db.Decimal(12, 2)
+  loanRecovery    Decimal @default(0) @db.Decimal(12, 2)
+  advanceRecovery Decimal @default(0) @db.Decimal(12, 2)
+  totalDeductions Decimal @default(0) @db.Decimal(12, 2)
+  netPay          Decimal @default(0) @db.Decimal(12, 2)
+
+  status SalarySlipStatus @default(DRAFT)
+
+  /// Which statutory rate set produced these numbers — the audit trail for
+  /// "why was PF this amount in this month".
+  statutorySetId   String? @db.Uuid
+  statutorySetCode String?
+  /// Full calculation output, retained so a slip can be re-explained later.
+  calcSnapshot     Json?
+
+  payrollRunId String? @db.Uuid
+
+  generatedById String?  @db.Uuid
+  generatedAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, employeeId, month, year])
+  @@unique([tenantId, slipNumber])
+  @@index([tenantId, month, year, status])
+  @@index([tenantId, payrollRunId])
+  @@map("salary_slips")
+}
+
+model PayrollRun {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @db.Uuid
+
+  runNumber   String
+  month       Int
+  year        Int
+  /// Last calendar day of the pay period. Locking compares against this.
+  periodStart DateTime @db.Date
+  periodEnd   DateTime @db.Date
+
+  status PayrollRunStatus @default(DRAFT)
+
+  totalEmployees       Int     @default(0)
+  totalGross           Decimal @default(0) @db.Decimal(14, 2)
+  totalEsiEmployee     Decimal @default(0) @db.Decimal(14, 2)
+  totalEsiEmployer     Decimal @default(0) @db.Decimal(14, 2)
+  totalPfEmployee      Decimal @default(0) @db.Decimal(14, 2)
+  totalPfEmployerEpf   Decimal @default(0) @db.Decimal(14, 2)
+  totalPfEmployerEps   Decimal @default(0) @db.Decimal(14, 2)
+  totalPfEmployerEdlis Decimal @default(0) @db.Decimal(14, 2)
+  totalPt              Decimal @default(0) @db.Decimal(14, 2)
+  totalTds             Decimal @default(0) @db.Decimal(14, 2)
+  totalDeductions      Decimal @default(0) @db.Decimal(14, 2)
+  totalNet             Decimal @default(0) @db.Decimal(14, 2)
+
+  /// The set used for the whole run, resolved for the pay period.
+  statutorySetId   String? @db.Uuid
+  statutorySetCode String?
+
+  /// Blocking findings captured at submit time. An APPROVED run must have none.
+  findings Json?
+
+  preparedById          String?   @db.Uuid
+  preparedAt            DateTime?
+  lockedAt              DateTime?
+  approvedById          String?   @db.Uuid
+  approvedAt            DateTime?
+  /// True when approval was allowed despite maker = checker (Rule 16 exception).
+  selfApprovalException Boolean   @default(false)
+  selfApprovalReason    String?
+  disbursedById         String?   @db.Uuid
+  disbursedAt           DateTime?
+  bankFileRef           String?
+  cancelReason          String?
+  notes                 String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  items       PayrollRunItem[]
+  adjustments PayrollAdjustment[] @relation("AdjustmentAppliedInRun")
+
+  @@unique([tenantId, runNumber])
+  @@index([tenantId, year, month])
+  @@index([tenantId, status])
+  @@map("payroll_runs")
+}
+
+/// A frozen snapshot of the slip at the moment the run was locked. The slip may
+/// change afterwards; this row may not.
+model PayrollRunItem {
+  id           String  @id @default(uuid()) @db.Uuid
+  tenantId     String  @db.Uuid
+  payrollRunId String  @db.Uuid
+  employeeId   String  @db.Uuid
+  salarySlipId String? @db.Uuid
+
+  employeeCode String
+  employeeName String
+  designation  String?
+  department   String?
+
+  daysWorked  Decimal @db.Decimal(5, 2)
+  daysPresent Decimal @db.Decimal(5, 2)
+  otDays      Decimal @db.Decimal(5, 2)
+
+  basic            Decimal @default(0) @db.Decimal(12, 2)
+  hra              Decimal @default(0) @db.Decimal(12, 2)
+  da               Decimal @default(0) @db.Decimal(12, 2)
+  specialAllowance Decimal @default(0) @db.Decimal(12, 2)
+  otAmount         Decimal @default(0) @db.Decimal(12, 2)
+  bonus            Decimal @default(0) @db.Decimal(12, 2)
+  grossEarnings    Decimal @default(0) @db.Decimal(12, 2)
+
+  esiEmployee      Decimal @default(0) @db.Decimal(12, 2)
+  pfEmployee       Decimal @default(0) @db.Decimal(12, 2)
+  pt               Decimal @default(0) @db.Decimal(12, 2)
+  tds              Decimal @default(0) @db.Decimal(12, 2)
+  adjustmentAmount Decimal @default(0) @db.Decimal(12, 2)
+  totalDeductions  Decimal @default(0) @db.Decimal(12, 2)
+  netPay           Decimal @default(0) @db.Decimal(12, 2)
+
+  paymentRef String?
+  /// The slip's unique key, carried so the ECR/bank exports can find the person.
+  sortOrder  Int     @default(0)
+
+  run PayrollRun @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+
+  @@unique([payrollRunId, employeeId])
+  @@index([tenantId, payrollRunId])
+  @@map("payroll_run_items")
+}
+
+/// A controlled correction. Approved periods are never edited: a mistake is
+/// reversed or supplemented here and applied in a future run (Rule 16).
+model PayrollAdjustment {
+  id       String @id @default(uuid()) @db.Uuid
+  tenantId String @db.Uuid
+
+  employeeId     String  @db.Uuid
+  /// The run whose figures are being corrected.
+  originalRunId  String? @db.Uuid
+  /// The run in which this adjustment was actually paid.
+  appliedInRunId String? @db.Uuid
+
+  type   AdjustmentType
+  amount Decimal          @db.Decimal(12, 2)
+  reason String
+  status AdjustmentStatus @default(PENDING)
+
+  requestedById String?   @db.Uuid
+  approvedById  String?   @db.Uuid
+  approvedAt    DateTime?
+  createdAt     DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime  @updatedAt @db.Timestamptz(3)
+
+  appliedInRun PayrollRun? @relation("AdjustmentAppliedInRun", fields: [appliedInRunId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, employeeId, status])
+  @@map("payroll_adjustments")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 6 — FINANCE (Invoices, Bills, Payments, Bank Book, Journal)
+// Legacy: Accounts.gs:34-1161  — 9 sheets → 8 models (WorkingSheets deferred)
+// ---------------------------------------------------------------------------
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum VendorBillStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum PaymentMode {
+  NEFT
+  RTGS
+  IMPS
+  UPI
+  CHEQUE
+  CASH
+  CARD
+  OTHER
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum ApprovalType {
+  ACCOUNTS_RECEIPT
+  ACCOUNTS_VENDOR_PAYMENT
+  INDENT
+  PURCHASE_REQUEST
+}
+
+enum BankAccountType {
+  BANK
+  CASH
+  CREDIT_CARD
+  PETTY_CASH
+}
+
+enum JournalEntryType {
+  RECEIPT
+  PAYMENT
+}
+
+enum PurchaseOrderStatus {
+  DRAFT
+  RELEASED
+  ACKNOWLEDGED
+  RECEIVED
+  CANCELLED
+}
+
+enum IndentStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  CONVERTED
+}
+
+enum PurchaseRequestStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  CONVERTED
+}
+
+enum VendorStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum AssetStatus {
+  AVAILABLE
+  ASSIGNED
+  RETURNED
+  RETIRED
+  LOST
+}
+
+model Invoice {
+  id            String        @id @default(uuid()) @db.Uuid
+  tenantId      String        @db.Uuid
+  clientId      String?       @db.Uuid
+  clientName    String
+  tenderOrderId String?       @db.Uuid
+  tenderNo      String?
+  invoiceNo     String
+  invoiceDate   DateTime      @db.Date
+  dueDate       DateTime      @db.Date
+  periodFrom    DateTime?     @db.Date
+  periodTo      DateTime?     @db.Date
+  subTotal      Decimal       @default(0) @db.Decimal(14, 2)
+  taxPercent    Decimal       @default(18) @db.Decimal(5, 2)
+  taxAmount     Decimal       @default(0) @db.Decimal(14, 2)
+  totalAmount   Decimal       @default(0) @db.Decimal(14, 2)
+  paidAmount    Decimal       @default(0) @db.Decimal(14, 2)
+  status        InvoiceStatus @default(DRAFT)
+  notes         String?
+  createdById   String?       @db.Uuid
+  updatedById   String?       @db.Uuid
+  createdAt     DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime      @updatedAt @db.Timestamptz(3)
+  deletedAt     DateTime?     @db.Timestamptz(3)
+
+  items    InvoiceItem[]
+  payments InvoicePayment[]
+
+  @@unique([tenantId, invoiceNo])
+  @@index([tenantId, status])
+  @@index([tenantId, clientId])
+  @@index([tenantId, invoiceDate])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  invoiceId   String   @db.Uuid
+  sortOrder   Int
+  description String
+  hsnCode     String?
+  quantity    Decimal  @db.Decimal(12, 2)
+  unit        String   @default("Month")
+  rate        Decimal  @db.Decimal(12, 2)
+  taxPercent  Decimal  @default(0) @db.Decimal(5, 2)
+  amount      Decimal  @db.Decimal(14, 2)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, invoiceId])
+  @@map("invoice_items")
+}
+
+model InvoicePayment {
+  id             String         @id @default(uuid()) @db.Uuid
+  tenantId       String         @db.Uuid
+  invoiceId      String         @db.Uuid
+  clientId       String?        @db.Uuid
+  receivedDate   DateTime       @db.Date
+  amount         Decimal        @db.Decimal(14, 2)
+  mode           PaymentMode    @default(NEFT)
+  referenceNo    String
+  bankName       String
+  notes          String?
+  receivedById   String?        @db.Uuid
+  approvalStatus ApprovalStatus @default(PENDING)
+  approvedById   String?        @db.Uuid
+  approvedAt     DateTime?      @db.Timestamptz(3)
+  rejectedById   String?        @db.Uuid
+  rejectedAt     DateTime?      @db.Timestamptz(3)
+  rejectReason   String?
+  createdAt      DateTime       @default(now()) @db.Timestamptz(3)
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, invoiceId])
+  @@index([tenantId, approvalStatus])
+  @@map("invoice_payments")
+}
+
+model VendorBill {
+  id            String           @id @default(uuid()) @db.Uuid
+  tenantId      String           @db.Uuid
+  vendorId      String?          @db.Uuid
+  vendorName    String
+  billNo        String
+  billDate      DateTime         @db.Date
+  dueDate       DateTime         @db.Date
+  subTotal      Decimal          @db.Decimal(14, 2)
+  cgstAmount    Decimal          @default(0) @db.Decimal(14, 2)
+  sgstAmount    Decimal          @default(0) @db.Decimal(14, 2)
+  igstAmount    Decimal          @default(0) @db.Decimal(14, 2)
+  tdsAmount     Decimal          @default(0) @db.Decimal(14, 2)
+  taxPercent    Decimal          @default(0) @db.Decimal(5, 2)
+  totalAmount   Decimal          @db.Decimal(14, 2)
+  paidAmount    Decimal          @default(0) @db.Decimal(14, 2)
+  supplyType    String           @default("INTRA") // INTRA | INTER
+  status        VendorBillStatus @default(DRAFT)
+  tenderOrderId String?          @db.Uuid
+  notes         String?
+  createdById   String?          @db.Uuid
+  updatedById   String?          @db.Uuid
+  createdAt     DateTime         @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime         @updatedAt @db.Timestamptz(3)
+  deletedAt     DateTime?        @db.Timestamptz(3)
+
+  items    VendorBillItem[]
+  payments VendorPayment[]
+
+  @@unique([tenantId, billNo])
+  @@index([tenantId, status])
+  @@index([tenantId, vendorId])
+  @@index([tenantId, billDate])
+  @@map("vendor_bills")
+}
+
+model VendorBillItem {
+  id           String   @id @default(uuid()) @db.Uuid
+  tenantId     String   @db.Uuid
+  vendorBillId String   @db.Uuid
+  sortOrder    Int
+  description  String
+  hsnCode      String?
+  quantity     Decimal  @db.Decimal(12, 2)
+  unit         String?
+  rate         Decimal  @db.Decimal(12, 2)
+  taxPercent   Decimal  @db.Decimal(5, 2)
+  cgstAmount   Decimal  @default(0) @db.Decimal(14, 2)
+  sgstAmount   Decimal  @default(0) @db.Decimal(14, 2)
+  igstAmount   Decimal  @default(0) @db.Decimal(14, 2)
+  amount       Decimal  @db.Decimal(14, 2)
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  bill VendorBill @relation(fields: [vendorBillId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, vendorBillId])
+  @@map("vendor_bill_items")
+}
+
+model VendorPayment {
+  id             String         @id @default(uuid()) @db.Uuid
+  tenantId       String         @db.Uuid
+  vendorBillId   String         @db.Uuid
+  vendorId       String?        @db.Uuid
+  vendorName     String?
+  paidDate       DateTime       @db.Date
+  grossAmount    Decimal        @db.Decimal(14, 2)
+  tdsAmount      Decimal        @default(0) @db.Decimal(14, 2)
+  netPaidAmount  Decimal        @db.Decimal(14, 2)
+  mode           PaymentMode    @default(NEFT)
+  referenceNo    String?
+  bankAccount    String?
+  notes          String?
+  approvalStatus ApprovalStatus @default(PENDING)
+  approvedById   String?        @db.Uuid
+  approvedAt     DateTime?      @db.Timestamptz(3)
+  rejectedById   String?        @db.Uuid
+  rejectedAt     DateTime?      @db.Timestamptz(3)
+  rejectReason   String?
+  createdById    String?        @db.Uuid
+  createdAt      DateTime       @default(now()) @db.Timestamptz(3)
+
+  bill VendorBill @relation(fields: [vendorBillId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, vendorBillId])
+  @@index([tenantId, approvalStatus])
+  @@map("vendor_payments")
+}
+
+model BankAccount {
+  id             String          @id @default(uuid()) @db.Uuid
+  tenantId       String          @db.Uuid
+  name           String
+  type           BankAccountType @default(BANK)
+  bankName       String?
+  accountNo      String?
+  ifsc           String?
+  branch         String?
+  openingBalance Decimal         @default(0) @db.Decimal(14, 2)
+  currentBalance Decimal         @default(0) @db.Decimal(14, 2)
+  isDefault      Boolean         @default(false)
+  active         Boolean         @default(true)
+  notes          String?
+  createdById    String?         @db.Uuid
+  updatedById    String?         @db.Uuid
+  createdAt      DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime        @updatedAt @db.Timestamptz(3)
+
+  entries JournalEntry[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId, active])
+  @@map("bank_accounts")
+}
+
+model JournalEntry {
+  id            String           @id @default(uuid()) @db.Uuid
+  tenantId      String           @db.Uuid
+  entryDate     DateTime         @db.Date
+  accountId     String           @db.Uuid
+  accountName   String
+  entryType     JournalEntryType
+  referenceType String
+  referenceId   String           @db.Uuid
+  referenceNo   String?
+  description   String?
+  debit         Decimal          @default(0) @db.Decimal(14, 2)
+  credit        Decimal          @default(0) @db.Decimal(14, 2)
+  createdById   String?          @db.Uuid
+  createdAt     DateTime         @default(now()) @db.Timestamptz(3)
+  active        Boolean          @default(true)
+
+  account BankAccount @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
+  @@index([tenantId, accountId, entryDate])
+  @@index([tenantId, referenceId])
+  @@map("journal_entries")
+}
+
+model FinanceApproval {
+  id            String         @id @default(uuid()) @db.Uuid
+  tenantId      String         @db.Uuid
+  approvalType  ApprovalType
+  referenceType String
+  referenceId   String         @db.Uuid
+  amount        Decimal        @db.Decimal(14, 2)
+  status        ApprovalStatus @default(PENDING)
+  requestedById String?        @db.Uuid
+  requestedAt   DateTime       @default(now()) @db.Timestamptz(3)
+  approvedById  String?        @db.Uuid
+  approvedAt    DateTime?      @db.Timestamptz(3)
+  rejectedById  String?        @db.Uuid
+  rejectedAt    DateTime?      @db.Timestamptz(3)
+  rejectReason  String?
+  notes         String?
+  active        Boolean        @default(true)
+
+  @@index([tenantId, status])
+  @@index([tenantId, referenceId])
+  @@map("finance_approvals")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 6 — ASSETS, INVENTORY, VENDORS, PURCHASE ORDERS
+// Legacy: Assets.gs:59-2711  →  12 sheets → 13 models
+// ---------------------------------------------------------------------------
+
+model Vendor {
+  id             String       @id @default(uuid()) @db.Uuid
+  tenantId       String       @db.Uuid
+  vendorCode     String
+  vendorName     String
+  contactPerson  String?
+  mobile         String?
+  email          String?
+  address        String?
+  gstin          String?
+  panNo          String?
+  bankName       String?
+  bankAccountNo  String?
+  bankAccountEnc String? // encrypted, like employee bank
+  ifsc           String?
+  categories     String? // comma-separated legacy Categories
+  status         VendorStatus @default(ACTIVE)
+  notes          String?
+  createdById    String?      @db.Uuid
+  updatedById    String?      @db.Uuid
+  createdAt      DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime     @updatedAt @db.Timestamptz(3)
+  deletedAt      DateTime?    @db.Timestamptz(3)
+
+  @@unique([tenantId, vendorCode])
+  @@index([tenantId, status])
+  @@map("vendors")
+}
+
+model Asset {
+  id               String      @id @default(uuid()) @db.Uuid
+  tenantId         String      @db.Uuid
+  assetCode        String
+  assetName        String
+  category         String      @default("OTHER")
+  brand            String?
+  model            String?
+  serialNo         String?
+  purchaseDate     DateTime?   @db.Date
+  purchaseValue    Decimal     @default(0) @db.Decimal(14, 2)
+  vendor           String?
+  warrantyExpiry   DateTime?   @db.Date
+  assignedToType   String?
+  assignedToId     String?     @db.Uuid
+  assignedFromDate DateTime?   @db.Date
+  assignedToName   String?
+  status           AssetStatus @default(AVAILABLE)
+  location         String?
+  notes            String?
+  createdById      String?     @db.Uuid
+  updatedById      String?     @db.Uuid
+  createdAt        DateTime    @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime    @updatedAt @db.Timestamptz(3)
+  deletedAt        DateTime?   @db.Timestamptz(3)
+
+  history AssetHistory[]
+
+  @@unique([tenantId, assetCode])
+  @@index([tenantId, status])
+  @@index([tenantId, category])
+  @@map("assets")
+}
+
+model AssetHistory {
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @db.Uuid
+  assetId        String    @db.Uuid
+  assignedToType String?
+  assignedToId   String?   @db.Uuid
+  assignedToName String?
+  assignedFrom   DateTime  @db.Date
+  returnedOn     DateTime? @db.Date
+  notes          String?
+  createdById    String?   @db.Uuid
+  createdAt      DateTime  @default(now()) @db.Timestamptz(3)
+  active         Boolean   @default(true)
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, assetId])
+  @@map("asset_history")
+}
+
+model StockItem {
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @db.Uuid
+  itemCode       String
+  itemName       String
+  category       String    @default("OTHER")
+  unit           String    @default("Nos")
+  minStockLevel  Decimal   @default(0) @db.Decimal(12, 2)
+  reorderQty     Decimal   @default(0) @db.Decimal(12, 2)
+  unitCost       Decimal   @default(0) @db.Decimal(12, 2)
+  currentBalance Decimal   @default(0) @db.Decimal(12, 2) // stored, transactional
+  vendorId       String?   @db.Uuid
+  vendorName     String?
+  notes          String?
+  active         Boolean   @default(true)
+  createdById    String?   @db.Uuid
+  updatedById    String?   @db.Uuid
+  createdAt      DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime  @updatedAt @db.Timestamptz(3)
+  deletedAt      DateTime? @db.Timestamptz(3)
+
+  @@unique([tenantId, itemCode])
+  @@index([tenantId, category])
+  @@map("stock_items")
+}
+
+model StockPurchase {
+  id              String   @id @default(uuid()) @db.Uuid
+  tenantId        String   @db.Uuid
+  purchaseNumber  String
+  purchaseDate    DateTime @db.Date
+  vendorId        String?  @db.Uuid
+  vendorName      String?
+  purchaseOrderId String?  @db.Uuid
+  invoiceNo       String?
+  totalAmount     Decimal  @db.Decimal(14, 2)
+  receivedBy      String?
+  notes           String?
+  createdById     String?  @db.Uuid
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+  active          Boolean  @default(true)
+
+  items StockPurchaseItem[]
+
+  @@unique([tenantId, purchaseNumber])
+  @@index([tenantId, purchaseDate])
+  @@map("stock_purchases")
+}
+
+model StockPurchaseItem {
+  id              String   @id @default(uuid()) @db.Uuid
+  tenantId        String   @db.Uuid
+  stockPurchaseId String   @db.Uuid
+  stockItemId     String   @db.Uuid
+  itemName        String
+  quantity        Decimal  @db.Decimal(12, 2)
+  unitCost        Decimal  @db.Decimal(12, 2)
+  amount          Decimal  @db.Decimal(14, 2)
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+
+  purchase StockPurchase @relation(fields: [stockPurchaseId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, stockPurchaseId])
+  @@index([tenantId, stockItemId])
+  @@map("stock_purchase_items")
+}
+
+model StockDistribution {
+  id                   String    @id @default(uuid()) @db.Uuid
+  tenantId             String    @db.Uuid
+  challanNumber        String
+  distributionDate     DateTime  @db.Date
+  issuedToType         String // EMPLOYEE | SITE | CLIENT | OTHER
+  issuedToId           String?   @db.Uuid
+  issuedToName         String
+  siteType             String?
+  siteId               String?   @db.Uuid
+  siteName             String?
+  issuedById           String?   @db.Uuid
+  purpose              String?
+  totalItems           Int       @default(0)
+  acknowledgedAt       DateTime? @db.Timestamptz(3)
+  acknowledgedById     String?   @db.Uuid
+  acknowledgementToken String?   @unique
+  notes                String?
+  createdById          String?   @db.Uuid
+  createdAt            DateTime  @default(now()) @db.Timestamptz(3)
+  active               Boolean   @default(true)
+
+  items StockDistributionItem[]
+
+  @@unique([tenantId, challanNumber])
+  @@index([tenantId, distributionDate])
+  @@index([tenantId, issuedToId])
+  @@map("stock_distributions")
+}
+
+model StockDistributionItem {
+  id                  String   @id @default(uuid()) @db.Uuid
+  tenantId            String   @db.Uuid
+  stockDistributionId String   @db.Uuid
+  stockItemId         String   @db.Uuid
+  itemName            String
+  quantity            Decimal  @db.Decimal(12, 2)
+  utilizedQty         Decimal  @default(0) @db.Decimal(12, 2)
+  returnQty           Decimal  @default(0) @db.Decimal(12, 2)
+  returnReason        String?
+  notes               String?
+  createdAt           DateTime @default(now()) @db.Timestamptz(3)
+
+  distribution StockDistribution @relation(fields: [stockDistributionId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, stockDistributionId])
+  @@map("stock_distribution_items")
+}
+
+model PurchaseOrder {
+  id                   String              @id @default(uuid()) @db.Uuid
+  tenantId             String              @db.Uuid
+  poNumber             String
+  poDate               DateTime            @db.Date
+  vendorId             String              @db.Uuid
+  vendorName           String
+  expectedDeliveryDate DateTime?           @db.Date
+  status               PurchaseOrderStatus @default(DRAFT)
+  subTotal             Decimal             @db.Decimal(14, 2)
+  taxAmount            Decimal             @db.Decimal(14, 2)
+  totalAmount          Decimal             @db.Decimal(14, 2)
+  indentId             String?             @db.Uuid
+  purchaseRequestId    String?             @db.Uuid
+  approvedById         String?             @db.Uuid
+  approvedAt           DateTime?           @db.Timestamptz(3)
+  paymentStatus        String              @default("UNPAID") // UNPAID | PARTIAL | PAID
+  paymentDate          DateTime?           @db.Date
+  paymentReference     String?
+  paymentNotes         String?
+  notes                String?
+  createdById          String?             @db.Uuid
+  updatedById          String?             @db.Uuid
+  createdAt            DateTime            @default(now()) @db.Timestamptz(3)
+  updatedAt            DateTime            @updatedAt @db.Timestamptz(3)
+  deletedAt            DateTime?           @db.Timestamptz(3)
+
+  items PurchaseOrderItem[]
+
+  @@unique([tenantId, poNumber])
+  @@index([tenantId, status])
+  @@index([tenantId, vendorId])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id              String  @id @default(uuid()) @db.Uuid
+  tenantId        String  @db.Uuid
+  purchaseOrderId String  @db.Uuid
+  stockItemId     String  @db.Uuid
+  itemName        String
+  quantity        Decimal @db.Decimal(12, 2)
+  unit            String  @default("Nos")
+  unitCost        Decimal @db.Decimal(12, 2)
+  taxPercent      Decimal @default(0) @db.Decimal(5, 2)
+  amount          Decimal @db.Decimal(14, 2)
+  sortOrder       Int     @default(0)
+
+  order PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, purchaseOrderId])
+  @@map("purchase_order_items")
+}
+
+model Indent {
+  id            String       @id @default(uuid()) @db.Uuid
+  tenantId      String       @db.Uuid
+  indentNumber  String
+  indentDate    DateTime     @db.Date
+  neededByDate  DateTime?    @db.Date
+  status        IndentStatus @default(DRAFT)
+  title         String
+  purpose       String?
+  totalItems    Int          @default(0)
+  approvedById  String?      @db.Uuid
+  approvedAt    DateTime?    @db.Timestamptz(3)
+  rejectedById  String?      @db.Uuid
+  rejectedAt    DateTime?    @db.Timestamptz(3)
+  rejectReason  String?
+  linkedPrId    String?      @db.Uuid
+  approvalToken String?      @unique
+  createdById   String?      @db.Uuid
+  createdAt     DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime     @updatedAt @db.Timestamptz(3)
+  active        Boolean      @default(true)
+
+  @@unique([tenantId, indentNumber])
+  @@index([tenantId, status])
+  @@map("indents")
+}
+
+model PurchaseRequest {
+  id                  String                @id @default(uuid()) @db.Uuid
+  tenantId            String                @db.Uuid
+  prNumber            String
+  prDate              DateTime              @db.Date
+  status              PurchaseRequestStatus @default(DRAFT)
+  title               String
+  indentId            String?               @db.Uuid
+  vendorQuotesJson    Json?
+  selectedVendorId    String?               @db.Uuid
+  selectedVendorName  String?
+  selectedQuoteAmount Decimal?              @db.Decimal(14, 2)
+  selectedLeadDays    Int?
+  approvedById        String?               @db.Uuid
+  approvedAt          DateTime?             @db.Timestamptz(3)
+  rejectedById        String?               @db.Uuid
+  rejectedAt          DateTime?             @db.Timestamptz(3)
+  rejectReason        String?
+  linkedPoId          String?               @db.Uuid
+  approvalToken       String?               @unique
+  createdById         String?               @db.Uuid
+  createdAt           DateTime              @default(now()) @db.Timestamptz(3)
+  updatedAt           DateTime              @updatedAt @db.Timestamptz(3)
+  active              Boolean               @default(true)
+
+  @@unique([tenantId, prNumber])
+  @@index([tenantId, status])
+  @@map("purchase_requests")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 7 — MARKETING, REPORTS, AI, CREATIVE STUDIO
+// Legacy: EmailMarketing.gs, EmailDirectory.gs, Marketing.gs, SocialMedia.gs,
+//         Reports.gs, DailyReports.gs, Moms.gs, CrmAssistant.gs, CreativeStudio.gs
+// ---------------------------------------------------------------------------
+
+enum MarketingContactStatus {
+  ACTIVE
+  UNSUBSCRIBED
+  BOUNCED
+  INVALID
+}
+
+enum MarketingCampaignStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLED
+}
+
+enum SocialPostStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SCHEDULED
+  PUBLISHED
+  FAILED
+  CANCELLED
+}
+
+enum MomStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AiToolStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  EXECUTED
+  FAILED
+}
+
+enum CreativeStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  PUBLISHED
+  ARCHIVED
+}
+
+model MarketingContact {
+  id         String                  @id @default(uuid()) @db.Uuid
+  tenantId   String                  @db.Uuid
+  email      String
+  name       String?
+  company    String?
+  phone      String?
+  source     String                  @default("MANUAL") // MANUAL | IMPORT | LEAD_CONVERSION | FORM | API
+  status     MarketingContactStatus  @default(ACTIVE)
+  tags       String? // comma-separated
+  customJson Json?
+  createdById String?               @db.Uuid
+  createdAt  DateTime               @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime               @updatedAt @db.Timestamptz(3)
+  deletedAt  DateTime?              @db.Timestamptz(3)
+
+  listMembers  MarketingListMember[]
+  suppressions MarketingSuppression[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId, status])
+  @@index([tenantId, source])
+  @@map("marketing_contacts")
+}
+
+model MarketingList {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  name        String
+  description String?
+  type        String   @default("STATIC") // STATIC | DYNAMIC
+  filterJson  Json? // dynamic list filter definition
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  members MarketingListMember[]
+  segments MarketingSegment[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("marketing_lists")
+}
+
+model MarketingListMember {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @db.Uuid
+  listId     String   @db.Uuid
+  contactId  String   @db.Uuid
+  addedAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  list    MarketingList    @relation(fields: [listId], references: [id], onDelete: Cascade)
+  contact MarketingContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, contactId])
+  @@index([tenantId, listId])
+  @@map("marketing_list_members")
+}
+
+model MarketingSegment {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  listId      String?  @db.Uuid
+  name        String
+  description String?
+  filterJson  Json // structured filter
+  countCache  Int      @default(0) // denormalized for quick display
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  list MarketingList? @relation(fields: [listId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, name])
+  @@index([tenantId, listId])
+  @@map("marketing_segments")
+}
+
+model MarketingTemplate {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  name        String
+  subject     String?
+  category    String   @default("EMAIL") // EMAIL | SOCIAL | PRESENTATION | PROPOSAL | MOM | REPORT
+  bodyHtml    String?  @db.Text
+  bodyText    String?  @db.Text
+  variables   String? // comma-separated variable names
+  thumbnail   String?
+  isSystem    Boolean  @default(false)
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+  deletedAt   DateTime? @db.Timestamptz(3)
+
+  @@unique([tenantId, name])
+  @@index([tenantId, category])
+  @@map("marketing_templates")
+}
+
+model MarketingCampaign {
+  id            String                   @id @default(uuid()) @db.Uuid
+  tenantId      String                   @db.Uuid
+  name          String
+  subject       String?
+  channel       String                   @default("EMAIL") // EMAIL | SMS | WHATSAPP
+  templateId    String?                  @db.Uuid
+  listId        String?                  @db.Uuid
+  segmentId     String?                  @db.Uuid
+  status        MarketingCampaignStatus  @default(DRAFT)
+  scheduledAt   DateTime?                @db.Timestamptz(3)
+  sentAt        DateTime?                @db.Timestamptz(3)
+  recipientCount Int                     @default(0)
+  sentCount     Int                     @default(0)
+  openCount     Int                     @default(0)
+  clickCount    Int                     @default(0)
+  bounceCount   Int                     @default(0)
+  approvalNote  String?
+  approvedById  String?                  @db.Uuid
+  approvedAt    DateTime?                @db.Timestamptz(3)
+  createdById   String?                  @db.Uuid
+  createdAt     DateTime                 @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime                 @updatedAt @db.Timestamptz(3)
+
+  sends MarketingSend[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, channel])
+  @@map("marketing_campaigns")
+}
+
+model MarketingSend {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @db.Uuid
+  campaignId String   @db.Uuid
+  contactId  String?  @db.Uuid
+  email      String
+  status     String   @default("QUEUED") // QUEUED | SENT | DELIVERED | BOUNCED | COMPLAINED | UNSUBSCRIBED
+  sentAt     DateTime? @db.Timestamptz(3)
+  openedAt   DateTime? @db.Timestamptz(3)
+  clickedAt  DateTime? @db.Timestamptz(3)
+  errorMsg   String?
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  campaign MarketingCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, campaignId])
+  @@index([tenantId, email])
+  @@map("marketing_sends")
+}
+
+model MarketingSuppression {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  email     String
+  reason    String // UNSUBSCRIBED | BOUNCED | COMPLAINED | MANUAL
+  contactId String?  @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  contact MarketingContact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("marketing_suppressions")
+}
+
+model MarketingMailbox {
+  id            String   @id @default(uuid()) @db.Uuid
+  tenantId      String   @db.Uuid
+  email         String
+  displayName   String?
+  provider      String   @default("GMAIL") // GMAIL | OUTLOOK | SMTP | OTHER
+  oauthJson     String? // encrypted JSON (never returned raw)
+  accessTokenEnc String?
+  refreshTokenEnc String?
+  verified      Boolean  @default(false)
+  lastSyncAt    DateTime? @db.Timestamptz(3)
+  createdById   String?  @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("marketing_mailboxes")
+}
+
+model SocialAccount {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @db.Uuid
+  platform   String // LINKEDIN | FACEBOOK | INSTAGRAM | TWITTER | YOUTUBE
+  handle     String
+  displayName String?
+  oauthJson  String? // encrypted
+  verified   Boolean  @default(false)
+  createdById String? @db.Uuid
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime @updatedAt @db.Timestamptz(3)
+
+  posts SocialPost[]
+
+  @@unique([tenantId, platform, handle])
+  @@index([tenantId])
+  @@map("social_accounts")
+}
+
+model SocialPost {
+  id          String           @id @default(uuid()) @db.Uuid
+  tenantId    String           @db.Uuid
+  accountId   String?          @db.Uuid
+  platform    String           @default("LINKEDIN")
+  content     String           @db.Text
+  mediaUrls   String? // JSON array string
+  templateId  String?          @db.Uuid
+  status      SocialPostStatus @default(DRAFT)
+  scheduledAt DateTime?        @db.Timestamptz(3)
+  publishedAt DateTime?        @db.Timestamptz(3)
+  externalId  String? // ID returned by official API on publish
+  approvalNote String?
+  approvedById String?         @db.Uuid
+  approvedAt  DateTime?        @db.Timestamptz(3)
+  createdById String?         @db.Uuid
+  createdAt   DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime        @updatedAt @db.Timestamptz(3)
+
+  account SocialAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, status])
+  @@index([tenantId, platform])
+  @@map("social_posts")
+}
+
+model DailyReport {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  reportDate  DateTime @db.Date
+  title       String
+  summary     String?  @db.Text
+  metricsJson Json? // KPI snapshot for the day
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  @@unique([tenantId, reportDate])
+  @@index([tenantId, reportDate])
+  @@map("daily_reports")
+}
+
+model MomMeeting {
+  id            String    @id @default(uuid()) @db.Uuid
+  tenantId      String    @db.Uuid
+  title         String
+  meetingDate   DateTime  @db.Date
+  location      String?
+  chairpersonId String?   @db.Uuid
+  status        MomStatus @default(DRAFT)
+  notes         String?   @db.Text
+  templateId    String?   @db.Uuid
+  createdById   String?   @db.Uuid
+  createdAt     DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime  @updatedAt @db.Timestamptz(3)
+
+  participants MomParticipant[]
+  agendas      MomAgenda[]
+  decisions    MomDecision[]
+  actions      MomAction[]
+
+  @@index([tenantId, meetingDate])
+  @@index([tenantId, status])
+  @@map("mom_meetings")
+}
+
+model MomParticipant {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  meetingId String   @db.Uuid
+  name      String
+  email     String?
+  role      String?
+  present   Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  meeting MomMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, meetingId])
+  @@map("mom_participants")
+}
+
+model MomAgenda {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  meetingId String   @db.Uuid
+  sortOrder Int      @default(0)
+  topic     String
+  owner     String?
+  notes     String?  @db.Text
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  meeting MomMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, meetingId])
+  @@map("mom_agendas")
+}
+
+model MomDecision {
+  id        String   @id @default(uuid()) @db.Uuid
+  tenantId  String   @db.Uuid
+  meetingId String   @db.Uuid
+  decision  String   @db.Text
+  owner     String?
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  meeting MomMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, meetingId])
+  @@map("mom_decisions")
+}
+
+model MomAction {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  meetingId   String   @db.Uuid
+  title       String
+  assigneeId  String?  @db.Uuid
+  assigneeName String?
+  dueDate     DateTime? @db.Date
+  status      String   @default("OPEN") // OPEN | IN_PROGRESS | DONE | OVERDUE | CANCELLED
+  notes       String?
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  meeting MomMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, meetingId])
+  @@index([tenantId, assigneeId])
+  @@map("mom_actions")
+}
+
+model ReportSnapshot {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  reportType  String // EXEC_DASHBOARD | REVENUE | LEAD_FUNNEL | TENDER_PIPELINE | ATTENDANCE_SUMMARY | PAYROLL_SUMMARY | FINANCE_AGING | STOCK_REPORT
+  periodFrom  DateTime? @db.Date
+  periodTo    DateTime? @db.Date
+  dataJson    Json
+  createdById String?  @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([tenantId, reportType, createdAt])
+  @@map("report_snapshots")
+}
+
+model AiConversation {
+  id          String   @id @default(uuid()) @db.Uuid
+  tenantId    String   @db.Uuid
+  title       String? // auto-generated from first user message
+  userId      String   @db.Uuid
+  provider    String   @default("OPENAI")
+  model       String? // e.g. gpt-4o, gemini-pro
+  status      String   @default("ACTIVE") // ACTIVE | ARCHIVED | DELETED
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  messages AiMessage[]
+
+  @@index([tenantId, userId])
+  @@index([tenantId, status])
+  @@map("ai_conversations")
+}
+
+model AiMessage {
+  id             String   @id @default(uuid()) @db.Uuid
+  tenantId       String   @db.Uuid
+  conversationId String   @db.Uuid
+  role           String // USER | ASSISTANT | SYSTEM | TOOL
+  content        String   @db.Text
+  toolName       String?
+  toolArgsJson   Json?
+  tokensIn       Int?     @default(0)
+  tokensOut      Int?     @default(0)
+  createdAt      DateTime @default(now()) @db.Timestamptz(3)
+
+  conversation AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  toolCalls    AiToolCall[]
+
+  @@index([tenantId, conversationId])
+  @@map("ai_messages")
+}
+
+model AiToolCall {
+  id            String       @id @default(uuid()) @db.Uuid
+  tenantId      String       @db.Uuid
+  conversationId String      @db.Uuid
+  messageId     String?      @db.Uuid
+  toolName      String
+  argsJson      Json
+  resultJson    Json?
+  status        AiToolStatus @default(PENDING_APPROVAL)
+  requestedById String?      @db.Uuid
+  approvedById  String?      @db.Uuid
+  approvedAt    DateTime?    @db.Timestamptz(3)
+  rejectedById  String?      @db.Uuid
+  rejectedAt    DateTime?    @db.Timestamptz(3)
+  rejectReason  String?
+  executedAt    DateTime?    @db.Timestamptz(3)
+  createdAt     DateTime     @default(now()) @db.Timestamptz(3)
+
+  message AiMessage? @relation(fields: [messageId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, status])
+  @@index([tenantId, conversationId])
+  @@map("ai_tool_calls")
+}
+
+model AiProviderConfig {
+  id            String   @id @default(uuid()) @db.Uuid
+  tenantId      String?  @db.Uuid // null = platform default
+  provider      String // OPENAI | GROQ | GEMINI | DEEPSEEK | OPENROUTER | ZAI | ANTHROPIC
+  displayName   String
+  apiKeyEnc     String? // encrypted with CREDENTIAL_ENCRYPTION_KEY, never returned
+  model         String?
+  enabled       Boolean  @default(true)
+  configJson    Json? // provider-specific settings
+  createdById   String?  @db.Uuid
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+
+  @@unique([tenantId, provider])
+  @@map("ai_provider_configs")
+}
+
+model CreativeProject {
+  id          String         @id @default(uuid()) @db.Uuid
+  tenantId    String         @db.Uuid
+  name        String
+  type        String         @default("OTHER") // PRESENTATION | PROPOSAL | BROCHURE | SOCIAL_POST | LOGO | BANNER | OTHER
+  status      CreativeStatus @default(DRAFT)
+  contentJson Json? // editor JSON (slides, blocks, canvas)
+  thumbnail   String?
+  templateId  String?        @db.Uuid
+  createdById String?        @db.Uuid
+  createdAt   DateTime       @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime       @updatedAt @db.Timestamptz(3)
+  deletedAt   DateTime?      @db.Timestamptz(3)
+
+  assets CreativeAsset[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, type])
+  @@map("creative_projects")
+}
+
+model CreativeAsset {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @db.Uuid
+  projectId  String?  @db.Uuid
+  fileName   String
+  mimeType   String?
+  sizeBytes  Int?
+  storageKey String? // object storage key, not local filesystem (Rule 4)
+  url        String?
+  sortOrder  Int      @default(0)
+  createdById String? @db.Uuid
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  project CreativeProject? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, projectId])
+  @@map("creative_assets")
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 8 — WORKER JOBS (DB-backed queue fallback if jobs table present)
+// ---------------------------------------------------------------------------
+
+model Job {
+  id         String   @id @default(uuid()) @db.Uuid
+  tenantId   String   @db.Uuid
+  type       String
+  payload    Json
+  status     String   @default("pending") // pending | processing | completed | failed | dead
+  attempts   Int      @default(0)
+  maxAttempts Int     @default(3)
+  lastError  String?
+  runAt      DateTime @default(now()) @db.Timestamptz(3)
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([tenantId, status, runAt])
+  @@index([status, runAt])
+  @@map("jobs")
+}

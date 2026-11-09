@@ -1,0 +1,10 @@
+{
+  "name": "@ufms/api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/apps/api/src/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "ts-node -r tsconfig-paths/register src/main.ts"
+  }
+}

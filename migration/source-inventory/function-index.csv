@@ -1,0 +1,1724 @@
+file,function,start_line,end_line,loc,visibility,params,kind
+Accounts.gs,ensureAccountsSheets_,34,63,30,private,"",declaration
+Accounts.gs,isAccountsReader_,68,72,5,private,"user",declaration
+Accounts.gs,assertAccountsRead_,73,73,1,private,"user",declaration
+Accounts.gs,assertAccountsWrite_,74,74,1,private,"user",declaration
+Accounts.gs,invoicesSheet_,76,76,1,private,"",declaration
+Accounts.gs,invItemsSheet_,77,77,1,private,"",declaration
+Accounts.gs,invPaymentsSheet_,78,78,1,private,"",declaration
+Accounts.gs,billsSheet_,79,79,1,private,"",declaration
+Accounts.gs,billItemsSheet_,80,80,1,private,"",declaration
+Accounts.gs,paymentsSheet_,81,81,1,private,"",declaration
+Accounts.gs,bankSheet_,82,82,1,private,"",declaration
+Accounts.gs,journalSheet_,83,83,1,private,"",declaration
+Accounts.gs,approvalsSheet_,84,84,1,private,"",declaration
+Accounts.gs,sheetToObjects_,87,100,14,private,"sheet",declaration
+Accounts.gs,appendRow_,103,108,6,private,"sheet obj",declaration
+Accounts.gs,findRow_,111,121,11,private,"sheet colName value",declaration
+Accounts.gs,updateRow_,124,132,9,private,"sheet idCol idValue patch",declaration
+Accounts.gs,nextInvoiceNumber_,135,155,21,private,"",declaration
+Accounts.gs,nextId_,157,159,3,private,"prefix",declaration
+Accounts.gs,postJournalEntry_,162,184,23,private,"opts",declaration
+Accounts.gs,updateBankBalance_,186,192,7,private,"accountId delta",declaration
+Accounts.gs,recomputeBankBalance_,194,205,12,private,"accountId",declaration
+Accounts.gs,pickDefaultBankAccount_,208,212,5,private,"",declaration
+Accounts.gs,recomputeInvoicePaid_,215,239,25,private,"invoiceId",declaration
+Accounts.gs,recomputeBillPaid_,241,265,25,private,"billId",declaration
+Accounts.gs,createApproval_,267,288,22,private,"opts",declaration
+Accounts.gs,fmtDateOnly_,290,296,7,private,"d",declaration
+Accounts.gs,listInvoices_,308,330,23,private,"user filters",declaration
+Accounts.gs,getInvoice_,332,343,12,private,"user invoiceId",declaration
+Accounts.gs,getInvoiceFromTender_,346,397,52,private,"user tenderOrderId",declaration
+Accounts.gs,saveInvoice_,399,480,82,private,"user payload",declaration
+Accounts.gs,cancelInvoice_,482,491,10,private,"user invoiceId",declaration
+Accounts.gs,recordReceipt_,493,564,72,private,"user invoiceId payload",declaration
+Accounts.gs,approveReceipt_,566,597,32,private,"user paymentId",declaration
+Accounts.gs,rejectReceipt_,599,613,15,private,"user paymentId reason",declaration
+Accounts.gs,listBills_,620,635,16,private,"user filters",declaration
+Accounts.gs,getBill_,637,648,12,private,"user billId",declaration
+Accounts.gs,saveBill_,650,751,102,private,"user payload",declaration
+Accounts.gs,caption2_,753,753,1,private,"n",declaration
+Accounts.gs,cancelBill_,755,764,10,private,"user billId",declaration
+Accounts.gs,recordVendorPayment_,766,839,74,private,"user billId payload",declaration
+Accounts.gs,approveVendorPayment_,841,870,30,private,"user paymentId",declaration
+Accounts.gs,rejectVendorPayment_,872,885,14,private,"user paymentId reason",declaration
+Accounts.gs,listBankAccounts_,892,896,5,private,"user",declaration
+Accounts.gs,saveBankAccount_,898,937,40,private,"user payload",declaration
+Accounts.gs,getBankBook_,939,951,13,private,"user filters",declaration
+Accounts.gs,getAccountsOverview_,953,994,42,private,"user",declaration
+Accounts.gs,bucketAgeing_,996,1013,18,private,"records dateCol totalCol paidCol",declaration
+Accounts.gs,getReceivableAgeing_,1015,1029,15,private,"user",declaration
+Accounts.gs,getPayableAgeing_,1031,1045,15,private,"user",declaration
+Accounts.gs,getGstrSummary_,1047,1079,33,private,"user month year",declaration
+Accounts.gs,getTdsSummary_,1081,1098,18,private,"user fy",declaration
+Accounts.gs,getProfitLoss_,1100,1125,26,private,"user fromDate toDate",declaration
+Accounts.gs,listAccountsApprovals_,1129,1160,32,private,"user",declaration
+Assets.gs,assetEscServer_,37,41,5,private,"v",declaration
+Assets.gs,assetMoneyServer_,42,45,4,private,"v",declaration
+Assets.gs,assetFmtDate_,46,56,11,private,"v",declaration
+Assets.gs,ensureAdminErpSheets_,59,134,76,private,"",declaration
+Assets.gs,assertAdminErpAccess_,137,142,6,private,"user",declaration
+Assets.gs,assertAdminErpRead_,143,151,9,private,"user",declaration
+Assets.gs,listAssets_,156,179,24,private,"user payload",declaration
+Assets.gs,getAsset_,181,192,12,private,"user payload",declaration
+Assets.gs,saveAsset_,194,255,62,private,"user payload",declaration
+Assets.gs,assignAsset_,257,301,45,private,"user payload",declaration
+Assets.gs,returnAsset_,303,331,29,private,"user payload",declaration
+Assets.gs,retireAsset_,333,351,19,private,"user payload",declaration
+Assets.gs,deleteAsset_,353,370,18,private,"user payload",declaration
+Assets.gs,getAssetOptions_,372,382,11,private,"user payload",declaration
+Assets.gs,getAssetSummary_,384,399,16,private,"user",declaration
+Assets.gs,listStockItems_,404,438,35,private,"user payload",declaration
+Assets.gs,getStockItem_,440,468,29,private,"user payload",declaration
+Assets.gs,saveStockItem_,470,517,48,private,"user payload",declaration
+Assets.gs,deleteStockItem_,519,532,14,private,"user payload",declaration
+Assets.gs,listStockPurchases_,534,555,22,private,"user payload",declaration
+Assets.gs,getStockPurchase_,557,568,12,private,"user payload",declaration
+Assets.gs,saveStockPurchase_,570,648,79,private,"user payload",declaration
+Assets.gs,computeStockBalances_,651,689,39,private,"",declaration
+Assets.gs,getLowStockAlerts_,691,722,32,private,"user",declaration
+Assets.gs,listStockDistributions_,727,749,23,private,"user payload",declaration
+Assets.gs,getStockDistribution_,751,762,12,private,"user payload",declaration
+Assets.gs,saveStockDistribution_,764,838,75,private,"user payload",declaration
+Assets.gs,getStockItemOptions_,840,859,20,private,"user payload",declaration
+Assets.gs,getAdminErpSummary_,861,897,37,private,"user",declaration
+Assets.gs,getLowStockCount_,902,914,13,private,"user",declaration
+Assets.gs,listVendors_,919,945,27,private,"user payload",declaration
+Assets.gs,getVendor_,947,960,14,private,"user payload",declaration
+Assets.gs,saveVendor_,962,1023,62,private,"user payload",declaration
+Assets.gs,deleteVendor_,1025,1046,22,private,"user payload",declaration
+Assets.gs,getVendorOptions_,1048,1062,15,private,"user payload",declaration
+Assets.gs,listPurchaseOrders_,1067,1088,22,private,"user payload",declaration
+Assets.gs,getPurchaseOrder_,1090,1101,12,private,"user payload",declaration
+Assets.gs,savePurchaseOrder_,1103,1191,89,private,"user payload",declaration
+Assets.gs,releasePurchaseOrder_,1193,1209,17,private,"user payload",declaration
+Assets.gs,cancelPurchaseOrder_,1211,1228,18,private,"user payload",declaration
+Assets.gs,acknowledgePurchaseOrder_,1230,1244,15,private,"user payload",declaration
+Assets.gs,receivePurchaseOrder_,1246,1304,59,private,"user payload",declaration
+Assets.gs,getPurchaseOrderPdf_,1306,1325,20,private,"user payload",declaration
+Assets.gs,buildPurchaseOrderHtml_,1327,1389,63,private,"po items vendor company",declaration
+Assets.gs,assertIndentAccess_,1400,1403,4,private,"user",declaration
+Assets.gs,assertIndentRead_,1405,1409,5,private,"user",declaration
+Assets.gs,generateNextIndentNumber_,1411,1414,4,private,"",declaration
+Assets.gs,generateNextPRNumber_,1416,1419,4,private,"",declaration
+Assets.gs,generateApprovalToken_,1421,1423,3,private,"",declaration
+Assets.gs,loadSettingsForEmail_,1425,1434,10,private,"",declaration
+Assets.gs,buildIndentEmailBody_,1436,1462,27,private,"indent lineItems settings",declaration
+Assets.gs,buildPREmailBody_,1464,1516,53,private,"pr lineItems settings",declaration
+Assets.gs,listIndents_,1519,1534,16,private,"user payload",declaration
+Assets.gs,getIndent_,1536,1559,24,private,"user payload",declaration
+Assets.gs,saveIndent_,1561,1607,47,private,"user payload",declaration
+Assets.gs,deleteIndent_,1609,1618,10,private,"user payload",declaration
+Assets.gs,sendIndentForApproval_,1620,1657,38,private,"user payload",declaration
+Assets.gs,listPurchaseRequestsAdmin_,1660,1675,16,private,"user payload",declaration
+Assets.gs,getPurchaseRequestAdmin_,1677,1687,11,private,"user payload",declaration
+Assets.gs,savePurchaseRequestAdmin_,1689,1752,64,private,"user payload",declaration
+Assets.gs,deletePurchaseRequestAdmin_,1754,1763,10,private,"user payload",declaration
+Assets.gs,sendPurchaseRequestForApproval_,1765,1793,29,private,"user payload",declaration
+Assets.gs,convertPRToPO_,1795,1877,83,private,"user payload",declaration
+Assets.gs,approveIndentByToken_,1880,1894,15,private,"token indentId",declaration
+Assets.gs,rejectIndentByToken_,1896,1911,16,private,"token indentId reason",declaration
+Assets.gs,approvePurchaseRequestByToken_,1913,1927,15,private,"token prId",declaration
+Assets.gs,rejectPurchaseRequestByToken_,1929,1944,16,private,"token prId reason",declaration
+Assets.gs,recordDistributionUtilisation_,1947,1972,26,private,"user payload",declaration
+Assets.gs,acknowledgeDistribution_,1974,1988,15,private,"user payload",declaration
+Assets.gs,sendDistributionEmail_,1990,2030,41,private,"user payload",declaration
+Assets.gs,generateDeliveryChallan_,2032,2052,21,private,"user payload",declaration
+Assets.gs,buildDeliveryChallanHtml_,2054,2099,46,private,"dist items settings challanNo",declaration
+Assets.gs,listPaymentStatus_,2102,2124,23,private,"user payload",declaration
+Assets.gs,updatePaymentStatus_,2126,2159,34,private,"user payload",declaration
+Assets.gs,computeSiteItemMatrix_,2162,2197,36,private,"",declaration
+Assets.gs,reportPerSite_,2199,2224,26,private,"user payload",declaration
+Assets.gs,reportPerItem_,2226,2248,23,private,"user payload",declaration
+Assets.gs,reportStockLedger_,2250,2323,74,private,"user payload",declaration
+Assets.gs,ensureAdminErpSheetsV2_,2326,2333,8,private,"",declaration
+Assets.gs,assertManagement_,2349,2352,4,private,"user",declaration
+Assets.gs,getManagementApprovals_,2354,2475,122,private,"user",declaration
+Assets.gs,_mgmtEmailContext_,2477,2497,21,private,"user kind ref title amount remarks decision reason",declaration
+Assets.gs,fmtDate_,2499,2504,6,private,"iso",declaration
+Assets.gs,sendManagementDecisionEmail_,2506,2539,34,private,"user ctx",declaration
+Assets.gs,approveTenderPaymentByMgmt_,2541,2559,19,private,"user payload",declaration
+Assets.gs,rejectTenderPaymentByMgmt_,2561,2582,22,private,"user payload",declaration
+Assets.gs,approveIndentByMgmt_,2584,2602,19,private,"user payload",declaration
+Assets.gs,rejectIndentByMgmt_,2604,2625,22,private,"user payload",declaration
+Assets.gs,approvePurchaseRequestByMgmt_,2627,2645,19,private,"user payload",declaration
+Assets.gs,rejectPurchaseRequestByMgmt_,2647,2668,22,private,"user payload",declaration
+Assets.gs,approveBackofficePaymentByMgmt_,2670,2688,19,private,"user payload",declaration
+Assets.gs,rejectBackofficePaymentByMgmt_,2690,2711,22,private,"user payload",declaration
+AuthAndApi.gs,doGet,1,59,59,public,"e",declaration
+AuthAndApi.gs,handleEmailLinkAction_,74,94,21,private,"params",declaration
+AuthAndApi.gs,emailLinkResponse_,99,122,24,private,"action result label id",declaration
+AuthAndApi.gs,emailLinkErrorPage_,127,142,16,private,"title message",declaration
+AuthAndApi.gs,esc_,145,149,5,private,"s",declaration
+AuthAndApi.gs,acknowledgeDistributionByToken_,157,175,19,private,"token distId ackByName",declaration
+AuthAndApi.gs,api,177,896,720,public,"action payload token",declaration
+AuthAndApi.gs,hashPin_,898,902,5,private,"pin",declaration
+AuthAndApi.gs,hashToken_,904,907,4,private,"token",declaration
+AuthAndApi.gs,login_,909,956,48,private,"payload",declaration
+AuthAndApi.gs,authenticate_,958,986,29,private,"token",declaration
+AuthAndApi.gs,logout_,988,995,8,private,"token user",declaration
+AuthAndApi.gs,safeUser_,997,999,3,private,"u",declaration
+AuthAndApi.gs,assertRole_,1001,1005,5,private,"user roles",declaration
+AuthAndApi.gs,assertOffice_,1007,1010,4,private,"user",declaration
+AuthAndApi.gs,assertSalesView_,1012,1015,4,private,"user",declaration
+AuthAndApi.gs,assertTender_,1017,1020,4,private,"user",declaration
+AuthAndApi.gs,assertSalesMgmtRead_,1021,1021,1,private,"user",declaration
+AuthAndApi.gs,assertTenderRead_,1022,1022,1,private,"user",declaration
+AuthAndApi.gs,assertNotManagement_,1024,1024,1,private,"user",declaration
+AuthAndApi.gs,assertMgmtRead_,1025,1025,1,private,"user",declaration
+AuthAndApi.gs,assertReportsRead_,1026,1026,1,private,"user",declaration
+AuthAndApi.gs,saveUser_,1028,1076,49,private,"actor payload",declaration
+AuthAndApi.gs,validatePin_,1078,1080,3,private,"pin",declaration
+AuthAndApi.gs,changeMyPin_,1082,1088,7,private,"user payload",declaration
+AuthAndApi.gs,profilePhotoFolder_,1090,1094,5,private,"",declaration
+AuthAndApi.gs,saveProfilePhoto_,1096,1120,25,private,"user payload",declaration
+AuthAndApi.gs,getProfilePhoto_,1122,1143,22,private,"user payload",declaration
+AuthAndApi.gs,getProfilePhotos_,1148,1156,9,private,"user payload",declaration
+AuthAndApi.gs,fieldLocationsSheet_,1165,1170,6,private,"",declaration
+AuthAndApi.gs,logFieldLocation_,1172,1186,15,private,"user action payload data",declaration
+AuthAndApi.gs,recordRef_,1188,1196,9,private,"obj",declaration
+AuthAndApi.gs,doPost,1242,1252,11,public,"e",declaration
+AuthAndApi.gs,websiteLeadAnswer_,1257,1272,16,private,"result wantsJson",declaration
+AuthAndApi.gs,websiteLeadFields_,1275,1306,32,private,"e",declaration
+AuthAndApi.gs,websiteLeadHandle_,1308,1370,63,private,"f",declaration
+AuthAndApi.gs,websiteLeadDefaultService_,1372,1378,7,private,"",declaration
+AuthAndApi.gs,websiteLeadExecutive_,1381,1388,8,private,"",declaration
+AuthAndApi.gs,websiteLeadNotify_,1392,1414,23,private,"info",declaration
+AuthAndApi.gs,loginGuardKeys_,1426,1430,5,private,"ident userId",declaration
+AuthAndApi.gs,loginGuardLockedUntil_,1432,1437,6,private,"keys",declaration
+AuthAndApi.gs,loginGuardLockMessage_,1439,1442,4,private,"until",declaration
+AuthAndApi.gs,loginGuardFail_,1444,1458,15,private,"keys",declaration
+AuthAndApi.gs,loginGuardClear_,1460,1463,4,private,"keys",declaration
+AuthAndApi.gs,loginHistoryAdd_,1465,1476,12,private,"row",declaration
+AuthAndApi.gs,loginGuardAlert_,1478,1494,17,private,"identifier user until",declaration
+AuthAndApi.gs,loginMatchUsers_,1496,1502,7,private,"identifier",declaration
+AuthAndApi.gs,assertSuperAdminOnly_,1504,1506,3,private,"user what",declaration
+AuthAndApi.gs,unlockLogin_,1508,1516,9,private,"user payload",declaration
+AuthAndApi.gs,getLoginHistory_,1518,1559,42,private,"user payload",declaration
+BulkImport.gs,ensureBulkImportLogSheet_,94,109,16,private,"",declaration
+BulkImport.gs,parseCsv_,113,147,35,private,"text",declaration
+BulkImport.gs,rowsToCsv_,150,161,12,private,"headers rows",declaration
+BulkImport.gs,validateCell_,164,218,55,private,"colName value spec",declaration
+BulkImport.gs,buildBulkImportPlan_,223,379,157,private,"user recordType csvText",declaration
+BulkImport.gs,bulkImportPreview_,382,406,25,private,"user payload",declaration
+BulkImport.gs,bulkImportCommit_,409,615,207,private,"user payload",declaration
+BulkImport.gs,bulkImportCancel_,618,623,6,private,"user payload",declaration
+BulkImport.gs,getBulkImportTemplate_,626,641,16,private,"user payload",declaration
+BulkImport.gs,getBulkImportHistory_,644,652,9,private,"user payload",declaration
+ClientCare.gs,ccEsc_,19,19,1,private,"v",declaration
+ClientCare.gs,ccInr_,20,20,1,private,"v",declaration
+ClientCare.gs,ccJs_,22,22,1,private,"o",declaration
+ClientCare.gs,ccOpenCall_,23,23,1,private,"action payload",declaration
+ClientCare.gs,ccDoCall_,24,26,3,private,"action payload ok confirmText",declaration
+ClientCare.gs,ccFormCall_,27,27,1,private,"action extra ok",declaration
+ClientCare.gs,ccPromptCall_,28,30,3,private,"action payload question ok",declaration
+ClientCare.gs,ccBtn_,31,33,3,private,"label js kind",declaration
+ClientCare.gs,ccChip_,34,34,1,private,"text tone",declaration
+ClientCare.gs,ccDate_,35,38,4,private,"v",declaration
+ClientCare.gs,ccDateTime_,39,46,8,private,"v",declaration
+ClientCare.gs,ccEpoch_,48,52,5,private,"v",declaration
+ClientCare.gs,ccNowMs_,53,53,1,private,"",declaration
+ClientCare.gs,ccDaysBetween_,54,58,5,private,"fromDate toDate",declaration
+ClientCare.gs,ccDuration_,59,66,8,private,"mins",declaration
+ClientCare.gs,ccWhen_,68,76,9,private,"value label",declaration
+ClientCare.gs,ccMonth_,77,80,4,private,"value",declaration
+ClientCare.gs,ccMonthLabel_,81,85,5,private,"ym",declaration
+ClientCare.gs,ccCss_,86,112,27,private,"",declaration
+ClientCare.gs,ccPanel_,113,115,3,private,"title body",declaration
+ClientCare.gs,ccClientRoles_,116,116,1,private,"",declaration
+ClientCare.gs,ccAssertClientsView_,117,119,3,private,"user",declaration
+ClientCare.gs,ccRenewalRows_,123,140,18,private,"user horizonDays today",declaration
+ClientCare.gs,ccDaysText_,142,146,5,private,"days",declaration
+ClientCare.gs,getContractRenewals_,148,178,31,private,"user",declaration
+ClientCare.gs,contractRenewalDigest_,181,186,6,private,"user date",declaration
+ClientCare.gs,CC_CHANNELS_,190,190,1,private,"",declaration
+ClientCare.gs,CC_CATEGORIES_,191,193,3,private,"",declaration
+ClientCare.gs,ccSlaTargets_,194,197,4,private,"",declaration
+ClientCare.gs,ccPriorityOf_,198,198,1,private,"c",declaration
+ClientCare.gs,ccClock_,202,213,12,private,"c nowMs T",declaration
+ClientCare.gs,ccStatusOf_,215,219,5,private,"c",declaration
+ClientCare.gs,ccClockChips_,221,235,15,private,"c k",declaration
+ClientCare.gs,ccOverdue_,237,240,4,private,"c k",declaration
+ClientCare.gs,ccComplaintsFor_,242,244,3,private,"clientIds",declaration
+ClientCare.gs,ccCanDelete_,246,246,1,private,"user",declaration
+ClientCare.gs,ccCanWrite_,247,247,1,private,"user",declaration
+ClientCare.gs,ccUserOptions_,249,255,7,private,"selected",declaration
+ClientCare.gs,ccOptions_,256,258,3,private,"list selected",declaration
+ClientCare.gs,ccRowActions_,260,268,9,private,"user c view",declaration
+ClientCare.gs,ccComplaintTable_,270,285,16,private,"user list users view withClient",declaration
+ClientCare.gs,ccSummary_,287,301,15,private,"list month",declaration
+ClientCare.gs,ccPct_,302,302,1,private,"a b",declaration
+ClientCare.gs,getClientComplaints_,304,346,43,private,"user payload",declaration
+ClientCare.gs,getOpenComplaints_,348,364,17,private,"user",declaration
+ClientCare.gs,saveComplaint_,366,386,21,private,"user payload",declaration
+ClientCare.gs,updateComplaint_,388,420,33,private,"user payload",declaration
+ClientCare.gs,complaintSummaryPdfHtml_,422,449,28,private,"client s month users",declaration
+ClientCare.gs,complaintSummaryPdf_,451,460,10,private,"user payload",declaration
+ClientCare.gs,complaintReminderDigest_,463,474,12,private,"user date",declaration
+ClientCare.gs,ccRedraw_,477,488,12,private,"user view",declaration
+ClientCare.gs,ccWriteThenRedraw_,489,496,8,private,"user payload write",declaration
+Clients.gs,nextClientCode_,10,13,4,private,"",declaration
+Clients.gs,clientAllowedIds_,15,36,22,private,"user",declaration
+Clients.gs,assertClientAccess_,38,45,8,private,"user clientId edit",declaration
+Clients.gs,getClientMatchOptions_,47,52,6,private,"user",declaration
+Clients.gs,getClientBootstrapData_,54,101,48,private,"user",declaration
+Clients.gs,cleanClientGSTIN_,103,107,5,private,"value",declaration
+Clients.gs,clientRecordFromPayload_,109,123,15,private,"payload user existing",declaration
+Clients.gs,saveClientContactsCore_,125,151,27,private,"user clientId contacts",declaration
+Clients.gs,saveClientCore_,153,168,16,private,"user payload",declaration
+Clients.gs,saveClient_,170,176,7,private,"user payload",declaration
+Clients.gs,getClientDetails_,178,194,17,private,"user clientId",declaration
+Clients.gs,ensureClientDriveFolder_,196,206,11,private,"user clientId",declaration
+Clients.gs,childFolder_,208,211,4,private,"parent name",declaration
+Clients.gs,uploadClientDocument_,213,237,25,private,"user payload",declaration
+Clients.gs,saveClientContract_,239,250,12,private,"user payload",declaration
+Clients.gs,createOrAttachClientForWonQuotation_,252,279,28,private,"user payload quote",declaration
+Clients.gs,syncClientContractPdf_,282,288,7,private,"user quotationId",declaration
+Clients.gs,generateClientFilePdf_,302,467,166,private,"user payload",declaration
+Clients.gs,userIdToName_,472,480,9,private,"userId users",declaration
+Clients.gs,filePdfCss_,482,501,20,private,"",declaration
+Clients.gs,pdfHead_,502,505,4,private,"title subtitle",declaration
+Clients.gs,grid_,506,510,5,private,"pairs",declaration
+Clients.gs,table_,511,515,5,private,"headers rows",declaration
+Clients.gs,generateClientFinalQuotationPdf_,517,526,10,private,"user payload",declaration
+Clients.gs,clientSheetMay_,548,550,3,private,"check user",declaration
+Clients.gs,clientSheetNum_,552,555,4,private,"v",declaration
+Clients.gs,clientSheetCents_,560,571,12,private,"v",declaration
+Clients.gs,clientSheetInr_,573,578,6,private,"v",declaration
+Clients.gs,clientSheetDate_,580,587,8,private,"v",declaration
+Clients.gs,clientSheetMonths_,592,598,7,private,"start end",declaration
+Clients.gs,clientSheetStamp_,600,602,3,private,"",declaration
+Clients.gs,clientSheetBreakup_,604,608,5,private,"raw",declaration
+Clients.gs,clientSheetCalc_,615,666,52,private,"bp",declaration
+Clients.gs,clientSheetListedBreakup_,671,685,15,private,"user client",declaration
+Clients.gs,clientSheetFee559_,690,697,8,private,"w q rec items",declaration
+Clients.gs,clientSheetFeeRows559_,700,710,11,private,"w",declaration
+Clients.gs,clientSheetData_,712,755,44,private,"user clientId",declaration
+Clients.gs,clientSheetFacts_,759,804,46,private,"d",declaration
+Clients.gs,clientSheetKpis_,807,834,28,private,"d f forPdf",declaration
+Clients.gs,clientSheetViewHtml_,837,949,113,private,"d",declaration
+Clients.gs,clientSheetWageRows_,955,985,31,private,"w",declaration
+Clients.gs,clientSheetBasis_,992,1014,23,private,"w",declaration
+Clients.gs,clientSheetWageViewHtml_,1016,1032,17,private,"w",declaration
+Clients.gs,clientSheetViewCss_,1034,1062,29,private,"",declaration
+Clients.gs,clientSheetPdfCss_,1065,1106,42,private,"",declaration
+Clients.gs,clientSheetWagePdfHtml_,1111,1142,32,private,"w",declaration
+Clients.gs,clientSheetPdfHtml_,1144,1242,99,private,"d",declaration
+Clients.gs,clientSheetFileName_,1244,1247,4,private,"client",declaration
+Clients.gs,getClientProfile_,1250,1254,5,private,"user payload",declaration
+Clients.gs,clientProfilePdf_,1257,1263,7,private,"user payload",declaration
+Collaboration.gs,publicNote_,1,10,10,private,"record",declaration
+Collaboration.gs,publicChatMessage_,12,20,9,private,"record",declaration
+Collaboration.gs,privateText_,22,27,6,private,"value label maxLength",declaration
+Collaboration.gs,getUserNotes_,29,37,9,private,"user",declaration
+Collaboration.gs,saveUserNote_,39,56,18,private,"user payload",declaration
+Collaboration.gs,deleteUserNote_,58,68,11,private,"user payload",declaration
+Collaboration.gs,compareChatCursor_,70,73,4,private,"leftAt leftId rightAt rightId",declaration
+Collaboration.gs,getChatUnreadCount_,75,80,6,private,"user",declaration
+Collaboration.gs,markChatRead_,82,102,21,private,"user payload",declaration
+Collaboration.gs,getChatMessages_,104,137,34,private,"user payload",declaration
+Collaboration.gs,chatNow_,139,141,3,private,"",declaration
+Collaboration.gs,postChatMessage_,143,157,15,private,"user payload",declaration
+Companies.gs,seedTenderCompanies_,4,14,11,private,"",declaration
+Companies.gs,tenderCompanyId_,16,18,3,private,"record",declaration
+Companies.gs,activeTenderCompanies_,20,22,3,private,"",declaration
+Companies.gs,companyById_,24,26,3,private,"companyId",declaration
+Companies.gs,publicCompany_,28,31,4,private,"company",declaration
+Companies.gs,tenderCompanyAccessIds_,33,49,17,private,"user",declaration
+Companies.gs,canAccessTenderCompany_,51,53,3,private,"user companyId",declaration
+Companies.gs,assertTenderCompanyAccess_,55,61,7,private,"user companyId",declaration
+Companies.gs,accessibleTenderCompanies_,63,66,4,private,"user",declaration
+Companies.gs,saveUserCompanyAccess_,68,84,17,private,"actor userId companyIds",declaration
+Companies.gs,userWithCompanyAccess_,86,90,5,private,"user",declaration
+Companies.gs,resolveTenderReportCompany_,92,102,11,private,"user companyId",declaration
+Companies.gs,tenderReportRecipient_,104,107,4,private,"companyId",declaration
+Companies.gs,tenderReportCompany_,109,112,4,private,"companyId",declaration
+Companies.gs,backfillTenderCompanyData_,114,133,20,private,"",declaration
+CreativeStudio.gs,assertCsAccess_,19,23,5,private,"user",declaration
+CreativeStudio.gs,assertCsAdmin_,24,29,6,private,"user",declaration
+CreativeStudio.gs,csIsAdminRole_,30,30,1,private,"user",declaration
+CreativeStudio.gs,csEnv_,80,80,1,private,"",declaration
+CreativeStudio.gs,csProp_,81,84,4,private,"key fallback",declaration
+CreativeStudio.gs,csProviderActive_,85,91,7,private,"",declaration
+CreativeStudio.gs,csModel_,92,92,1,private,"",declaration
+CreativeStudio.gs,csTimeoutMs_,93,93,1,private,"",declaration
+CreativeStudio.gs,csMaxImages_,94,94,1,private,"",declaration
+CreativeStudio.gs,csUid_,97,97,1,private,"prefix",declaration
+CreativeStudio.gs,csReqId_,98,98,1,private,"",declaration
+CreativeStudio.gs,csInt_,99,103,5,private,"v lo hi dflt",declaration
+CreativeStudio.gs,csFriendlyFail_,104,120,17,private,"e provider requestId userId action",declaration
+CreativeStudio.gs,csBrandKit_,123,145,23,private,"",declaration
+CreativeStudio.gs,csProviderConfig_,152,163,12,private,"requested",declaration
+CreativeStudio.gs,csGenerateOne_,165,168,4,private,"cfg opts",declaration
+CreativeStudio.gs,csFluxGenerate_,172,221,50,private,"cfg opts",declaration
+CreativeStudio.gs,csPollinationsGenerate_,224,247,24,private,"cfg opts",declaration
+CreativeStudio.gs,csBuildPrompt_,250,290,41,private,"input brand",declaration
+CreativeStudio.gs,csUserPromptBlock_,291,297,7,private,"input brand",declaration
+CreativeStudio.gs,csAiText_,300,303,4,private,"system user",declaration
+CreativeStudio.gs,csImprovePrompt_,304,321,18,private,"user payload",declaration
+CreativeStudio.gs,csGenerateCopy_,322,361,40,private,"user payload",declaration
+CreativeStudio.gs,csQualityCheck_,362,378,17,private,"user payload",declaration
+CreativeStudio.gs,csFolder_,381,393,13,private,"",declaration
+CreativeStudio.gs,csStoreBlob_,394,405,12,private,"blob projectId user",declaration
+CreativeStudio.gs,csGenerate_,408,489,82,private,"user payload",declaration
+CreativeStudio.gs,promptImproved_,490,490,1,private,"p",declaration
+CreativeStudio.gs,csCanEditProject_,493,497,5,private,"user row",declaration
+CreativeStudio.gs,csSaveProject_,498,527,30,private,"user payload",declaration
+CreativeStudio.gs,csListProjects_,528,552,25,private,"user payload",declaration
+CreativeStudio.gs,csDeleteProject_,553,560,8,private,"user payload",declaration
+CreativeStudio.gs,csDuplicateProject_,561,574,14,private,"user payload",declaration
+CreativeStudio.gs,csScheduleProject_,575,584,10,private,"user payload",declaration
+CreativeStudio.gs,csGetAssetData_,587,601,15,private,"user payload",declaration
+CreativeStudio.gs,csSeedTemplates_,636,650,15,private,"",declaration
+CreativeStudio.gs,csListTemplates_,651,657,7,private,"user payload",declaration
+CreativeStudio.gs,csSaveTemplate_,658,678,21,private,"user payload",declaration
+CreativeStudio.gs,csDeleteTemplate_,679,686,8,private,"user payload",declaration
+CreativeStudio.gs,csGetBrandKit_,689,692,4,private,"user",declaration
+CreativeStudio.gs,csSaveBrandKit_,693,709,17,private,"user payload",declaration
+CreativeStudio.gs,csUploadLogo_,710,730,21,private,"user payload",declaration
+CreativeStudio.gs,csLoadProviders_,733,750,18,private,"user",declaration
+CreativeStudio.gs,csSaveProviders_,751,764,14,private,"user payload",declaration
+CreativeStudio.gs,csUsage_,767,786,20,private,"user",declaration
+CreativeStudio.gs,csListCampaigns_,789,792,4,private,"user",declaration
+CreativeStudio.gs,csSaveCampaign_,793,814,22,private,"user payload",declaration
+CreativeStudio.gs,csBootstrap_,817,857,41,private,"user",declaration
+CreativeStudio.gs,csGetBrandLogo_,860,870,11,private,"user",declaration
+CrmAssistant.gs,assistantScope_,60,70,11,private,"user",declaration
+CrmAssistant.gs,assistantSettings_,72,77,6,private,"",declaration
+CrmAssistant.gs,askCrmAssistant_,80,181,102,private,"user payload",declaration
+CrmAssistant.gs,assistantAgentContent_,188,198,11,private,"msg",declaration
+CrmAssistant.gs,assistantUsedToday_,202,211,10,private,"userId",declaration
+CrmAssistant.gs,assistantSystemPrompt_,214,256,43,private,"user",declaration
+CrmAssistant.gs,assistantUserPrompt_,258,275,18,private,"question digestText history",declaration
+CrmAssistant.gs,assistantDigest_,278,298,21,private,"user scoop question",declaration
+CrmAssistant.gs,assistantSalesSection_,300,424,125,private,"user scoop today",declaration
+CrmAssistant.gs,assistantQuotesFor_,427,435,9,private,"user scoop leads",declaration
+CrmAssistant.gs,assistantTenderSection_,437,493,57,private,"user today",declaration
+CrmAssistant.gs,assistantCustomerDetail_,497,537,41,private,"user scoop question",declaration
+CrmAssistant.gs,assistantDaysBetween_,540,545,6,private,"fromIso toIso",declaration
+CrmAssistant.gs,assistantPersonName_,546,549,4,private,"userId",declaration
+CrmAssistant.gs,assistantSuggestions_,553,570,18,private,"user",declaration
+CrmAssistant.gs,assistantStatus_,573,583,11,private,"",declaration
+CrmAssistant.gs,assistantAgentRunTool_,590,740,151,private,"user scoop name args",declaration
+CrmAssistant.gs,assistantAgentPrepareWrite_,752,853,102,private,"user scoop name args",declaration
+CrmAssistant.gs,assistantAgentStoreProposal_,855,863,9,private,"user tool args question",declaration
+CrmAssistant.gs,confirmAssistantAction_,865,899,35,private,"user payload",declaration
+CrmAssistant.gs,assistantBgItems_,938,1030,93,private,"user scoop today",declaration
+CrmAssistant.gs,assistantBgAiLine_,1034,1048,15,private,"items deadlineMs",declaration
+CrmAssistant.gs,assistantBgBuildBrief_,1052,1065,14,private,"user opts",declaration
+CrmAssistant.gs,assistantBgReadBrief_,1068,1076,9,private,"user",declaration
+CrmAssistant.gs,assistantBgPruneBriefs_,1079,1090,12,private,"today",declaration
+CrmAssistant.gs,assistantBgTriggerInstalled_,1092,1096,5,private,"",declaration
+CrmAssistant.gs,assistantBgEnsureTrigger_,1098,1102,5,private,"",declaration
+CrmAssistant.gs,assistantBgRemoveTrigger_,1104,1109,6,private,"",declaration
+CrmAssistant.gs,assistantBgStatus_,1111,1120,10,private,"",declaration
+CrmAssistant.gs,assistantBgRunAll_,1125,1149,25,private,"deadlineMs src",declaration
+CrmAssistant.gs,assistantBackgroundDaily,1153,1163,11,public,"",declaration
+CrmAssistant.gs,assistantBgControl_,1167,1192,26,private,"user payload",declaration
+CrmAssistant.gs,assistantInfo_,1199,1214,16,private,"user",declaration
+CrmAssistant.gs,assistantQuoteFollowupDraft_,1231,1277,47,private,"user quote lead point",declaration
+CrmAssistant.gs,assistantLeadReplyDraft_,1279,1339,61,private,"user payload",declaration
+DailyReports.gs,drDay_,120,123,4,private,"v",declaration
+DailyReports.gs,drCountRows_,124,128,5,private,"rows whoField whenField uid date",declaration
+DailyReports.gs,drCount_,129,131,3,private,"sheetName whoField whenField uid date",declaration
+DailyReports.gs,dailyReportItems_,153,157,5,private,"role",declaration
+DailyReports.gs,dailyReportRoles_,161,163,3,private,"",declaration
+DailyReports.gs,dailyReportAutoValues_,167,178,12,private,"user date",declaration
+DailyReports.gs,ensureDailyReportsSheet_,180,192,13,private,"",declaration
+DailyReports.gs,auditDay_,194,201,8,private,"v",declaration
+DailyReports.gs,dailyReportAutoMap_,203,209,7,private,"audit userID date",declaration
+DailyReports.gs,dailyReportAutoSum_,211,215,5,private,"perAction item",declaration
+DailyReports.gs,dailyReportMinutesNow_,227,232,6,private,"",declaration
+DailyReports.gs,dailyReportSubmittedOn_,233,239,7,private,"userId date",declaration
+DailyReports.gs,dailyReportMissingOn_,242,256,15,private,"date",declaration
+DailyReports.gs,dailyReportReminder_,260,270,11,private,"user date",declaration
+DailyReports.gs,dailyReportReminderDigest_,272,276,5,private,"user date",declaration
+DailyReports.gs,roleLabelFor_,277,280,4,private,"role",declaration
+DailyReports.gs,dailyReportManagerRoles_,284,284,1,private,"",declaration
+DailyReports.gs,assertDailyReportManager_,285,289,5,private,"user",declaration
+DailyReports.gs,getDailyReportForUser_,291,325,35,private,"user payload",declaration
+DailyReports.gs,saveDailyReport_,327,361,35,private,"user payload",declaration
+DailyReports.gs,getTeamDailyReports_,363,394,32,private,"user payload",declaration
+DailyReports.gs,drDaysBetween_,401,410,10,private,"from to",declaration
+DailyReports.gs,drSheetName_,412,416,5,private,"name role",declaration
+DailyReports.gs,drUserRows_,418,430,13,private,"u byUser daysList",declaration
+DailyReports.gs,drStyleSheet_,432,442,11,private,"sh headers rows",declaration
+DailyReports.gs,drExportXlsx_,444,474,31,private,"users byUser daysList fileName",declaration
+DailyReports.gs,drExportPdfHtml_,476,488,13,private,"users byUser daysList from to",declaration
+DailyReports.gs,exportDailyReports_,490,519,30,private,"user payload",declaration
+Database.gs,scriptRecordCacheKey_,366,366,1,private,"name",declaration
+Database.gs,scriptBalanceCacheKey_,367,367,1,private,"",declaration
+Database.gs,readScriptCacheRecords_,378,401,24,private,"name",declaration
+Database.gs,writeScriptCacheRecords_,403,434,32,private,"name records",declaration
+Database.gs,invalidateScriptCache_,436,459,24,private,"name",declaration
+Database.gs,invalidateAllScriptCache_,461,463,3,private,"",declaration
+Database.gs,resetRequestCache_,465,467,3,private,"",declaration
+Database.gs,endRequestCache_,469,469,1,private,"",declaration
+Database.gs,getDb_,471,489,19,private,"",declaration
+Database.gs,sheet_,491,511,21,private,"name",declaration
+Database.gs,headers_,513,515,3,private,"name",declaration
+Database.gs,ensureWritableSchema_,517,541,25,private,"name sh",declaration
+Database.gs,getRecords_,543,580,38,private,"name",declaration
+Database.gs,getTailRecords_,582,596,15,private,"name maxRows",declaration
+Database.gs,findById_,598,600,3,private,"name idField id",declaration
+Database.gs,filterRecords_,602,604,3,private,"name predicate",declaration
+Database.gs,safeCell_,606,612,7,private,"value",declaration
+Database.gs,appendRecords_,614,635,22,private,"name records",declaration
+Database.gs,appendRecord_,637,640,4,private,"name record",declaration
+Database.gs,updateRecord_,642,665,24,private,"name idField id updates",declaration
+Database.gs,updateRecords_,667,694,28,private,"name idField changes",declaration
+Database.gs,deleteWhere_,696,708,13,private,"name predicate",declaration
+Database.gs,upsertSetting_,710,714,5,private,"key value description",declaration
+Database.gs,setting_,716,719,4,private,"key fallback",declaration
+Database.gs,settingsObject_,721,733,13,private,"",declaration
+Database.gs,now_,735,737,3,private,"",declaration
+Database.gs,buildVersion_,742,742,1,private,"",declaration
+Database.gs,today_,744,746,3,private,"",declaration
+Database.gs,dateISO_,748,755,8,private,"v",declaration
+Database.gs,id_,757,759,3,private,"prefix",declaration
+Database.gs,normalizePhone_,761,763,3,private,"value",declaration
+Database.gs,clean_,765,767,3,private,"value maxLen",declaration
+Database.gs,number_,769,772,4,private,"value fallback",declaration
+Database.gs,bool_,774,776,3,private,"value",declaration
+Database.gs,required_,778,781,4,private,"value label",declaration
+Database.gs,withLock_,783,787,5,private,"callback",declaration
+Database.gs,nextCode_,855,879,25,private,"prefix sheet column opts",declaration
+Database.gs,nextCodeFor_,886,892,7,private,"prefix opts",declaration
+Database.gs,audit_,895,900,6,private,"userId action entityType entityId details",declaration
+Database.gs,publicSettings_,902,946,45,private,"",declaration
+Database.gs,emailTextFromHtml_,951,956,6,private,"html",declaration
+Database.gs,emailLooksHtml_,957,959,3,private,"v",declaration
+Database.gs,plainToEmailHtml_,960,964,5,private,"text",declaration
+Database.gs,cleanEmailStyle_,965,976,12,private,"style",declaration
+Database.gs,sanitizeEmailHtml_,977,998,22,private,"html",declaration
+Database.gs,safeEmailBodyHtml_,999,1003,5,private,"value",declaration
+Database.gs,ensureBackOfficeSheets_,1011,1034,24,private,"",declaration
+Database.gs,ensureRoleMigrationV4_,1038,1076,39,private,"",declaration
+Database.gs,assertAccessV4_,1080,1090,11,private,"user allowedRoles",declaration
+EmailDirectory.gs,parseEmailAddresses_,27,51,25,private,"raw",declaration
+EmailDirectory.gs,isPlausibleEmail_,53,58,6,private,"email",declaration
+EmailDirectory.gs,displayNameFromEmail_,60,63,4,private,"email",declaration
+EmailDirectory.gs,emailDomain_,65,67,3,private,"email",declaration
+EmailDirectory.gs,emailLocalPart_,69,71,3,private,"email",declaration
+EmailDirectory.gs,isLikelyPersonalEmail_,73,76,4,private,"email",declaration
+EmailDirectory.gs,isDisposableEmail_,78,80,3,private,"email",declaration
+EmailDirectory.gs,indexEmailsFromMessages_,87,200,114,private,"messages sourceMailbox opts",declaration
+EmailDirectory.gs,upsertEmailEdge_,202,239,38,private,"fromEmail toEmail sourceMailbox direction msgDate subject",declaration
+EmailDirectory.gs,listEmailDirectory_,247,292,46,private,"user payload",declaration
+EmailDirectory.gs,updateEmailDirectoryEntry_,298,319,22,private,"user payload",declaration
+EmailDirectory.gs,deleteEmailDirectoryEntry_,324,334,11,private,"user payload",declaration
+EmailDirectory.gs,exportEmailDirectory_,340,362,23,private,"user payload",declaration
+EmailDirectory.gs,getEmailDirectoryStats_,367,385,19,private,"user payload",declaration
+EmailDirectory.gs,captureEmailDirectoryAllTime_,411,551,141,private,"user payload",declaration
+EmailDirectory.gs,getEmailDirectoryCaptureStatus_,553,611,59,private,"user payload",declaration
+EmailDirectory.gs,ensureEmailDirectorySheets_,615,629,15,private,"",declaration
+EmailDirectory.gs,writeDiagLog_,631,643,13,private,"lines",declaration
+EmailDirectory.gs,forceGmailScopeConsent,676,799,124,public,"",declaration
+EmailDirectory.gs,installEmailDirectoryTrigger_,801,807,7,private,"user payload",declaration
+EmailDirectory.gs,uninstallEmailDirectoryTrigger_,809,813,5,private,"user payload",declaration
+EmailDirectory.gs,uninstallEmailDirectoryTriggerInternal_,815,827,13,private,"",declaration
+EmailDirectory.gs,runEmailDirectoryHourly_,832,869,38,private,"",declaration
+EmailDirectory.gs,getEmailDirectoryCaptureState_,871,876,6,private,"",declaration
+EmailDirectory.gs,saveEmailDirectoryCaptureState_,877,879,3,private,"state",declaration
+EmailDirectory.gs,readConfiguredGmailMailboxes_,881,906,26,private,"user",declaration
+EmailDirectory.gs,importEmailDirectoryFromCrm_,915,979,65,private,"user payload",declaration
+EmailMarketing.gs,emkConfig_,31,59,29,private,"",declaration
+EmailMarketing.gs,emkRole_,60,60,1,private,"user",declaration
+EmailMarketing.gs,emkHas_,61,61,1,private,"roles user",declaration
+EmailMarketing.gs,assertEmkView_,62,64,3,private,"user",declaration
+EmailMarketing.gs,assertEmkSend_,65,68,4,private,"user",declaration
+EmailMarketing.gs,assertEmkManage_,69,71,3,private,"user",declaration
+EmailMarketing.gs,assertEmkApprove_,72,74,3,private,"user",declaration
+EmailMarketing.gs,emkEnsureSheets_,77,101,25,private,"",declaration
+EmailMarketing.gs,emkObf_,104,107,4,private,"text",declaration
+EmailMarketing.gs,emkDeobf_,108,111,4,private,"blob",declaration
+EmailMarketing.gs,emkTokenKey_,112,112,1,private,"accountId",declaration
+EmailMarketing.gs,emkTokenSave_,113,115,3,private,"accountId tok",declaration
+EmailMarketing.gs,emkTokenLoad_,116,123,8,private,"accountId",declaration
+EmailMarketing.gs,emkTokenDrop_,124,126,3,private,"accountId",declaration
+EmailMarketing.gs,emkFetchJson_,127,144,18,private,"opts",declaration
+EmailMarketing.gs,emkFriendlyError_,146,154,9,private,"e",declaration
+EmailMarketing.gs,emkAccountRow_,157,165,9,private,"row",declaration
+EmailMarketing.gs,emkAccountCanSend_,168,179,12,private,"user account allowedRaw",declaration
+EmailMarketing.gs,listEmkAccounts_,180,198,19,private,"user",declaration
+EmailMarketing.gs,emkProviders_,199,206,8,private,"",declaration
+EmailMarketing.gs,emkConnectStart_,207,256,50,private,"user payload",declaration
+EmailMarketing.gs,emkNativeSenderEmail_,257,260,4,private,"",declaration
+EmailMarketing.gs,emkOAuthCallback_,263,343,81,private,"e",declaration
+EmailMarketing.gs,emkRefreshToken_,344,373,30,private,"account",declaration
+EmailMarketing.gs,disconnectEmkAccount_,374,383,10,private,"user payload",declaration
+EmailMarketing.gs,saveEmkAccountAllowed_,384,399,16,private,"user payload",declaration
+EmailMarketing.gs,testEmkAccount_,401,424,24,private,"user payload",declaration
+EmailMarketing.gs,emkContactRow_,430,434,5,private,"r",declaration
+EmailMarketing.gs,listEmkContacts_,435,473,39,private,"user payload",declaration
+EmailMarketing.gs,saveEmkContact_,474,492,19,private,"user payload",declaration
+EmailMarketing.gs,addEmkContact_,493,522,30,private,"user payload",declaration
+EmailMarketing.gs,unsubscribeEmkContact_,523,531,9,private,"user payload",declaration
+EmailMarketing.gs,listEmkLists_,534,541,8,private,"user payload",declaration
+EmailMarketing.gs,saveEmkList_,542,562,21,private,"user payload",declaration
+EmailMarketing.gs,deleteEmkList_,563,573,11,private,"user payload",declaration
+EmailMarketing.gs,emkListMembers_,574,581,8,private,"user payload",declaration
+EmailMarketing.gs,emkListAddMembers_,582,614,33,private,"user payload",declaration
+EmailMarketing.gs,emkListRemoveMember_,615,623,9,private,"user payload",declaration
+EmailMarketing.gs,listEmkSegments_,628,628,1,private,"user payload",declaration
+EmailMarketing.gs,saveEmkSegment_,629,629,1,private,"user payload",declaration
+EmailMarketing.gs,deleteEmkSegment_,630,630,1,private,"user payload",declaration
+EmailMarketing.gs,previewEmkSegment_,631,631,1,private,"user payload",declaration
+EmailMarketing.gs,emkTemplateRow_,634,638,5,private,"r",declaration
+EmailMarketing.gs,listEmkTemplates_,639,646,8,private,"user payload",declaration
+EmailMarketing.gs,getEmkTemplate_,647,652,6,private,"user payload",declaration
+EmailMarketing.gs,saveEmkTemplate_,653,686,34,private,"user payload",declaration
+EmailMarketing.gs,deleteEmkTemplate_,687,696,10,private,"user payload",declaration
+EmailMarketing.gs,duplicateEmkTemplate_,697,705,9,private,"user payload",declaration
+EmailMarketing.gs,favoriteEmkTemplate_,706,714,9,private,"user payload",declaration
+EmailMarketing.gs,exportEmkContacts_,717,746,30,private,"user payload",declaration
+EmailMarketing.gs,syncEmkFromCrm_,750,756,7,private,"user payload",declaration
+EmailMarketing.gs,emkParseCsv_,761,778,18,private,"text",declaration
+EmailMarketing.gs,emkImportPreview_,779,797,19,private,"user payload",declaration
+EmailMarketing.gs,emkImportContacts_,798,859,62,private,"user payload",declaration
+EmailMarketing.gs,emkAiSystemPrompt_,864,870,7,private,"extra",declaration
+EmailMarketing.gs,emkAi_,871,909,39,private,"user payload kind",declaration
+EmailMarketing.gs,emkAiSubjects_,910,910,1,private,"user payload",declaration
+EmailMarketing.gs,emkAiBody_,911,911,1,private,"user payload",declaration
+EmailMarketing.gs,emkAiRewrite_,912,912,1,private,"user payload",declaration
+EmailMarketing.gs,emkAiPreview_,913,913,1,private,"user payload",declaration
+EmailMarketing.gs,emkCampaignRow_,916,920,5,private,"r",declaration
+EmailMarketing.gs,listEmkCampaigns_,921,936,16,private,"user payload",declaration
+EmailMarketing.gs,getEmkCampaign_,937,948,12,private,"user payload",declaration
+EmailMarketing.gs,saveEmkCampaign_,949,993,45,private,"user payload",declaration
+EmailMarketing.gs,deleteEmkCampaign_,994,1004,11,private,"user payload",declaration
+EmailMarketing.gs,emkRecipientsFor_,1005,1007,3,private,"campaignId",declaration
+EmailMarketing.gs,emkQualityCheck_,1009,1041,33,private,"user payload",declaration
+EmailMarketing.gs,submitEmkCampaign_,1042,1054,13,private,"user payload",declaration
+EmailMarketing.gs,reviewEmkCampaign_,1055,1069,15,private,"user payload",declaration
+EmailMarketing.gs,emkAudienceBuild_,1071,1112,42,private,"rec quiet",declaration
+EmailMarketing.gs,startEmkCampaign_,1113,1174,62,private,"user payload",declaration
+EmailMarketing.gs,scheduleEmkCampaign_,1175,1195,21,private,"user payload",declaration
+EmailMarketing.gs,pauseEmkCampaign_,1196,1205,10,private,"user payload",declaration
+EmailMarketing.gs,resumeEmkCampaign_,1206,1217,12,private,"user payload",declaration
+EmailMarketing.gs,cancelEmkCampaign_,1218,1230,13,private,"user payload",declaration
+EmailMarketing.gs,listEmkRecipients_,1231,1246,16,private,"user payload",declaration
+EmailMarketing.gs,emkBase_,1249,1249,1,private,"",declaration
+EmailMarketing.gs,emkWrapEmailHtml_,1250,1263,14,private,"o",declaration
+EmailMarketing.gs,emkRenderMerge_,1264,1277,14,private,"text rc",declaration
+EmailMarketing.gs,emkDecorateBody_,1280,1321,42,private,"rec rc trackOpens trackClicks",declaration
+EmailMarketing.gs,emkPlainFallback_,1322,1326,5,private,"html",declaration
+EmailMarketing.gs,emkDeliverOne_,1327,1368,42,private,"account opts",declaration
+EmailMarketing.gs,emkBuildMime_,1369,1383,15,private,"from senderName to subject html replyTo",declaration
+EmailMarketing.gs,emkRunQueue_,1385,1484,100,private,"onlyCampaignId",declaration
+EmailMarketing.gs,emkMaybeFinishCampaigns_,1485,1498,14,private,"",declaration
+EmailMarketing.gs,emkProcessScheduled_,1499,1513,15,private,"",declaration
+EmailMarketing.gs,emkInstallTrigger_,1514,1528,15,private,"",declaration
+EmailMarketing.gs,runEmailMarketingTick,1530,1533,4,public,"",declaration
+EmailMarketing.gs,emkTokenDecode_,1537,1543,7,private,"b64",declaration
+EmailMarketing.gs,emkTrackOpen_,1545,1572,28,private,"e",declaration
+EmailMarketing.gs,emkPixelResponse_,1573,1579,7,private,"",declaration
+EmailMarketing.gs,emkTrackClick_,1581,1605,25,private,"e",declaration
+EmailMarketing.gs,emkRedirectResponse_,1606,1612,7,private,"url",declaration
+EmailMarketing.gs,emkUnsubPage_,1614,1639,26,private,"e",declaration
+EmailMarketing.gs,emkBumpScore_,1640,1647,8,private,"email delta",declaration
+EmailMarketing.gs,markEmkBounce_,1650,1661,12,private,"user payload",declaration
+EmailMarketing.gs,emkRate_,1664,1664,1,private,"n d",declaration
+EmailMarketing.gs,getEmkDashboard_,1665,1696,32,private,"user payload",declaration
+EmailMarketing.gs,getEmkAnalytics_,1697,1745,49,private,"user payload",declaration
+EmailMarketing.gs,listEmkScheduled_,1746,1752,7,private,"user payload",declaration
+EmailMarketing.gs,listEmkUnsubscribed_,1753,1775,23,private,"user payload",declaration
+EmailMarketing.gs,listEmkAudit_,1777,1790,14,private,"user payload",declaration
+EmailTemplates.gs,emailTemplatesFolder_,8,19,12,private,"",declaration
+EmailTemplates.gs,customTemplateRows_,21,23,3,private,"",declaration
+EmailTemplates.gs,findCustomTemplate_,25,46,22,private,"templateId",declaration
+EmailTemplates.gs,customTemplateMetadata_,48,50,3,private,"row",declaration
+EmailTemplates.gs,getCustomTemplatesList_,52,56,5,private,"user",declaration
+EmailTemplates.gs,getMarketingTemplates_,58,64,7,private,"user",declaration
+EmailTemplates.gs,saveMarketingTemplate_,66,116,51,private,"user payload",declaration
+EmailTemplates.gs,deleteMarketingTemplate_,118,129,12,private,"user payload",declaration
+EmailTemplates.gs,getCustomTemplateHtml_,131,135,5,private,"user templateId",declaration
+EmailTemplates.gs,emailHtmlToText_,139,152,14,private,"html",declaration
+Exports.gs,exportText_,1,3,3,private,"value maxLength",declaration
+Exports.gs,normaliseExportSection_,5,13,9,private,"section index",declaration
+Exports.gs,uniqueExportSheetName_,15,24,10,private,"name used",declaration
+Exports.gs,addRequestedHistorySections_,26,144,119,private,"user sections request",declaration
+Exports.gs,structuredExportExcel_,146,175,30,private,"title sections fileName",declaration
+Exports.gs,structuredExportPdfHtml_,177,186,10,private,"title sections",declaration
+Exports.gs,exportStructuredData_,188,201,14,private,"user payload",declaration
+GmailDownloader.gs,downloadGmailEmails_,23,136,114,private,"user payload",declaration
+GmailDownloader.gs,gmailApiList_,141,162,22,private,"userEmail q maxResults",declaration
+GmailDownloader.gs,gmailApiGetBatch_,166,190,25,private,"userEmail idList hardCap",declaration
+GmailDownloader.gs,gmailApiFetch_,192,210,19,private,"url",declaration
+GmailDownloader.gs,formatGmailMessageMeta_,212,240,29,private,"msg",declaration
+GmailDownloader.gs,seenDeDup_,242,256,15,private,"sentList receivedList",declaration
+GmailDownloader.gs,accountLabel_,258,261,4,private,"addr",declaration
+GmailDownloader.gs,buildGmailXlsx_,263,282,20,private,"account range",declaration
+GmailDownloader.gs,buildGmailPdf_,284,309,26,private,"account range",declaration
+GmailDownloader.gs,buildZipOfBlobs_,311,317,7,private,"files zipName",declaration
+HR.gs,hrPfWages_,33,35,3,private,"basic da",declaration
+HR.gs,hrPtFor_,38,45,8,private,"gross month",declaration
+HR.gs,ensureHREmployeeSheets_,57,123,67,private,"",declaration
+HR.gs,assertHREmployeeAccess_,126,133,8,private,"user",declaration
+HR.gs,assertHREmployeeRead_,135,145,11,private,"user",declaration
+HR.gs,listEmployees_,149,202,54,private,"user payload",declaration
+HR.gs,getEmployee_,205,217,13,private,"user payload",declaration
+HR.gs,saveEmployee_,220,311,92,private,"user payload",declaration
+HR.gs,deactivateEmployee_,314,330,17,private,"user payload",declaration
+HR.gs,getEmployeeOptions_,333,343,11,private,"user payload",declaration
+HR.gs,uploadEmployeeDocument_,348,391,44,private,"user payload",declaration
+HR.gs,getOrCreateEmployeeFolder_,394,412,19,private,"user employee",declaration
+HR.gs,deleteEmployeeDocument_,415,426,12,private,"user payload",declaration
+HR.gs,getHRSummary_,429,455,27,private,"user payload",declaration
+HR.gs,calculateSalarySlip_,460,545,86,private,"employee month year adjustments",declaration
+HR.gs,monthLabel_,547,551,5,private,"month year",declaration
+HR.gs,assertHRSalarySlipAccess_,553,558,6,private,"user",declaration
+HR.gs,assertHRSalarySlipRead_,560,568,9,private,"user",declaration
+HR.gs,listSalarySlips_,573,593,21,private,"user payload",declaration
+HR.gs,getSalarySlip_,595,603,9,private,"user payload",declaration
+HR.gs,previewSalarySlip_,605,615,11,private,"user payload",declaration
+HR.gs,generateSalarySlip_,617,675,59,private,"user payload",declaration
+HR.gs,emailSalarySlip_,677,744,68,private,"user payload",declaration
+HR.gs,getOrCreateSalarySlipsFolder_,747,760,14,private,"",declaration
+HR.gs,getSalarySlipOptions_,762,773,12,private,"user payload",declaration
+HR.gs,cancelSalarySlip_,775,784,10,private,"user payload",declaration
+HR.gs,assertPayrollAccess_,793,797,5,private,"user",declaration
+HR.gs,assertPayrollRead_,798,805,8,private,"user",declaration
+HR.gs,summarizePayrollRun_,807,830,24,private,"items",declaration
+HR.gs,listPayrollRuns_,832,844,13,private,"user payload",declaration
+HR.gs,getPayrollRun_,846,856,11,private,"user payload",declaration
+HR.gs,createPayrollRun_,858,941,84,private,"user payload",declaration
+HR.gs,updatePayrollRun_,943,965,23,private,"user payload",declaration
+HR.gs,cancelPayrollRun_,967,982,16,private,"user payload",declaration
+HR.gs,buildPayrollRegisterHtml_,985,1027,43,private,"run items",declaration
+HR.gs,buildEsiRegisterHtml_,1029,1055,27,private,"run items summary",declaration
+HR.gs,totalColsGross_,1057,1057,1,private,"items",declaration
+HR.gs,buildBankTransferHtml_,1059,1085,27,private,"run items",declaration
+HR.gs,buildBankTransferCsv_,1087,1104,18,private,"run items",declaration
+HR.gs,buildPfEcrText_,1106,1133,28,private,"run items",declaration
+HR.gs,escCsv_,1135,1137,3,private,"s",declaration
+HR.gs,exportPayrollRun_,1139,1181,43,private,"user payload",declaration
+HR.gs,hrEscServer_,1191,1191,1,private,"v",declaration
+HR.gs,hrMoneyServer_,1192,1192,1,private,"v",declaration
+HR.gs,buildEsiRegisterPdfHtml_,1195,1224,30,private,"monthLabel items summary",declaration
+HR.gs,buildPfRegisterPdfHtml_,1226,1262,37,private,"monthLabel items summary",declaration
+HR.gs,ensureHRStatutorySheets_,1264,1316,53,private,"",declaration
+HR.gs,assertHREsiPfAccess_,1318,1322,5,private,"user",declaration
+HR.gs,assertHREsiPfRead_,1324,1331,8,private,"user",declaration
+HR.gs,getEsiPfPayrollRun_,1333,1345,13,private,"month year",declaration
+HR.gs,computeEsiRegisterData_,1347,1391,45,private,"month year",declaration
+HR.gs,computePfRegisterData_,1393,1452,60,private,"month year",declaration
+HR.gs,listEsiRegisters_,1454,1467,14,private,"user payload",declaration
+HR.gs,getEsiRegister_,1469,1506,38,private,"user payload",declaration
+HR.gs,createEsiRegisterFromPayroll_,1508,1552,45,private,"user payload",declaration
+HR.gs,recordEsiFiling_,1554,1568,15,private,"user payload",declaration
+HR.gs,listPfRegisters_,1570,1583,14,private,"user payload",declaration
+HR.gs,getPfRegister_,1585,1621,37,private,"user payload",declaration
+HR.gs,createPfRegisterFromPayroll_,1623,1671,49,private,"user payload",declaration
+HR.gs,recordPfFiling_,1673,1687,15,private,"user payload",declaration
+HR.gs,downloadEsiPfRegister_,1689,1724,36,private,"user payload",declaration
+LeadsAndSurveys.gs,withoutRow_,1,6,6,private,"record",declaration
+LeadsAndSurveys.gs,originalLeadRemarkMap_,8,16,9,private,"",declaration
+LeadsAndSurveys.gs,latestLeadFollowupMap_,18,26,9,private,"",declaration
+LeadsAndSurveys.gs,leadWithLatestRemark_,28,40,13,private,"lead latestMap originalMap",declaration
+LeadsAndSurveys.gs,bootstrapEpoch_,66,73,8,private,"",declaration
+LeadsAndSurveys.gs,bumpBootstrapEpoch_,75,82,8,private,"",declaration
+LeadsAndSurveys.gs,bootstrapCacheBase_,84,86,3,private,"user",declaration
+LeadsAndSurveys.gs,bootstrapCacheRead_,88,104,17,private,"base",declaration
+LeadsAndSurveys.gs,bootstrapCacheWrite_,106,119,14,private,"base json",declaration
+LeadsAndSurveys.gs,getBootstrapData_,121,231,111,private,"user",declaration
+LeadsAndSurveys.gs,slimListRow_,235,239,5,private,"rec stripKeys",declaration
+LeadsAndSurveys.gs,leadEmails561_,244,260,17,private,"email more",declaration
+LeadsAndSurveys.gs,leadOtherEmailList561_,262,264,3,private,"lead",declaration
+LeadsAndSurveys.gs,leadAllEmails561_,265,272,8,private,"lead",declaration
+LeadsAndSurveys.gs,createLead_,274,324,51,private,"user payload",declaration
+LeadsAndSurveys.gs,isExecutiveMarketingLead_,328,330,3,private,"lead",declaration
+LeadsAndSurveys.gs,createMarketingLead_,332,351,20,private,"user payload",declaration
+LeadsAndSurveys.gs,updateLead_,353,378,26,private,"user payload",declaration
+LeadsAndSurveys.gs,addLeadFollowup_,380,409,30,private,"user payload",declaration
+LeadsAndSurveys.gs,getLeadDetails_,411,420,10,private,"user leadId",declaration
+LeadsAndSurveys.gs,scheduleSurvey_,422,424,3,private,"user payload",declaration
+LeadsAndSurveys.gs,scheduleSurveyCore_,426,455,30,private,"user payload",declaration
+LeadsAndSurveys.gs,getSurveyDetails_,457,463,7,private,"user surveyId",declaration
+LeadsAndSurveys.gs,saveSurveyInspection_,465,487,23,private,"user payload",declaration
+LeadsAndSurveys.gs,uploadSurveyPhoto_,489,513,25,private,"user payload",declaration
+LeadsAndSurveys.gs,cancelSurvey_,515,525,11,private,"user payload",declaration
+LeadsAndSurveys.gs,leadBucketExportData_,526,547,22,private,"bucket searchText",declaration
+LeadsAndSurveys.gs,leadExportMatrix_,549,555,7,private,"data",declaration
+LeadsAndSurveys.gs,exportLeadBucketExcel_,557,586,30,private,"data fileName",declaration
+LeadsAndSurveys.gs,leadExportPdfHtml_,588,599,12,private,"data",declaration
+LeadsAndSurveys.gs,exportLeadBucket_,601,613,13,private,"user payload",declaration
+LeadsAndSurveys.gs,jobCallRowsForDates_,616,636,21,private,"dateFrom dateTo",declaration
+LeadsAndSurveys.gs,jobCallEmailHtml_,638,666,29,private,"rows dateFrom dateTo",declaration
+LeadsAndSurveys.gs,sendJobCallEmail_,668,689,22,private,"user payload",declaration
+LeadsAndSurveys.gs,surveyBootRecord_,713,719,7,private,"record",declaration
+LeadsAndSurveys.gs,surveyHas_,721,723,3,private,"payload key",declaration
+LeadsAndSurveys.gs,surveyFormUpdates_,727,755,29,private,"payload",declaration
+LeadsAndSurveys.gs,surveyServicesClean_,757,760,4,private,"value",declaration
+LeadsAndSurveys.gs,surveyRecRows_,762,773,12,private,"raw",declaration
+LeadsAndSurveys.gs,surveyServicesFromLead_,777,782,6,private,"serviceType",declaration
+LeadsAndSurveys.gs,surveyReportCopy_,786,797,12,private,"folder survey safeName dataUrl",declaration
+LeadsAndSurveys.gs,surveyLatestForLead_,799,806,8,private,"surveyId leadId",declaration
+LeadsAndSurveys.gs,surveyFormPdf_,808,839,32,private,"user payload",declaration
+LeadsAndSurveys.gs,surveyPdfDate_,841,844,4,private,"value",declaration
+LeadsAndSurveys.gs,surveyPdfTime_,846,851,6,private,"value",declaration
+LeadsAndSurveys.gs,surveyPdfMobile_,853,857,5,private,"value",declaration
+LeadsAndSurveys.gs,surveyPdfArea_,859,865,7,private,"value",declaration
+LeadsAndSurveys.gs,surveyPdfContext_,867,910,44,private,"survey lead completed",declaration
+LeadsAndSurveys.gs,surveyPdfPhotos_,914,935,22,private,"photos limit",declaration
+LeadsAndSurveys.gs,surveyPdfImage_,937,959,23,private,"photo",declaration
+LeadsAndSurveys.gs,surveyImageSize_,963,981,19,private,"bytes",declaration
+LeadsAndSurveys.gs,surveyPdfEsc_,983,985,3,private,"value",declaration
+LeadsAndSurveys.gs,surveyPdfCss_,987,999,13,private,"",declaration
+LeadsAndSurveys.gs,surveyPdfHeader_,1001,1006,6,private,"title",declaration
+LeadsAndSurveys.gs,surveyPdfSection_,1008,1011,4,private,"n title body hint",declaration
+LeadsAndSurveys.gs,surveyFormPdfHtml_,1014,1111,98,private,"c",declaration
+LeadsAndSurveys.gs,surveyReportPdfHtml_,1114,1212,99,private,"c",declaration
+ManpowerHeroes.gs,applyManpowerHeroes_,15,28,14,private,"",declaration
+ManualDrive.gs,getManualFolder_,20,28,9,private,"",declaration
+ManualDrive.gs,getManualFile_,30,52,23,private,"role format_",declaration
+ManualDrive.gs,pinManualsFolder,56,64,9,public,"",declaration
+Marketing.gs,assertMarketingView_,24,28,5,private,"user",declaration
+Marketing.gs,assertMarketingExport_,29,33,5,private,"user",declaration
+Marketing.gs,assertMarketingAdmin_,34,38,5,private,"user",declaration
+Marketing.gs,assertMarketingConvert_,39,43,5,private,"user",declaration
+Marketing.gs,mktEnsureSheets_,46,67,22,private,"",declaration
+Marketing.gs,mktLines_,69,73,5,private,"text",declaration
+Marketing.gs,mktConfig_,74,86,13,private,"",declaration
+Marketing.gs,mktNormalizeEmail_,89,93,5,private,"raw",declaration
+Marketing.gs,mktSystemAddress_,94,97,4,private,"email",declaration
+Marketing.gs,mktFilterAddress_,98,111,14,private,"email cfg",declaration
+Marketing.gs,mktIsInternalEmail_,112,115,4,private,"email cfg",declaration
+Marketing.gs,mktSplitName_,117,122,6,private,"display",declaration
+Marketing.gs,mktObfuscKey_,125,130,6,private,"",declaration
+Marketing.gs,mktObfusc_,131,137,7,private,"text",declaration
+Marketing.gs,mktDeobfusc_,138,146,9,private,"b64",declaration
+Marketing.gs,mktTokenKey_,147,147,1,private,"provider email",declaration
+Marketing.gs,mktSaveToken_,148,150,3,private,"provider email obj",declaration
+Marketing.gs,mktGetToken_,151,155,5,private,"provider email",declaration
+Marketing.gs,mktDeleteToken_,156,158,3,private,"provider email",declaration
+Marketing.gs,mktFriendlyHttpError_,159,186,28,private,"code body",declaration
+Marketing.gs,mktFetchJson_,187,196,10,private,"url opts",declaration
+Marketing.gs,marketingOAuthStart_,199,230,32,private,"user payload",declaration
+Marketing.gs,marketingOAuthCallback_,234,306,73,private,"params",declaration
+Marketing.gs,mktUpsertMailboxRow_,308,332,25,private,"info",declaration
+Marketing.gs,connectMarketingMailbox_,334,346,13,private,"user payload",declaration
+Marketing.gs,disconnectMarketingMailbox_,348,360,13,private,"user payload",declaration
+Marketing.gs,listMarketingMailboxes_,362,379,18,private,"user payload",declaration
+Marketing.gs,mktGmailIds_,382,395,14,private,"mailbox query max",declaration
+Marketing.gs,mktGoogleAccessToken_,396,412,17,private,"mailbox",declaration
+Marketing.gs,mktMsAccessToken_,413,430,18,private,"mailbox",declaration
+Marketing.gs,mktMsAddr_,431,437,7,private,"o",declaration
+Marketing.gs,mktMsMessages_,439,468,30,private,"mailbox folder fromMs toMs max",declaration
+Marketing.gs,mktGmailMessages_,469,505,37,private,"mailbox query folder max",declaration
+Marketing.gs,mktQueryFor_,506,510,5,private,"folder fromMs toMs",declaration
+Marketing.gs,mktResolveRange_,511,531,21,private,"payload mailbox",declaration
+Marketing.gs,startMarketingSync_,534,560,27,private,"user payload",declaration
+Marketing.gs,continueMarketingSync_,561,571,11,private,"user payload",declaration
+Marketing.gs,mktUpdateJob_,572,575,4,private,"job fields",declaration
+Marketing.gs,mktRunJobChunk_,576,626,51,private,"user job",declaration
+Marketing.gs,mktFinishJob_,627,640,14,private,"user job mailbox counters",declaration
+Marketing.gs,mktProcessMessages_,643,759,117,private,"msgs job mailbox folder cfg",declaration
+Marketing.gs,mktJobSeenReset_,762,762,1,private,"",declaration
+Marketing.gs,mktSourceTouch_,763,785,23,private,"email mailbox folder firstIso lastIso job",declaration
+Marketing.gs,mktAutoLink_,787,806,20,private,"email cache",declaration
+Marketing.gs,listMarketingSyncJobs_,809,819,11,private,"user payload",declaration
+Marketing.gs,getMarketingSyncJob_,820,826,7,private,"user payload",declaration
+Marketing.gs,mktSuppressedSet_,829,833,5,private,"",declaration
+Marketing.gs,mktFieldValue_,834,857,24,private,"row f",declaration
+Marketing.gs,mktMatchFilter_,858,878,21,private,"row f sup",declaration
+Marketing.gs,mktRowMatchesFilters_,879,883,5,private,"row filters sup",declaration
+Marketing.gs,mktContactRow_,884,888,5,private,"row sup",declaration
+Marketing.gs,listMarketingContacts_,889,946,58,private,"user payload",declaration
+Marketing.gs,getMarketingContact_,947,964,18,private,"user payload",declaration
+Marketing.gs,updateMarketingContact_,966,986,21,private,"user payload",declaration
+Marketing.gs,bulkMarketingContacts_,987,1054,68,private,"user payload",declaration
+Marketing.gs,exportMarketingContacts_,1055,1066,12,private,"user payload",declaration
+Marketing.gs,mergeMarketingContacts_,1068,1107,40,private,"user payload",declaration
+Marketing.gs,mktConvertCore_,1109,1130,22,private,"user email payload",declaration
+Marketing.gs,convertMarketingContactToLead_,1131,1140,10,private,"user payload",declaration
+Marketing.gs,getMarketingDashboard_,1142,1165,24,private,"user payload",declaration
+Marketing.gs,mktSegmentRows_,1168,1180,13,private,"seg rows sup",declaration
+Marketing.gs,listMarketingSegments_,1181,1195,15,private,"user payload",declaration
+Marketing.gs,saveMarketingSegment_,1196,1224,29,private,"user payload",declaration
+Marketing.gs,deleteMarketingSegment_,1225,1234,10,private,"user payload",declaration
+Marketing.gs,previewMarketingSegment_,1235,1258,24,private,"user payload",declaration
+Marketing.gs,mktSuppressCore_,1261,1294,34,private,"user email reason notes name source",declaration
+Marketing.gs,mktUnsuppressCore_,1295,1315,21,private,"user email",declaration
+Marketing.gs,addMarketingSuppression_,1316,1322,7,private,"user payload",declaration
+Marketing.gs,removeMarketingSuppression_,1323,1328,6,private,"user payload",declaration
+Marketing.gs,listMarketingSuppression_,1329,1337,9,private,"user payload",declaration
+Marketing.gs,installMarketingSyncTrigger_,1340,1350,11,private,"user payload",declaration
+Marketing.gs,uninstallMarketingSyncTriggerInternal_,1351,1354,4,private,"",declaration
+Marketing.gs,uninstallMarketingSyncTrigger_,1355,1360,6,private,"user payload",declaration
+Marketing.gs,runMarketingScheduledSync_,1361,1406,46,private,"",declaration
+MarketingTemplates.gs,marketingTemplates_,10,322,313,private,"",declaration
+MarketingTemplates.gs,marketingTemplate_,324,328,5,private,"id",declaration
+MarketingTemplates.gs,marketingParagraphs_,330,334,5,private,"message",declaration
+MarketingTemplates.gs,marketingEmailShell_,339,356,18,private,"inner settings companyName",declaration
+MarketingTemplates.gs,marketingHeader_,358,362,5,private,"",declaration
+MarketingTemplates.gs,marketingHero_,364,368,5,private,"dataUri",declaration
+MarketingTemplates.gs,marketingMessage_,370,372,3,private,"message",declaration
+MarketingTemplates.gs,marketingAttachmentNote_,374,380,7,private,"",declaration
+MarketingTemplates.gs,marketingServicesStrip_,382,399,18,private,"",declaration
+MarketingTemplates.gs,marketingServiceTiles_,401,426,26,private,"",declaration
+MarketingTemplates.gs,marketingServiceMeta_,605,616,12,private,"designId",declaration
+MarketingTemplates.gs,marketingServiceHeader_,618,626,9,private,"",declaration
+MarketingTemplates.gs,marketingServiceHero_,628,632,5,private,"dataUri alt",declaration
+MarketingTemplates.gs,marketingServiceIntro_,634,639,6,private,"title tagline",declaration
+MarketingTemplates.gs,marketingServiceAttachmentNote_,641,646,6,private,"",declaration
+MarketingTemplates.gs,marketingServiceBenefitTiles_,648,666,19,private,"tiles",declaration
+MarketingTemplates.gs,marketingServiceStandards_,668,677,10,private,"bullets",declaration
+MarketingTemplates.gs,marketingServiceCta_,679,687,9,private,"settings serviceName",declaration
+MarketingTemplates.gs,marketingServiceShell_,689,713,25,private,"inner settings companyName",declaration
+MarketingTemplates.gs,marketingServiceDesign_,715,724,10,private,"designId message withAttachment settings companyName senderName",declaration
+MarketingTemplates.gs,buildMarketingEmailHtml_,727,739,13,private,"templateId message settings senderName companyName withAttachment",declaration
+MarketingTemplates.gs,previewMarketingTemplate_,741,780,40,private,"user payload",declaration
+MinimumWages.gs,WAGE_REGIMES_,48,48,1,private,"",declaration
+MinimumWages.gs,WAGE_REGIME_LABELS_,50,56,7,private,"",declaration
+MinimumWages.gs,WAGE_ZONES_,63,74,12,private,"regime",declaration
+MinimumWages.gs,WAGE_ZONE_LABELS_,76,87,12,private,"regime",declaration
+MinimumWages.gs,WAGE_CATEGORIES_,92,92,1,private,"",declaration
+MinimumWages.gs,wageCanonCategory_,97,112,16,private,"raw",declaration
+MinimumWages.gs,WAGE_STATUSES_,114,114,1,private,"",declaration
+MinimumWages.gs,WAGE_STATUS_LABELS_,116,122,7,private,"",declaration
+MinimumWages.gs,WAGE_SERVICE_SECTORS_,133,150,18,private,"",declaration
+MinimumWages.gs,WAGE_KNOWN_GAPS_,155,170,16,private,"",declaration
+MinimumWages.gs,WAGE_KA_SECTORS_,215,256,42,private,"",declaration
+MinimumWages.gs,wageKaVdaDay_,260,264,5,private,"basePoints",declaration
+MinimumWages.gs,wageSeedRateSets_,266,340,75,private,"",declaration
+MinimumWages.gs,wageTnShopsVdaMonth_,361,361,1,private,"",declaration
+MinimumWages.gs,wageTnTierSkill_,363,372,10,private,"",declaration
+MinimumWages.gs,wageTnShopsSchedule_,375,510,136,private,"",declaration
+MinimumWages.gs,wageSeedRates_,512,698,187,private,"",declaration
+MinimumWages.gs,wageSeedZoneMap_,700,747,48,private,"",declaration
+MinimumWages.gs,ensureMinimumWageSheets_,753,800,48,private,"",declaration
+MinimumWages.gs,wageDatePart_,810,810,1,private,"v",declaration
+MinimumWages.gs,wageNorm_,812,814,3,private,"v",declaration
+MinimumWages.gs,wageNum_,816,820,5,private,"v",declaration
+MinimumWages.gs,wageIsActive_,822,825,4,private,"row",declaration
+MinimumWages.gs,wageToday_,827,827,1,private,"",declaration
+MinimumWages.gs,wageIsBlankRow_,852,860,9,private,"r",declaration
+MinimumWages.gs,wageSheetPairs_,863,869,7,private,"",declaration
+MinimumWages.gs,wageInvalidateSheets_,875,879,5,private,"names",declaration
+MinimumWages.gs,wageSheetsReport_,883,926,44,private,"user payload",declaration
+MinimumWages.gs,purgeBlankWageRows_,930,956,27,private,"user payload",declaration
+MinimumWages.gs,listWageRateSetsRaw_,958,969,12,private,"opts",declaration
+MinimumWages.gs,listWageRatesRaw_,971,975,5,private,"rateSetId",declaration
+MinimumWages.gs,listWageZoneMapRaw_,977,981,5,private,"",declaration
+MinimumWages.gs,wageSetCovers_,985,992,8,private,"set asOn",declaration
+MinimumWages.gs,wageSetInForce_,997,1000,4,private,"regime asOn",declaration
+MinimumWages.gs,wageByDesignation_,1014,1023,10,private,"rows designation",declaration
+MinimumWages.gs,wageSetHasSector_,1025,1029,5,private,"set sector",declaration
+MinimumWages.gs,wageSetsInForce_,1031,1040,10,private,"regime asOn",declaration
+MinimumWages.gs,wageStaleness_,1044,1073,30,private,"regime asOn",declaration
+MinimumWages.gs,resolveWageZone_,1083,1119,37,private,"regime locationText",declaration
+MinimumWages.gs,wageSectorForService_,1128,1139,12,private,"regime serviceLine",declaration
+MinimumWages.gs,findWageRate_,1141,1303,163,private,"opts",declaration
+MinimumWages.gs,wageFloorCheck_,1314,1376,63,private,"opts",declaration
+MinimumWages.gs,wageFiftyPercentCheck_,1380,1393,14,private,"st1 ctc",declaration
+MinimumWages.gs,wageBuild_,1403,1403,1,private,"",declaration
+MinimumWages.gs,wageDiagnose_,1405,1474,70,private,"user",declaration
+MinimumWages.gs,wageBootstrap_,1476,1503,28,private,"user",declaration
+MinimumWages.gs,wageSetView_,1505,1531,27,private,"s today",declaration
+MinimumWages.gs,listWageRates_,1533,1579,47,private,"user payload",declaration
+MinimumWages.gs,wageRateLookup_,1581,1665,85,private,"user payload",declaration
+MinimumWages.gs,listWageZoneMap_,1667,1673,7,private,"user payload",declaration
+MinimumWages.gs,wageServiceSectorMap_,1675,1677,3,private,"user",declaration
+MinimumWages.gs,wageReadRoles_,1699,1699,1,private,"",declaration
+MinimumWages.gs,wageCanRead_,1701,1703,3,private,"user",declaration
+MinimumWages.gs,assertWageRead_,1705,1710,6,private,"user",declaration
+MinimumWages.gs,wageCanEdit_,1712,1715,4,private,"user",declaration
+MinimumWages.gs,assertWageEdit_,1717,1722,6,private,"user",declaration
+MinimumWages.gs,wageAdoptSheetKeys_,1741,1777,37,private,"",declaration
+MinimumWages.gs,saveWageRateSet_,1779,1820,42,private,"user payload",declaration
+MinimumWages.gs,confirmWageRateSet_,1822,1844,23,private,"user payload",declaration
+MinimumWages.gs,deleteWageRateSet_,1846,1882,37,private,"user payload",declaration
+MinimumWages.gs,clearWageRateSets_,1902,2023,122,private,"user payload",declaration
+MinimumWages.gs,wageCsvRows_,2043,2064,22,private,"text",declaration
+MinimumWages.gs,wageParseRateFile_,2066,2129,64,private,"text",declaration
+MinimumWages.gs,loadKarnatakaRates_,2131,2326,196,private,"user payload",declaration
+MinimumWages.gs,wageR2_,2331,2333,3,private,"v",declaration
+MinimumWages.gs,wageKaSetId_,2337,2341,5,private,"sector",declaration
+MinimumWages.gs,wageServiceForSector_,2345,2359,15,private,"sector",declaration
+MinimumWages.gs,saveWageRate_,2361,2415,55,private,"user payload",declaration
+MinimumWages.gs,deleteWageRate_,2417,2424,8,private,"user payload",declaration
+MinimumWages.gs,saveWageZoneMap_,2426,2458,33,private,"user payload",declaration
+MinimumWages.gs,deleteWageZoneMap_,2460,2467,8,private,"user payload",declaration
+MinimumWages.gs,resetMinimumWageSeed_,2488,2530,43,private,"user payload",declaration
+MinimumWages.gs,seedMinimumWages_,2532,2589,58,private,"user payload",declaration
+MinimumWages.gs,wageRateCardSections_,2595,2657,63,private,"user payload",declaration
+MinimumWages.gs,wageFloorCheckSections_,2659,2693,35,private,"rows meta",declaration
+MinimumWages.gs,wageFloorForTender_,2700,2750,51,private,"tender opts",declaration
+MinimumWages.gs,ensureWageNotificationFolder_,2770,2775,6,private,"",declaration
+MinimumWages.gs,wageNotificationRefreshPointer_,2780,2798,19,private,"setId user",declaration
+MinimumWages.gs,wageNotificationRows_,2800,2805,6,private,"setId",declaration
+MinimumWages.gs,wageNotificationView_,2807,2824,18,private,"r",declaration
+MinimumWages.gs,listWageNotifications_,2826,2879,54,private,"user payload",declaration
+MinimumWages.gs,linkWageNotification_,2883,2938,56,private,"user payload",declaration
+MinimumWages.gs,uploadWageNotification_,2940,3021,82,private,"user payload",declaration
+MinimumWages.gs,wageWriteRowsById_,3050,3066,17,private,"sheetName idField byId",declaration
+MinimumWages.gs,wageSectorFromFileName_,3074,3094,21,private,"name",declaration
+MinimumWages.gs,clearWageNotifications_,3096,3191,96,private,"user payload",declaration
+MinimumWages.gs,deleteWageNotification_,3193,3226,34,private,"user payload",declaration
+MinimumWages.gs,getWageNotificationLink_,3228,3244,17,private,"user payload",declaration
+MinimumWages.gs,exportWageRateCard_,3254,3270,17,private,"user payload",declaration
+MinimumWages.gs,exportWageFloorCheck_,3274,3288,15,private,"user payload",declaration
+MinimumWages.gs,wageDemoFixtures_,3294,3304,11,private,"",declaration
+MinimumWages.gs,wageRevisionOn_,3321,3321,1,private,"",declaration
+MinimumWages.gs,wageRevisionAssertView_,3322,3324,3,private,"user",declaration
+MinimumWages.gs,wageSkillMap_,3325,3327,3,private,"",declaration
+MinimumWages.gs,wageSkillFor_,3328,3334,7,private,"name map",declaration
+MinimumWages.gs,wageDefaultRegime_,3335,3338,4,private,"",declaration
+MinimumWages.gs,wageClientProfile_,3339,3351,13,private,"client contract",declaration
+MinimumWages.gs,wageRevisionColumn_,3352,3368,17,private,"col prof skill asOn",declaration
+MinimumWages.gs,wageRevisionClient_,3369,3411,43,private,"user client asOn skillMap",declaration
+MinimumWages.gs,wageRevisionAll_,3412,3420,9,private,"user asOn",declaration
+MinimumWages.gs,wageRegimeZoneLabel_,3421,3425,5,private,"regime zone",declaration
+MinimumWages.gs,wageSectorsByRegime_,3426,3442,17,private,"",declaration
+MinimumWages.gs,getWageRevision_,3444,3540,97,private,"user payload",declaration
+MinimumWages.gs,saveClientWageProfile_,3542,3558,17,private,"user payload",declaration
+MinimumWages.gs,saveWageSkillMap_,3560,3575,16,private,"user payload",declaration
+MinimumWages.gs,wageRevisionLetterHtml_,3577,3615,39,private,"r asOn",declaration
+MinimumWages.gs,wageRevisionPick_,3617,3630,14,private,"user payload oneClient",declaration
+MinimumWages.gs,wageRevisionLetterPdf_,3632,3638,7,private,"user payload",declaration
+MinimumWages.gs,wageRevisionLettersPdf_,3640,3652,13,private,"user payload",declaration
+MinimumWages.gs,mwfAssert_,3678,3678,1,private,"user",declaration
+MinimumWages.gs,mwDmy_,3679,3679,1,private,"v",declaration
+MinimumWages.gs,mwIso_,3680,3685,6,private,"v",declaration
+MinimumWages.gs,mwAddDays_,3686,3686,1,private,"iso n",declaration
+MinimumWages.gs,mwR2_,3687,3687,1,private,"v",declaration
+MinimumWages.gs,mwfCols_,3688,3694,7,private,"raw",declaration
+MinimumWages.gs,mwfCustomer_,3700,3733,34,private,"user p",declaration
+MinimumWages.gs,breakupWageContext_,3736,3778,43,private,"user payload",declaration
+MinimumWages.gs,breakupFetchWages_,3783,3850,68,private,"user payload",declaration
+MinimumWages.gs,MWNR_REGIMES_,3853,3853,1,private,"",declaration
+MinimumWages.gs,mwnrRegime_,3854,3858,5,private,"v",declaration
+MinimumWages.gs,mwnrSourceUrl_,3859,3863,5,private,"regime",declaration
+MinimumWages.gs,mwnrCentralTo_,3865,3868,4,private,"from",declaration
+MinimumWages.gs,mwnrSuggestFrom_,3869,3875,7,private,"regime",declaration
+MinimumWages.gs,mwnrPendingFolder_,3876,3879,4,private,"",declaration
+MinimumWages.gs,mwnrSweepPending_,3881,3886,6,private,"folder",declaration
+MinimumWages.gs,mwnrPendingFile_,3887,3896,10,private,"id",declaration
+MinimumWages.gs,wageNewRatesInfo_,3898,3913,16,private,"user",declaration
+MinimumWages.gs,mwnrBlocked_,3915,3919,5,private,"url why",declaration
+MinimumWages.gs,mwnrFetch_,3920,3929,10,private,"url",declaration
+MinimumWages.gs,mwnrType_,3930,3934,5,private,"res",declaration
+MinimumWages.gs,mwnrIsPdf_,3935,3935,1,private,"b",declaration
+MinimumWages.gs,mwnrResolve_,3936,3943,8,private,"href base",declaration
+MinimumWages.gs,mwnrNewestDate_,3945,3957,13,private,"t",declaration
+MinimumWages.gs,mwnrPickLink_,3959,3979,21,private,"html baseUrl regime",declaration
+MinimumWages.gs,decodeURIComponentSafe_,3980,3980,1,private,"s",declaration
+MinimumWages.gs,mwnrDownload_,3981,3997,17,private,"url regime how",declaration
+MinimumWages.gs,wageNewRatesGet_,4000,4023,24,private,"user payload",declaration
+MinimumWages.gs,mwnrDigits_,4026,4026,1,private,"t",declaration
+MinimumWages.gs,mwnrChunks_,4027,4047,21,private,"text",declaration
+MinimumWages.gs,wageNewRatesRead_,4048,4065,18,private,"user payload",declaration
+MinimumWages.gs,mwnrPrompt_,4068,4089,22,private,"regime sectors",declaration
+MinimumWages.gs,mwnrZone_,4090,4094,5,private,"regime v",declaration
+MinimumWages.gs,mwnrRawRows_,4095,4102,8,private,"rows regime",declaration
+MinimumWages.gs,wageNewRatesExtract_,4103,4117,15,private,"user payload",declaration
+MinimumWages.gs,mwnrInRange_,4120,4120,1,private,"total per",declaration
+MinimumWages.gs,mwnrKey_,4121,4121,1,private,"r",declaration
+MinimumWages.gs,mwnrOldRate_,4122,4141,20,private,"regime row asOn",declaration
+MinimumWages.gs,wageNewRatesReview_,4142,4251,110,private,"user payload",declaration
+MinimumWages.gs,wageNewRatesApprove_,4254,4329,76,private,"user payload",declaration
+MinimumWages.gs,wageNewRatesDiscard_,4330,4334,5,private,"user payload",declaration
+MinimumWages.gs,wageRateReminder_,4337,4391,55,private,"date",declaration
+Moms.gs,momList_,47,52,6,private,"key defaults",declaration
+Moms.gs,momSettings_,53,69,17,private,"",declaration
+Moms.gs,momSaveSettings_,70,95,26,private,"user payload",declaration
+Moms.gs,momModuleRoles_,100,100,1,private,"",declaration
+Moms.gs,momAssertModule_,101,101,1,private,"user",declaration
+Moms.gs,momIsAdmin_,102,102,1,private,"user",declaration
+Moms.gs,momCanCreate_,103,103,1,private,"user",declaration
+Moms.gs,momActor_,104,104,1,private,"user",declaration
+Moms.gs,momWorld_,109,133,25,private,"",declaration
+Moms.gs,momIsTender_,134,141,8,private,"mom world",declaration
+Moms.gs,momPersonIds_,142,148,7,private,"momId",declaration
+Moms.gs,momActionOwners_,149,155,7,private,"momId",declaration
+Moms.gs,momVisible_,158,177,20,private,"user mom world",declaration
+Moms.gs,assertMomVisible_,178,185,8,private,"user mom world",declaration
+Moms.gs,momCanEdit_,188,195,8,private,"user mom",declaration
+Moms.gs,assertMomEdit_,196,203,8,private,"user mom",declaration
+Moms.gs,momCanFinalize_,204,209,6,private,"user mom",declaration
+Moms.gs,momCanDelete_,210,210,1,private,"user",declaration
+Moms.gs,momChildrenIndex_,215,224,10,private,"",declaration
+Moms.gs,momByOrder_,225,227,3,private,"list field",declaration
+Moms.gs,momDatePart_,228,235,8,private,"value",declaration
+Moms.gs,momDaysBetween_,236,240,5,private,"fromDate toDate",declaration
+Moms.gs,momIsOverdue_,241,246,6,private,"action today",declaration
+Moms.gs,momPersonName_,247,250,4,private,"userId world",declaration
+Moms.gs,momStatusLabel_,251,251,1,private,"value",declaration
+Moms.gs,momListRow_,254,278,25,private,"user mom index world today",declaration
+Moms.gs,momInDateRange_,283,301,19,private,"dateValue preset from to today",declaration
+Moms.gs,momApplyFilters_,302,324,23,private,"rows filters today",declaration
+Moms.gs,momSortRows_,325,343,19,private,"rows sort",declaration
+Moms.gs,listMoms_,345,359,15,private,"user filters",declaration
+Moms.gs,searchMoms_,362,389,28,private,"user payload",declaration
+Moms.gs,getMom_,394,450,57,private,"user momId",declaration
+Moms.gs,momPeopleOptions_,454,476,23,private,"world",declaration
+Moms.gs,momSiteOptions_,481,515,35,private,"user payload",declaration
+Moms.gs,momDashboard_,521,592,72,private,"user",declaration
+Moms.gs,momNextNumber_,599,616,18,private,"",declaration
+Moms.gs,momNeedsCustomer_,622,626,5,private,"meetingType",declaration
+Moms.gs,momValidate_,627,688,62,private,"payload",declaration
+Moms.gs,momWriteParticipants_,690,696,7,private,"momId list",declaration
+Moms.gs,momWriteAgenda_,697,703,7,private,"momId list",declaration
+Moms.gs,momWriteDecisions_,704,710,7,private,"momId list",declaration
+Moms.gs,momWriteActions_,715,763,49,private,"user momId list",declaration
+Moms.gs,saveMom_,765,813,49,private,"user payload",declaration
+Moms.gs,finalizeMom_,817,838,22,private,"user payload",declaration
+Moms.gs,archiveMom_,839,853,15,private,"user payload",declaration
+Moms.gs,reopenMom_,855,868,14,private,"user payload",declaration
+Moms.gs,deleteMom_,872,896,25,private,"user payload",declaration
+Moms.gs,duplicateMom_,899,927,29,private,"user payload",declaration
+Moms.gs,momCanUpdateAction_,933,937,5,private,"user mom action",declaration
+Moms.gs,momActionRow_,938,954,17,private,"user mom action world today",declaration
+Moms.gs,momCollectActions_,955,1028,74,private,"user filters",declaration
+Moms.gs,listMomActions_,1029,1029,1,private,"user filters",declaration
+Moms.gs,listMyMomActions_,1030,1033,4,private,"user filters",declaration
+Moms.gs,getOverdueMomActions_,1034,1037,4,private,"user filters",declaration
+Moms.gs,updateMomActionStatus_,1041,1066,26,private,"user payload",declaration
+Moms.gs,assignMomAction_,1067,1090,24,private,"user payload",declaration
+Moms.gs,createFollowupFromAction_,1093,1117,25,private,"user payload",declaration
+Moms.gs,momFolder_,1124,1133,10,private,"",declaration
+Moms.gs,momValidateUpload_,1134,1147,14,private,"payload",declaration
+Moms.gs,uploadMomAttachment_,1148,1164,17,private,"user payload",declaration
+Moms.gs,deleteMomAttachment_,1165,1181,17,private,"user payload",declaration
+Moms.gs,momListFor_,1191,1221,31,private,"user payload",declaration
+Moms.gs,momTemplateDefaults_,1222,1234,13,private,"",declaration
+Moms.gs,listMomTemplates_,1235,1249,15,private,"user",declaration
+Moms.gs,saveMomTemplate_,1250,1277,28,private,"user payload",declaration
+Moms.gs,deleteMomTemplate_,1278,1287,10,private,"user payload",declaration
+Moms.gs,momPdfCss_,1293,1311,19,private,"",declaration
+Moms.gs,momLogoBase64_,1315,1317,3,private,"",declaration
+Moms.gs,momPdfHtml_,1318,1374,57,private,"detail",declaration
+Moms.gs,generateMomPdf_,1375,1387,13,private,"user payload",declaration
+Moms.gs,momEmailDefaults_,1393,1422,30,private,"detail",declaration
+Moms.gs,emailMom_,1423,1471,49,private,"user payload",declaration
+Moms.gs,momEmailSuggestions_,1474,1502,29,private,"user payload",declaration
+Moms.gs,momFormData_,1505,1523,19,private,"user payload",declaration
+Moms.gs,momReminderRows_,1529,1563,35,private,"user date",declaration
+Moms.gs,momReminderDigest_,1564,1592,29,private,"user date",declaration
+Moms.gs,setupMomModule_,1600,1647,48,private,"user",declaration
+Presentation.gs,PRESENTATION_CONTENT_,29,314,286,private,"",declaration
+Presentation.gs,presentationCss_,322,367,46,private,"",declaration
+Presentation.gs,presentationLogoDataUri_,373,377,5,private,"",declaration
+Presentation.gs,deckContact_,379,390,12,private,"",declaration
+Presentation.gs,presentationEsc_,392,394,3,private,"v",declaration
+Presentation.gs,presentationImg_,399,403,5,private,"key",declaration
+Presentation.gs,presentationMark_,405,409,5,private,"kind",declaration
+Presentation.gs,presentationPdfHtml_,414,593,180,private,"",declaration
+Presentation.gs,getCompanyPresentation_,598,608,11,private,"user",declaration
+Presentation.gs,companyPresentationStatus_,612,624,13,private,"",declaration
+PresentationImages.gs,PRESENTATION_IMAGES_,27,50,24,private,"",declaration
+PresentationImages.gs,PRESENTATION_MARKS_,52,59,8,private,"",declaration
+ProfileAndBulkEmail.gs,profileFolder_,5,16,12,private,"",declaration
+ProfileAndBulkEmail.gs,profilePdfFile_,18,22,5,private,"",declaration
+ProfileAndBulkEmail.gs,profilePdfStatus_,24,28,5,private,"",declaration
+ProfileAndBulkEmail.gs,saveCompanyProfile_,30,61,32,private,"user payload",declaration
+ProfileAndBulkEmail.gs,getCompanyProfile_,67,75,9,private,"user",declaration
+ProfileAndBulkEmail.gs,presentationPptFile_,92,96,5,private,"",declaration
+ProfileAndBulkEmail.gs,presentationPptStatus_,98,102,5,private,"",declaration
+ProfileAndBulkEmail.gs,saveCompanyPresentationPpt_,104,145,42,private,"user payload",declaration
+ProfileAndBulkEmail.gs,getCompanyPresentationPpt_,150,160,11,private,"user",declaration
+ProfileAndBulkEmail.gs,profilePlaceholders_,162,174,13,private,"lead",declaration
+ProfileAndBulkEmail.gs,profileEmailDefaults_,176,181,6,private,"",declaration
+ProfileAndBulkEmail.gs,profileEmailSignature_,183,191,9,private,"settings senderName companyName",declaration
+ProfileAndBulkEmail.gs,profileEmailHtml_,193,208,16,private,"message settings senderName companyName messageHtml",declaration
+ProfileAndBulkEmail.gs,unitedSignatureHtml_,210,226,17,private,"senderName companyName contactHtml address",declaration
+ProfileAndBulkEmail.gs,sendProfileEmail_,228,266,39,private,"user payload",declaration
+ProfileAndBulkEmail.gs,savedRecipientRow_,268,270,3,private,"row",declaration
+ProfileAndBulkEmail.gs,getSavedRecipients_,272,277,6,private,"user",declaration
+ProfileAndBulkEmail.gs,saveEmailRecipient_,279,297,19,private,"user payload",declaration
+ProfileAndBulkEmail.gs,deleteEmailRecipient_,299,306,8,private,"user payload",declaration
+ProfileAndBulkEmail.gs,storeBulkExtraRecipients_,308,317,10,private,"user emails",declaration
+ProfileAndBulkEmail.gs,normalizeBulkRecipients_,319,343,25,private,"payload",declaration
+ProfileAndBulkEmail.gs,sendBulkEmail_,345,406,62,private,"user payload",declaration
+Quotations.gs,nextQuoteNumber_,1,6,6,private,"",declaration
+Quotations.gs,wageNameNorm_,39,41,3,private,"v",declaration
+Quotations.gs,wageNameSquash_,43,45,3,private,"v",declaration
+Quotations.gs,wageWords_,46,49,4,private,"v",declaration
+Quotations.gs,wageWordRun_,53,64,12,private,"words wantSq",declaration
+Quotations.gs,wagePickCategory_,67,77,11,private,"item cols",declaration
+Quotations.gs,quoteBreakupHeads_,81,95,15,private,"breakup items",declaration
+Quotations.gs,quoteBreakupBasis_,100,114,15,private,"breakupJson mode items",declaration
+Quotations.gs,breakupFeeQuote559_,123,143,21,private,"rec",declaration
+Quotations.gs,breakupFeeInfo559_,147,165,19,private,"q breakup items",declaration
+Quotations.gs,breakupFeeForRecord559_,168,170,3,private,"rec breakup",declaration
+Quotations.gs,breakupFeeRecord559_,173,180,8,private,"user id",declaration
+Quotations.gs,breakupFeePerHead559_,186,205,20,private,"fee rows",declaration
+Quotations.gs,saveQuotationBreakup_,210,263,54,private,"user opts",declaration
+Quotations.gs,salaryBreakupUsage_,268,295,28,private,"breakupId rec",declaration
+Quotations.gs,quoteCustomerSource_,301,313,13,private,"lead",declaration
+Quotations.gs,saveQuotation_,315,432,118,private,"user payload",declaration
+Quotations.gs,getQuotationDetails_,434,494,61,private,"user quotationId",declaration
+Quotations.gs,addQuotationFollowup_,496,543,48,private,"user payload",declaration
+Quotations.gs,moneyText_,545,547,3,private,"value",declaration
+Quotations.gs,formatIndianNumber_,549,557,9,private,"value",declaration
+Quotations.gs,displayDate_,559,562,4,private,"isoDate",declaration
+Quotations.gs,QUOTE_LOST_REASONS_,565,567,3,private,"",declaration
+Quotations.gs,quoteLostReason_,568,574,7,private,"value",declaration
+Quotations.gs,managementFeeLabel_,576,583,8,private,"q",declaration
+Quotations.gs,proposalCoverFontSize_,585,592,8,private,"value",declaration
+Quotations.gs,quotationPdfHtml_,594,648,55,private,"details",declaration
+Quotations.gs,quotationBreakupPageHtml_,653,692,40,private,"q breakupFromList",declaration
+Quotations.gs,quotationPdfBreakupSectionHtml_,695,739,45,private,"ctx",declaration
+Quotations.gs,salaryBreakupField_,749,752,4,private,"value fallback",declaration
+Quotations.gs,salaryBreakupOpts561_,757,775,19,private,"s",declaration
+Quotations.gs,salaryBreakupOptsDiff561_,777,781,5,private,"o",declaration
+Quotations.gs,salaryBreakupXaCols561_,783,787,5,private,"O col",declaration
+Quotations.gs,salaryBreakupXa561_,788,792,5,private,"O c",declaration
+Quotations.gs,salaryBreakupUp561_,793,793,1,private,"v",declaration
+Quotations.gs,salaryBreakupRate561_,794,794,1,private,"r",declaration
+Quotations.gs,salaryBreakupLab561_,796,812,17,private,"b",declaration
+Quotations.gs,salaryBreakupNotes561_,814,831,18,private,"b scope",declaration
+Quotations.gs,salaryBreakupDense561_,834,846,13,private,"html landscape kind breakup",declaration
+Quotations.gs,salaryBreakupNormalize_,848,900,53,private,"raw",declaration
+Quotations.gs,salaryBreakupCalc_,902,999,98,private,"breakup mgmtPercent fee",declaration
+Quotations.gs,salaryBreakupMoney_,1001,1003,3,private,"value",declaration
+Quotations.gs,salaryBreakupRow_,1005,1007,3,private,"label cells cls",declaration
+Quotations.gs,salaryBreakupSectionHtml_,1009,1080,72,private,"ctx scope",declaration
+Quotations.gs,salaryBreakupPdfHtml_,1082,1130,49,private,"ctx",declaration
+Quotations.gs,wageBreakupDisplayName_,1132,1144,13,private,"customerName",declaration
+Quotations.gs,generateSalaryBreakupPdf_,1146,1189,44,private,"user payload",declaration
+Quotations.gs,syncBreakupToQuotations_,1204,1238,35,private,"user breakupId breakup",declaration
+Quotations.gs,saveSalaryBreakup_,1240,1274,35,private,"user payload",declaration
+Quotations.gs,deleteSalaryBreakup_,1276,1286,11,private,"user breakupId",declaration
+Quotations.gs,salaryBreakupScope_,1320,1326,7,private,"user",declaration
+Quotations.gs,salaryBreakupContext_,1330,1365,36,private,"",declaration
+Quotations.gs,salaryBreakupClassification_,1367,1385,19,private,"rec ctx",declaration
+Quotations.gs,salaryBreakupReason_,1389,1406,18,private,"rec ctx",declaration
+Quotations.gs,setSalaryBreakupSide_,1410,1422,13,private,"user payload",declaration
+Quotations.gs,salaryBreakupVisible_,1424,1429,6,private,"user rec ctx",declaration
+Quotations.gs,assertSalaryBreakupVisible_,1433,1441,9,private,"user rec ctx",declaration
+Quotations.gs,salaryBreakupUserLabels_,1446,1455,10,private,"",declaration
+Quotations.gs,listSalaryBreakups_,1457,1478,22,private,"user",declaration
+Quotations.gs,getSalaryBreakup_,1480,1487,8,private,"user breakupId",declaration
+Quotations.gs,salaryBreakupExcelSections_,1489,1557,69,private,"breakup calc",declaration
+Quotations.gs,exportSalaryBreakupExcel_,1559,1580,22,private,"user payload",declaration
+Quotations.gs,breakupPdfBlob_,1594,1603,10,private,"breakup scope ctxOpts",declaration
+Quotations.gs,safeBreakupFileStem_,1604,1606,3,private,"s",declaration
+Quotations.gs,writeBreakupPdfInPlace_,1607,1620,14,private,"folderId breakup scope existingFileId ctxOpts",declaration
+Quotations.gs,buildBreakupPdfSet_,1621,1629,9,private,"folderId breakup displayName existing fee",declaration
+Quotations.gs,finalizeSalaryBreakupPdfs_,1630,1648,19,private,"user breakupId base breakup",declaration
+Quotations.gs,breakupCompanyPdfForQuote_,1649,1655,7,private,"user quote breakup displayName",declaration
+Quotations.gs,quoteCompanyBreakupBlob_,1656,1670,15,private,"user quote",declaration
+Quotations.gs,generateQuotationPdf_,1673,1686,14,private,"user quotationId",declaration
+Quotations.gs,quotationEmailList_,1688,1701,14,private,"value label",declaration
+Quotations.gs,quotationEmailMessageHtml_,1703,1707,5,private,"message",declaration
+Quotations.gs,quotationEmailFill_,1709,1721,13,private,"text o",declaration
+Quotations.gs,sendQuotationEmail_,1723,1882,160,private,"user payload",declaration
+Quotations.gs,quoteFindSentMessageId_,1887,1905,19,private,"to subject",declaration
+Quotations.gs,escapeHtmlServer_,1907,1909,3,private,"value",declaration
+Quotations.gs,listSavedBreakupsForPicker_,1919,1943,25,private,"user",declaration
+Quotations.gs,attachSavedBreakupToQuotation_,1945,1973,29,private,"user payload",declaration
+Quotations.gs,sendQuotationFollowupEmail_,1989,2047,59,private,"user payload",declaration
+Reports.gs,buildDailyReport_,1,23,23,private,"date",declaration
+Reports.gs,reportTable_,25,36,12,private,"headers rows",declaration
+Reports.gs,dailyReportAiSummary_,38,64,27,private,"report",declaration
+Reports.gs,reportDateTimeText_,71,86,16,private,"value",declaration
+Reports.gs,reportHtml_,88,132,45,private,"report",declaration
+Reports.gs,dailyReportSundaySkipped_,134,141,8,private,"reportDate",declaration
+Reports.gs,sendDailyManagementReport,143,160,18,public,"reportDate actor",declaration
+Reports.gs,reminderDatePart_,162,164,3,private,"value",declaration
+Reports.gs,latestReminderRowsBy_,166,171,6,private,"rows key",declaration
+Reports.gs,reminderOwnerFromSurvey_,173,177,5,private,"survey lead leadFollowup surveyAudit",declaration
+Reports.gs,buildUserReminderBundle_,179,281,103,private,"user date data",declaration
+Reports.gs,reminderCount_,283,285,3,private,"bundle",declaration
+Reports.gs,reminderSectionHtml_,287,299,13,private,"title rows headers",declaration
+Reports.gs,userReminderHtml_,301,336,36,private,"bundle",declaration
+Reports.gs,userReminderText_,338,353,16,private,"bundle",declaration
+Reports.gs,calendarReminders_,356,451,96,private,"user payload",declaration
+Reports.gs,sendDailyUserReminderEmails,452,499,48,public,"reminderDate",declaration
+Reports.gs,reportFilterMatch_,501,511,11,private,"record filters",declaration
+Reports.gs,normaliseReportFilters_,513,519,7,private,"payload",declaration
+Reports.gs,buildFilteredSalesReport_,521,557,37,private,"payload",declaration
+Reports.gs,buildFilteredTenderReport_,559,620,62,private,"payload user",declaration
+Reports.gs,monthRange_,622,628,7,private,"month",declaration
+Reports.gs,isLastCalendarDay_,630,634,5,private,"date",declaration
+Reports.gs,buildMonthlySalesReport_,636,640,5,private,"month",declaration
+Reports.gs,buildMonthlyTenderReport_,642,656,15,private,"month user companyId",declaration
+Reports.gs,sendMonthlySalesManagementReport,658,664,7,public,"reportMonth actor",declaration
+Reports.gs,sendOneMonthlyTenderReport_,666,673,8,private,"reportMonth actor companyId",declaration
+Reports.gs,sendMonthlyTenderManagementReport,675,682,8,public,"reportMonth actor companyId",declaration
+Reports.gs,sendMonthlySalesReportIfDue,684,688,5,public,"",declaration
+Reports.gs,sendMonthlyTenderReportIfDue,690,704,15,public,"",declaration
+Reports.gs,saveSettings_,706,851,146,private,"user payload",declaration
+Reports.gs,quoteItemsSummaryMax_,875,877,3,private,"",declaration
+Reports.gs,quoteMoneyText_,886,888,3,private,"value",declaration
+Reports.gs,quoteQuantityText_,896,898,3,private,"value",declaration
+Reports.gs,quoteItemLine_,913,924,12,private,"item",declaration
+Reports.gs,quoteItemsSummary_,937,961,25,private,"items maxChars",declaration
+Reports.gs,quoteItemLinesMap_,972,981,10,private,"",declaration
+Reports.gs,quoteDescriptionFor_,998,1004,7,private,"quote lead linesByQuoteId",declaration
+Reports.gs,previousMonthKey_,1016,1024,9,private,"monthKey",declaration
+Reports.gs,getMonthlyInsights_,1026,1140,115,private,"user payload",declaration
+Reports.gs,wlValue_,1149,1153,5,private,"q",declaration
+Reports.gs,wlRange_,1154,1164,11,private,"p",declaration
+Reports.gs,wlCanEditTargets_,1165,1165,1,private,"user",declaration
+Reports.gs,getWinLossReport_,1167,1248,82,private,"user payload",declaration
+Reports.gs,saveSalesTargets_,1250,1272,23,private,"user payload",declaration
+ServiceLevelAgreements.gs,slaContent_,40,120,81,private,"",declaration
+ServiceLevelAgreements.gs,slaLogoBase64_,125,792,668,private,"",declaration
+ServiceLevelAgreements.gs,slaSquareBase64_,793,800,8,private,"",declaration
+ServiceLevelAgreements.gs,slaSettingDefaults_,807,823,17,private,"",declaration
+ServiceLevelAgreements.gs,slaStatutorySettingKey_,825,832,8,private,"key",declaration
+ServiceLevelAgreements.gs,slaSignatoryFromSettings_,834,841,8,private,"",declaration
+ServiceLevelAgreements.gs,slaStatutoryGaps_,846,855,10,private,"",declaration
+ServiceLevelAgreements.gs,slaFinancialYear_,862,867,6,private,"when",declaration
+ServiceLevelAgreements.gs,slaSerialSettingKey_,869,869,1,private,"fy",declaration
+ServiceLevelAgreements.gs,slaNumberPeek_,871,876,6,private,"",declaration
+ServiceLevelAgreements.gs,slaNumberConsume_,878,883,6,private,"",declaration
+ServiceLevelAgreements.gs,slaOptionsSettingKey_,889,891,3,private,"scopeId",declaration
+ServiceLevelAgreements.gs,slaRememberedOptions_,893,899,7,private,"scopeId",declaration
+ServiceLevelAgreements.gs,slaSaveOptions_,901,906,6,private,"scopeId options",declaration
+ServiceLevelAgreements.gs,slaClausesFor_,912,940,29,private,"options",declaration
+ServiceLevelAgreements.gs,slaOmittedNote_,942,950,9,private,"omitted",declaration
+ServiceLevelAgreements.gs,slaMoney_,956,959,4,private,"v",declaration
+ServiceLevelAgreements.gs,slaDate_,961,965,5,private,"v",declaration
+ServiceLevelAgreements.gs,slaAddMonths_,967,975,9,private,"dateStr months",declaration
+ServiceLevelAgreements.gs,slaTenureText_,983,987,5,private,"months",declaration
+ServiceLevelAgreements.gs,slaInvoiceTimingText_,989,994,6,private,"key",declaration
+ServiceLevelAgreements.gs,slaAmountInWords_,999,1021,23,private,"amount",declaration
+ServiceLevelAgreements.gs,getSlaDraft_,1027,1075,49,private,"user payload",declaration
+ServiceLevelAgreements.gs,slaOptionClause_,1077,1085,9,private,"key",declaration
+ServiceLevelAgreements.gs,slaAssertFor_,1087,1090,4,private,"user kind",declaration
+ServiceLevelAgreements.gs,slaClientRecord_,1097,1203,107,private,"user clientId payload",declaration
+ServiceLevelAgreements.gs,slaMonthsBetween_,1209,1218,10,private,"from to",declaration
+ServiceLevelAgreements.gs,slaMonthsFromItems_,1220,1229,10,private,"items",declaration
+ServiceLevelAgreements.gs,slaWageBreakupFor_,1234,1264,31,private,"client contracts",declaration
+ServiceLevelAgreements.gs,slaStatutorySnapshot_,1266,1277,12,private,"client",declaration
+ServiceLevelAgreements.gs,slaOrderRecord_,1284,1350,67,private,"user orderId payload",declaration
+ServiceLevelAgreements.gs,slaDocModel_,1357,1462,106,private,"record",declaration
+ServiceLevelAgreements.gs,slaDocBuild_,1468,1502,35,private,"record docName",declaration
+ServiceLevelAgreements.gs,SLA_PAGE_W_,1505,1505,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_PAGE_H_,1506,1506,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_MARGIN_TOP_,1507,1507,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_MARGIN_BOTTOM_,1508,1508,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_MARGIN_SIDE_,1509,1509,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_ORANGE_,1512,1512,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_BRAND_,1516,1516,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_MUTED_,1517,1517,1,private,"",declaration
+ServiceLevelAgreements.gs,SLA_BOX_,1518,1518,1,private,"",declaration
+ServiceLevelAgreements.gs,slaDocText_,1520,1543,24,private,"body text o",declaration
+ServiceLevelAgreements.gs,slaDocBar_,1545,1554,10,private,"body text",declaration
+ServiceLevelAgreements.gs,slaDocBox_,1556,1564,9,private,"body label text",declaration
+ServiceLevelAgreements.gs,slaDocParty_,1566,1586,21,private,"body block",declaration
+ServiceLevelAgreements.gs,slaDocTable_,1588,1617,30,private,"body header rows firstBold",declaration
+ServiceLevelAgreements.gs,slaLetterhead_,1622,1806,185,private,"doc content",declaration
+ServiceLevelAgreements.gs,slaHeaderSection_,1810,1813,4,private,"doc",declaration
+ServiceLevelAgreements.gs,slaFooterSection_,1815,1822,8,private,"doc",declaration
+ServiceLevelAgreements.gs,slaResetSection_,1834,1851,18,private,"section",declaration
+ServiceLevelAgreements.gs,slaStripExtras_,1856,1865,10,private,"section keep",declaration
+ServiceLevelAgreements.gs,slaBlobForImage_,1867,1869,3,private,"blob",declaration
+ServiceLevelAgreements.gs,slaLetterheadImage_,1878,1890,13,private,"",declaration
+ServiceLevelAgreements.gs,slaSquareImage_,1892,1902,11,private,"",declaration
+ServiceLevelAgreements.gs,slaExportBlob_,1908,1920,13,private,"docId format",declaration
+ServiceLevelAgreements.gs,slaModuleTag_,1926,1926,1,private,"",declaration
+ServiceLevelAgreements.gs,slaGenerate_,1928,2002,75,private,"user payload",declaration
+ServiceLevelAgreements.gs,slaRecent_,2009,2033,25,private,"user payload",declaration
+Setup.gs,setupUnitedCRM,1,181,181,public,"adminName adminMobile adminEmail adminPin",declaration
+Setup.gs,backfillLeadRemarks_,183,207,25,private,"",declaration
+Setup.gs,installEodTrigger,209,216,8,public,"",declaration
+Setup.gs,installTenderEodTrigger,218,225,8,public,"",declaration
+Setup.gs,installMonthlyReportTriggers,227,237,11,public,"",declaration
+Setup.gs,installDailyUserReminderTrigger,239,246,8,public,"",declaration
+Setup.gs,onOpen,248,264,17,public,"",declaration
+Setup.gs,backupFolder_,276,285,10,private,"",declaration
+Setup.gs,backupRun_,287,306,20,private,"by",declaration
+Setup.gs,runCrmNightlyBackup,310,320,11,public,"",declaration
+Setup.gs,backupTriggerOn_,322,324,3,private,"",declaration
+Setup.gs,backupNow_,326,331,6,private,"user",declaration
+Setup.gs,setNightlyBackup_,333,340,8,private,"user payload",declaration
+Setup.gs,getSafeguards_,343,375,33,private,"user",declaration
+Setup.gs,setSafeguard_,377,397,21,private,"user payload",declaration
+SocialMedia.gs,socEsc_,27,27,1,private,"v",declaration
+SocialMedia.gs,socSplitRoles_,34,37,4,private,"raw dflt",declaration
+SocialMedia.gs,socConfig_,38,65,28,private,"",declaration
+SocialMedia.gs,socRoleIn_,66,66,1,private,"role list",declaration
+SocialMedia.gs,assertSocialView_,67,67,1,private,"user",declaration
+SocialMedia.gs,assertSocialEdit_,68,68,1,private,"user",declaration
+SocialMedia.gs,assertSocialSchedule_,69,69,1,private,"user",declaration
+SocialMedia.gs,assertSocialPublish_,70,70,1,private,"user",declaration
+SocialMedia.gs,assertSocialApprove_,71,71,1,private,"user",declaration
+SocialMedia.gs,assertSocialAdmin_,72,72,1,private,"user",declaration
+SocialMedia.gs,socAudit_,73,75,3,private,"user action entityId details",declaration
+SocialMedia.gs,socEnsureSheets_,80,104,25,private,"",declaration
+SocialMedia.gs,socialProviderDefs_,108,115,8,private,"",declaration
+SocialMedia.gs,socialFormatConfig_,116,124,9,private,"",declaration
+SocialMedia.gs,socPlatformLabel_,125,125,1,private,"p",declaration
+SocialMedia.gs,socTokenKey_,131,131,1,private,"accountId",declaration
+SocialMedia.gs,socSaveToken_,132,135,4,private,"accountId obj",declaration
+SocialMedia.gs,socGetToken_,136,140,5,private,"accountId",declaration
+SocialMedia.gs,socDeleteToken_,141,143,3,private,"accountId",declaration
+SocialMedia.gs,socialOAuthStart_,150,191,42,private,"user payload",declaration
+SocialMedia.gs,socialOAuthCallback_,195,296,102,private,"params",declaration
+SocialMedia.gs,socUpsertOAuthAccount_,299,323,25,private,"spec userId",declaration
+SocialMedia.gs,listSocialAccounts_,328,345,18,private,"user payload",declaration
+SocialMedia.gs,disconnectSocialAccount_,346,359,14,private,"user payload",declaration
+SocialMedia.gs,validateSocialAccount_,360,386,27,private,"user payload",declaration
+SocialMedia.gs,socialMediaFolder_,393,402,10,private,"",declaration
+SocialMedia.gs,socMediaUsage_,404,409,6,private,"mediaId",declaration
+SocialMedia.gs,uploadSocialMedia_,410,434,25,private,"user payload",declaration
+SocialMedia.gs,listSocialMedia_,435,447,13,private,"user payload",declaration
+SocialMedia.gs,updateSocialMedia_,448,461,14,private,"user payload",declaration
+SocialMedia.gs,deleteSocialMedia_,462,477,16,private,"user payload",declaration
+SocialMedia.gs,socialNotify_,483,492,10,private,"userIds subject htmlBody",declaration
+SocialMedia.gs,socApproverIds_,493,498,6,private,"",declaration
+SocialMedia.gs,socFetchJson_,505,505,1,private,"url opts",declaration
+SocialMedia.gs,socFetchFull_,508,541,34,private,"url opts",declaration
+SocialMedia.gs,socPkceVerifier_,545,547,3,private,"",declaration
+SocialMedia.gs,socPkceChallenge_,548,550,3,private,"verifier",declaration
+SocialMedia.gs,socHeader_,551,556,6,private,"headers name",declaration
+SocialMedia.gs,socFreshToken_,557,582,26,private,"account token",declaration
+SocialMedia.gs,socJpegUrl_,583,605,23,private,"media",declaration
+SocialMedia.gs,socHashtags_,610,614,5,private,"raw",declaration
+SocialMedia.gs,socPostWithPlatforms_,615,622,8,private,"post platRows",declaration
+SocialMedia.gs,listSocialPosts_,623,649,27,private,"user payload",declaration
+SocialMedia.gs,getSocialPost_,650,667,18,private,"user payload",declaration
+SocialMedia.gs,socialValidatePlatformsInput_,668,678,11,private,"payload cfg",declaration
+SocialMedia.gs,saveSocialPost_,679,763,85,private,"user payload",declaration
+SocialMedia.gs,duplicateSocialPost_,764,797,34,private,"user payload",declaration
+SocialMedia.gs,deleteSocialPost_,798,810,13,private,"user payload",declaration
+SocialMedia.gs,submitPostForApproval_,815,836,22,private,"user payload",declaration
+SocialMedia.gs,approveSocialPost_,837,853,17,private,"user payload",declaration
+SocialMedia.gs,rejectSocialPost_,854,871,18,private,"user payload",declaration
+SocialMedia.gs,socResolvePlatformsForAction_,876,892,17,private,"postId needAccount",declaration
+SocialMedia.gs,scheduleSocialPost_,893,920,28,private,"user payload",declaration
+SocialMedia.gs,cancelSocialSchedule_,921,941,21,private,"user payload",declaration
+SocialMedia.gs,publishSocialPostNow_,942,967,26,private,"user payload",declaration
+SocialMedia.gs,socAiFriendly_,972,979,8,private,"e",declaration
+SocialMedia.gs,socialAiGenerate_,980,1046,67,private,"user input contentType",declaration
+SocialMedia.gs,generateSocialPostContent_,1047,1051,5,private,"user payload",declaration
+SocialMedia.gs,generateSocialImageConcept_,1052,1064,13,private,"user payload",declaration
+SocialMedia.gs,generateBulkContentPlan_,1065,1083,19,private,"user payload",declaration
+SocialMedia.gs,socialSeedTemplatesIfNeeded_,1088,1108,21,private,"userId",declaration
+SocialMedia.gs,listSocialTemplates_,1109,1114,6,private,"user payload",declaration
+SocialMedia.gs,saveSocialTemplate_,1115,1142,28,private,"user payload",declaration
+SocialMedia.gs,deleteSocialTemplate_,1143,1153,11,private,"user payload",declaration
+SocialMedia.gs,socialCompose_,1162,1188,27,private,"post platRow",declaration
+SocialMedia.gs,socialMediaFor_,1189,1195,7,private,"post platRow",declaration
+SocialMedia.gs,socialPublishTo_,1196,1319,124,private,"platform account post platRow token",declaration
+SocialMedia.gs,socialWriteLog_,1324,1333,10,private,"postId platId platform accountId attempt reqStatus respStatus externalId errorDetail startedAt trigger",declaration
+SocialMedia.gs,socialPublishOne_,1334,1393,60,private,"platRow cfg",declaration
+SocialMedia.gs,socialRefreshPostStatus_,1394,1432,39,private,"postId",declaration
+SocialMedia.gs,socialRunDuePosts_,1433,1474,42,private,"",declaration
+SocialMedia.gs,runSocialScheduler_,1476,1482,7,private,"",declaration
+SocialMedia.gs,ensureSocialTrigger_,1483,1497,15,private,"",declaration
+SocialMedia.gs,installSocialScheduler_,1498,1503,6,private,"user",declaration
+SocialMedia.gs,uninstallSocialScheduler_,1504,1512,9,private,"user",declaration
+SocialMedia.gs,assertSocialAnalytics_,1517,1520,4,private,"user",declaration
+SocialMedia.gs,socialFetchPostMetrics_,1521,1592,72,private,"platRow account token",declaration
+SocialMedia.gs,updateSocialAnalytics_,1593,1622,30,private,"user payload",declaration
+SocialMedia.gs,listSocialAnalytics_,1623,1657,35,private,"user payload",declaration
+SocialMedia.gs,getSocialDashboard_,1662,1708,47,private,"user",declaration
+SocialMedia.gs,getSocialCalendar_,1709,1735,27,private,"user payload",declaration
+SocialMedia.gs,socialReminderDigest_,1741,1778,38,private,"user date",declaration
+TakeHomeSalary.gs,thsAdoptSheetKeys_,22,48,27,private,"",declaration
+TakeHomeSalary.gs,thsReadRoles_,54,54,1,private,"",declaration
+TakeHomeSalary.gs,thsCanRead_,56,58,3,private,"user",declaration
+TakeHomeSalary.gs,thsCanEdit_,59,61,3,private,"user",declaration
+TakeHomeSalary.gs,assertThsRead_,62,67,6,private,"user",declaration
+TakeHomeSalary.gs,assertThsEdit_,68,73,6,private,"user",declaration
+TakeHomeSalary.gs,thsCategoriesSeed_,80,84,5,private,"",declaration
+TakeHomeSalary.gs,thsAreasSeed_,92,143,52,private,"",declaration
+TakeHomeSalary.gs,thsEnsureSheets_,148,186,39,private,"",declaration
+TakeHomeSalary.gs,thsAreaRows_,191,198,8,private,"includeInactive",declaration
+TakeHomeSalary.gs,thsCategoryRows_,200,210,11,private,"includeInactive",declaration
+TakeHomeSalary.gs,thsSalaryRows_,214,217,4,private,"",declaration
+TakeHomeSalary.gs,thsKey_,219,221,3,private,"area category",declaration
+TakeHomeSalary.gs,thsIndex_,223,230,8,private,"",declaration
+TakeHomeSalary.gs,thsAreaByName_,232,237,6,private,"name",declaration
+TakeHomeSalary.gs,thsCategoryByName_,239,244,6,private,"name",declaration
+TakeHomeSalary.gs,thsBootstrap_,251,285,35,private,"user",declaration
+TakeHomeSalary.gs,thsSearch_,288,338,51,private,"user payload",declaration
+TakeHomeSalary.gs,thsMasterMatrix_,341,357,17,private,"includeInactiveAreas",declaration
+TakeHomeSalary.gs,thsListAreas_,359,376,18,private,"user payload",declaration
+TakeHomeSalary.gs,thsHistory_,378,399,22,private,"user payload",declaration
+TakeHomeSalary.gs,thsAppendMany_,422,428,7,private,"name records",declaration
+TakeHomeSalary.gs,thsWriteMasterBody_,434,449,16,private,"existing byId",declaration
+TakeHomeSalary.gs,thsHistoryRecord_,451,466,16,private,"salaryRow prev next source batchId user",declaration
+TakeHomeSalary.gs,thsApplyChanges_,475,584,110,private,"changes source batchId user",declaration
+TakeHomeSalary.gs,thsSaveManual_,586,625,40,private,"user payload",declaration
+TakeHomeSalary.gs,thsSaveArea_,633,656,24,private,"user payload",declaration
+TakeHomeSalary.gs,thsSetAreaStatus_,659,680,22,private,"user payload",declaration
+TakeHomeSalary.gs,thsSaveCategory_,682,696,15,private,"user payload",declaration
+TakeHomeSalary.gs,seedTakeHomeSalary_,704,750,47,private,"user payload",declaration
+TakeHomeSalary.gs,thsMatrixFromUpload_,764,795,32,private,"payload",declaration
+TakeHomeSalary.gs,thsReadXlsx_,800,887,88,private,"blob",declaration
+TakeHomeSalary.gs,thsColIndex_,890,896,7,private,"letters",declaration
+TakeHomeSalary.gs,thsParseUpload_,901,1038,138,private,"matrix payload",declaration
+TakeHomeSalary.gs,thsUploadPreview_,1040,1056,17,private,"user payload",declaration
+TakeHomeSalary.gs,thsUploadCommit_,1058,1096,39,private,"user payload",declaration
+TakeHomeSalary.gs,thsBuildWorkbook_,1101,1162,62,private,"user mode",declaration
+TakeHomeSalary.gs,thsTemplate_,1164,1168,5,private,"user payload",declaration
+TakeHomeSalary.gs,thsExport_,1170,1173,4,private,"user payload",declaration
+TakeHomeSalary.gs,thsBuild_,1179,1179,1,private,"",declaration
+TakeHomeSalary.gs,thsDiagnose_,1181,1218,38,private,"user",declaration
+TenderAI.gs,AI_PROVIDER_PRESETS_,58,282,225,private,"",declaration
+TenderAI.gs,aiPreset_,285,289,5,private,"name",declaration
+TenderAI.gs,AI_BUILD_,298,298,1,private,"",declaration
+TenderAI.gs,aiProviderHints_,310,383,74,private,"provider",declaration
+TenderAI.gs,aiListAvailableModels_,397,438,42,private,"cfg",declaration
+TenderAI.gs,aiResolveModel_,457,509,53,private,"cfg opts",declaration
+TenderAI.gs,aiCacheablePrefixChars_,520,522,3,private,"",declaration
+TenderAI.gs,report_cacheableTokens_,530,533,4,private,"cfg",declaration
+TenderAI.gs,aiModelOverlap_,536,545,10,private,"available preset",declaration
+TenderAI.gs,aiProp_,562,568,7,private,"name",declaration
+TenderAI.gs,aiConfig_,570,674,105,private,"",declaration
+TenderAI.gs,aiEnsureUsable_,677,689,13,private,"tender meta",declaration
+TenderAI.gs,testAIConnection_,706,1132,427,private,"user payload",declaration
+TenderAI.gs,aiRedact_,1159,1176,18,private,"text",declaration
+TenderAI.gs,aiRedactTrim_,1179,1181,3,private,"text max",declaration
+TenderAI.gs,aiRateLimitWaitMs_,1197,1217,21,private,"response",declaration
+TenderAI.gs,aiSleepMs_,1224,1228,5,private,"ms",declaration
+TenderAI.gs,AI_CHARS_PER_TOKEN_,1260,1260,1,private,"",declaration
+TenderAI.gs,aiPromptOverheadChars_,1271,1276,6,private,"ctx",declaration
+TenderAI.gs,aiRequestTokens_,1284,1287,4,private,"chunkChars ctx maxOutputTokens",declaration
+TenderAI.gs,aiMaxChunkChars_,1307,1336,30,private,"cfg ctx observedRatio",declaration
+TenderAI.gs,aiCloudflareVerify_,1368,1409,42,private,"cfg",declaration
+TenderAI.gs,aiTunedSetting_,1432,1449,18,private,"key presetValue seededDefault",declaration
+TenderAI.gs,aiErrorDetail_,1470,1484,15,private,"raw",declaration
+TenderAI.gs,aiPaceMs_,1502,1508,7,private,"cfg cachedTokens",declaration
+TenderAI.gs,aiSplitPoint_,1518,1534,17,private,"text maxChars",declaration
+TenderAI.gs,aiChat_,1537,1785,249,private,"systemPrompt userPrompt opts",declaration
+TenderAI.gs,aiExtractionSystemPrompt_,1791,1826,36,private,"",declaration
+TenderAI.gs,AI_EXTRACT_SCHEMA_,1834,1851,18,private,"",declaration
+TenderAI.gs,aiExtractionUserPrompt_,1863,1881,19,private,"chunkText ctx chunkIndex chunkTotal",declaration
+TenderAI.gs,AI_SYNTHESIS_SCHEMA_,1883,1894,12,private,"",declaration
+TenderAI.gs,aiSynthesisSystemPrompt_,1904,1934,31,private,"",declaration
+TenderAI.gs,aiSynthesisUserPrompt_,1942,1957,16,private,"merged companyProfile",declaration
+TenderAI.gs,aiChunkText_,1964,1985,22,private,"text maxChars",declaration
+TenderAI.gs,AI_LIST_KEYS_,1987,1989,3,private,"",declaration
+TenderAI.gs,AI_OBJ_KEYS_,1991,1991,1,private,"",declaration
+TenderAI.gs,aiIsMissing_,1993,1995,3,private,"v",declaration
+TenderAI.gs,aiItemSignature_,1998,2009,12,private,"key item",declaration
+TenderAI.gs,aiMergeChunkResults_,2017,2084,68,private,"results",declaration
+TenderAI.gs,aiValidateAnalysis_,2095,2132,38,private,"obj",declaration
+TenderAI.gs,aiFillMissing_,2136,2158,23,private,"obj",declaration
+TenderAI.gs,aiLoadState_,2164,2167,4,private,"analysis",declaration
+TenderAI.gs,aiSaveState_,2169,2173,5,private,"analysisId state extra",declaration
+TenderAI.gs,startTenderAnalysis_,2186,2311,126,private,"user payload",declaration
+TenderAI.gs,runTenderAnalysisChunk_,2327,2547,221,private,"user payload",declaration
+TenderAI.gs,finalizeTenderAnalysis_,2559,2696,138,private,"user payload",declaration
+TenderAI.gs,aiRestoreAppStatus_,2706,2724,19,private,"tenderId analysisId fallback",declaration
+TenderAI.gs,aiInferAppStatus_,2733,2744,12,private,"tenderId",declaration
+TenderAI.gs,aiIsFatalAiError_,2760,2764,5,private,"err msg",declaration
+TenderAI.gs,cancelTenderAnalysis_,2766,2781,16,private,"user payload",declaration
+TenderAI.gs,aiCompanyProfileText_,2794,2821,28,private,"tender",declaration
+TenderAI.gs,aiSourceDoc_,2827,2829,3,private,"item",declaration
+TenderAI.gs,aiSourcePage_,2830,2833,4,private,"item",declaration
+TenderAI.gs,aiConfidence_,2834,2842,9,private,"item fallback",declaration
+TenderAI.gs,persistAnalysisChildren_,2849,2961,113,private,"user tender analysisId result",declaration
+TenderAI.gs,extractTenderBOQ_,2970,3061,92,private,"user payload",declaration
+TenderAI.gs,TENDER_APP_STATUSES_,3105,3110,6,private,"",declaration
+TenderAI.gs,TENDER_APP_STATUS_LABELS_,3112,3127,16,private,"",declaration
+TenderAI.gs,TENDER_CATEGORIES_,3129,3133,5,private,"",declaration
+TenderAI.gs,TENDER_DOC_TYPES_,3136,3139,4,private,"",declaration
+TenderAI.gs,TENDER_DOC_TYPE_LABELS_,3141,3152,12,private,"",declaration
+TenderAI.gs,TENDER_REQ_DOC_CATEGORIES_,3157,3163,7,private,"",declaration
+TenderAI.gs,TENDER_REQ_DOC_STATUSES_,3165,3165,1,private,"",declaration
+TenderAI.gs,TENDER_REQ_DOC_STATUS_LABELS_,3166,3169,4,private,"",declaration
+TenderAI.gs,TENDER_REQ_DOC_CLASSES_,3174,3174,1,private,"",declaration
+TenderAI.gs,TENDER_MATCH_STATUSES_,3176,3176,1,private,"",declaration
+TenderAI.gs,TENDER_MATCH_LABELS_,3177,3183,7,private,"",declaration
+TenderAI.gs,TENDER_ELIGIBILITY_RESULTS_,3185,3185,1,private,"",declaration
+TenderAI.gs,TENDER_ELIGIBILITY_LABELS_,3186,3192,7,private,"",declaration
+TenderAI.gs,TENDER_ELIGIBILITY_TYPES_,3194,3197,4,private,"",declaration
+TenderAI.gs,TENDER_CHECKLIST_STATUSES_,3199,3199,1,private,"",declaration
+TenderAI.gs,TENDER_CHECKLIST_LABELS_,3200,3203,4,private,"",declaration
+TenderAI.gs,TENDER_ANALYSIS_STATUSES_,3205,3205,1,private,"",declaration
+TenderAI.gs,TENDER_ANALYSIS_LABELS_,3206,3209,4,private,"",declaration
+TenderAI.gs,TENDER_DATE_TYPES_,3211,3214,4,private,"",declaration
+TenderAI.gs,TENDER_DATE_TYPE_LABELS_,3215,3220,6,private,"",declaration
+TenderAI.gs,AI_NOT_SPECIFIED_,3224,3224,1,private,"",declaration
+TenderAI.gs,AI_DISCLAIMER_,3227,3227,1,private,"",declaration
+TenderAI.gs,ensureTenderAISheets_,3242,3303,62,private,"",declaration
+TenderAI.gs,setupTenderAI,3309,3334,26,public,"",declaration
+TenderAI.gs,aiEnsureSheetsLazy_,3352,3364,13,private,"",declaration
+TenderAI.gs,aiTenderCtx_,3370,3378,9,private,"user tenderId forWrite",declaration
+TenderAI.gs,aiMetaFor_,3381,3385,5,private,"tenderId",declaration
+TenderAI.gs,ensureAiMeta_,3392,3415,24,private,"tender user",declaration
+TenderAI.gs,refreshChecklistProgress_,3418,3430,13,private,"tenderId",declaration
+TenderAI.gs,publicAITender_,3433,3464,32,private,"tender meta",declaration
+TenderAI.gs,listAITenders_,3480,3532,53,private,"user payload",declaration
+TenderAI.gs,getAITender_,3540,3563,24,private,"user payload",declaration
+TenderAI.gs,createAITender_,3577,3627,51,private,"user payload",declaration
+TenderAI.gs,attachAITender_,3637,3649,13,private,"user payload",declaration
+TenderAI.gs,listUnattachedTenders_,3652,3670,19,private,"user payload",declaration
+TenderAI.gs,updateAITenderMeta_,3678,3700,23,private,"user payload",declaration
+TenderAI.gs,latestAnalysisFor_,3706,3725,20,private,"tenderId",declaration
+TenderAI.gs,AI_CHILD_TABLES_,3735,3782,48,private,"",declaration
+TenderAI.gs,upsertAiChild_,3789,3868,80,private,"user cfgKey payload opts",declaration
+TenderAI.gs,deleteAiChild_,3871,3885,15,private,"user cfgKey payload",declaration
+TenderAI.gs,listAiChildren_,3888,3904,17,private,"user cfgKey payload",declaration
+TenderAI.gs,listRequiredDocuments_,3908,3908,1,private,"user p",declaration
+TenderAI.gs,saveRequiredDocument_,3909,3909,1,private,"user p",declaration
+TenderAI.gs,deleteRequiredDocument_,3910,3910,1,private,"user p",declaration
+TenderAI.gs,listEligibilityCriteria_,3912,3912,1,private,"user p",declaration
+TenderAI.gs,saveEligibilityCriterion_,3913,3913,1,private,"user p",declaration
+TenderAI.gs,listChecklistItems_,3915,3915,1,private,"user p",declaration
+TenderAI.gs,saveChecklistItem_,3916,3916,1,private,"user p",declaration
+TenderAI.gs,deleteChecklistItem_,3917,3917,1,private,"user p",declaration
+TenderAI.gs,listClarifications_,3919,3919,1,private,"user p",declaration
+TenderAI.gs,listTenderAIActivity_,3926,3934,9,private,"user payload",declaration
+TenderAI.gs,listBOQItems_,3936,3943,8,private,"user p",declaration
+TenderAI.gs,saveClarification_,3944,3944,1,private,"user p",declaration
+TenderAI.gs,listCompanyDocuments_,3946,3976,31,private,"user p",declaration
+TenderAI.gs,saveCompanyDocument_,3978,4035,58,private,"user p",declaration
+TenderAI.gs,deleteCompanyDocument_,4037,4050,14,private,"user p",declaration
+TenderAI.gs,getTenderAnalysis_,4062,4110,49,private,"user payload",declaration
+TenderAI.gs,readAnalysisResult_,4117,4129,13,private,"analysis",declaration
+TenderAI.gs,saveAnalysisEdit_,4136,4229,94,private,"user payload",declaration
+TenderAI.gs,persistAnalysisResult_,4236,4255,20,private,"analysis result",declaration
+TenderAI.gs,TENDER_AI_MIME_ALLOW_,4278,4285,8,private,"",declaration
+TenderAI.gs,TENDER_AI_EXT_ALLOW_,4286,4286,1,private,"",declaration
+TenderAI.gs,ZIP_MIME_ALLOW_,4288,4288,1,private,"",declaration
+TenderAI.gs,ensureTenderAIFolder_,4299,4316,18,private,"",declaration
+TenderAI.gs,ensureTenderDriveFolder_,4322,4329,8,private,"tender",declaration
+TenderAI.gs,validateTenderUpload_,4335,4365,31,private,"payload",declaration
+TenderAI.gs,listTenderDocuments_,4371,4382,12,private,"user payload",declaration
+TenderAI.gs,zipEntryMime_,4398,4409,12,private,"name",declaration
+TenderAI.gs,aiInferDocType_,4413,4425,13,private,"name fallback",declaration
+TenderAI.gs,planTenderZip_,4432,4478,47,private,"v",declaration
+TenderAI.gs,uploadTenderDocument_,4480,4556,77,private,"user payload",declaration
+TenderAI.gs,deleteTenderDocument_,4558,4579,22,private,"user payload",declaration
+TenderAI.gs,replaceTenderDocument_,4586,4621,36,private,"user payload",declaration
+TenderAI.gs,driveAdvancedServiceReady_,4635,4638,4,private,"",declaration
+TenderAI.gs,convertAndReadDocument_,4644,4668,25,private,"driveFileId mime useOcr titleHint",declaration
+TenderAI.gs,googleDocTextWithPageMarkers_,4671,4709,39,private,"docId",declaration
+TenderAI.gs,convertAndReadSpreadsheet_,4712,4747,36,private,"driveFileId mime titleHint",declaration
+TenderAI.gs,extractTenderDocumentText_,4759,4849,91,private,"user payload",declaration
+TenderAI.gs,assembleTenderText_,4853,4868,16,private,"tender docs",declaration
+TenderAI.gs,uploadCompanyDocument_,4874,4919,46,private,"user payload",declaration
+TenderAI.gs,AI_DOC_SYNONYMS_,4923,4929,7,private,"",declaration
+TenderAI.gs,aiNormaliseDocText_,4931,4940,10,private,"value",declaration
+TenderAI.gs,aiTokens_,4942,4944,3,private,"value",declaration
+TenderAI.gs,aiDocSimilarity_,4947,4968,22,private,"needName needCategory lib",declaration
+TenderAI.gs,matchCompanyDocuments_,4982,5052,71,private,"user payload",declaration
+TenderAI.gs,attachCompanyDocument_,5059,5094,36,private,"user payload",declaration
+TenderAI.gs,detachCompanyDocument_,5097,5113,17,private,"user payload",declaration
+TenderAI.gs,aiExportCell_,5139,5144,6,private,"value",declaration
+TenderAI.gs,aiDisclaimerSection_,5147,5155,9,private,"",declaration
+TenderAI.gs,aiAnalysisSections_,5157,5307,151,private,"data",declaration
+TenderAI.gs,aiRequiredDocSections_,5309,5329,21,private,"data onlyClass",declaration
+TenderAI.gs,aiEligibilitySections_,5331,5354,24,private,"data",declaration
+TenderAI.gs,aiChecklistSections_,5356,5380,25,private,"data",declaration
+TenderAI.gs,aiBOQSections_,5382,5398,17,private,"data",declaration
+TenderAI.gs,exportTenderAI_,5405,5485,81,private,"user payload",declaration
+TenderAI.gs,exportCompanyDocuments_,5488,5513,26,private,"user payload",declaration
+TenderAI.gs,createDraftTender_,5551,5594,44,private,"user payload",declaration
+TenderAI.gs,findDuplicateTenders_,5603,5631,29,private,"user payload",declaration
+TenderAI.gs,confirmDraftTender_,5642,5694,53,private,"user payload",declaration
+TenderAI.gs,discardDraftTender_,5702,5726,25,private,"user payload",declaration
+TenderAI.gs,wizardNormText_,5729,5731,3,private,"s",declaration
+TenderAI.gs,wizardTitleSimilar_,5732,5748,17,private,"a b",declaration
+TenderAI.gs,getAnalysisChanges_,5758,5846,89,private,"user payload",declaration
+TenderAI.gs,prefillTenderFromDocument_,5857,5921,65,private,"user payload",declaration
+TenderAI.gs,prefillSystemPrompt_,5924,5950,27,private,"",declaration
+TenderAI.gs,prefillMapAiToFields_,5957,6010,54,private,"obj",declaration
+TenderOrdersAndSD.gs,canAccessTenderOrder_,32,41,10,private,"user order",declaration
+TenderOrdersAndSD.gs,assertTenderOrderAccess_,43,48,6,private,"user orderId",declaration
+TenderOrdersAndSD.gs,finalTenderSnapshot_,50,53,4,private,"tender",declaration
+TenderOrdersAndSD.gs,createOrUpdateTenderOrder_,55,86,32,private,"user payload tender",declaration
+TenderOrdersAndSD.gs,autoCreateSDInstrumentsForTenderOrder_,91,130,40,private,"user tender orderId contractValue",declaration
+TenderOrdersAndSD.gs,backfillMissingTenderOrders_,150,171,22,private,"user",declaration
+TenderOrdersAndSD.gs,ensureTenderOrdersForWonTenders_,179,186,8,private,"user",declaration
+TenderOrdersAndSD.gs,getTenderOrderBootstrapData_,188,205,18,private,"user",declaration
+TenderOrdersAndSD.gs,saveTenderOrderContactsCore_,207,224,18,private,"user orderId contacts",declaration
+TenderOrdersAndSD.gs,saveTenderOrder_,226,243,18,private,"user payload",declaration
+TenderOrdersAndSD.gs,getTenderOrderDetails_,245,251,7,private,"user orderId",declaration
+TenderOrdersAndSD.gs,ensureTenderOrderDriveFolder_,253,264,12,private,"user orderId",declaration
+TenderOrdersAndSD.gs,saveTenderOrderBreakup_,274,291,18,private,"user payload",declaration
+TenderOrdersAndSD.gs,generateTenderOrderFilePdf_,293,388,96,private,"user payload",declaration
+TenderOrdersAndSD.gs,uploadTenderOrderDocument_,390,404,15,private,"user payload",declaration
+TenderOrdersAndSD.gs,accessibleSDLinks_,406,417,12,private,"user",declaration
+TenderOrdersAndSD.gs,accessibleSDTenderIds_,419,419,1,private,"user",declaration
+TenderOrdersAndSD.gs,sdCompanyLinksValid_,421,426,6,private,"row",declaration
+TenderOrdersAndSD.gs,getSDBootstrapData_,428,435,8,private,"user",declaration
+TenderOrdersAndSD.gs,assertSDAccess_,437,444,8,private,"user row",declaration
+TenderOrdersAndSD.gs,saveSDEntry_,446,482,37,private,"user payload",declaration
+TenderOrdersAndSD.gs,getSDEntry_,484,484,1,private,"user entryId",declaration
+TenderOrdersAndSD.gs,resolveSdLink_,488,498,11,private,"user link",declaration
+TenderOrdersAndSD.gs,importSDBulk_,508,575,68,private,"user rows",declaration
+TenderOrdersAndSD.gs,migrateTenderClientContractsToOrders_,578,664,87,private,"",declaration
+TenderOrdersAndSD.gs,requestTenderOrderPayment_,671,802,132,private,"user payload",declaration
+TenderOrdersAndSD.gs,markTenderPaymentPaid_,809,864,56,private,"user payload",declaration
+TenderOrdersAndSD.gs,ensureTenderReceiptsFolder_,866,872,7,private,"",declaration
+TenderOrdersAndSD.gs,sendPaymentReceiptEmail_,874,906,33,private,"user entry updates receipt",declaration
+Tenders.gs,canAccessTender_,18,26,9,private,"user tender",declaration
+Tenders.gs,isDraftTender_,31,31,1,private,"t",declaration
+Tenders.gs,tenderUserOptions_,33,37,5,private,"companyId",declaration
+Tenders.gs,tenderDashboardMetricsServer_,39,42,4,private,"tenders",declaration
+Tenders.gs,tenderSubmissionSort_,69,79,11,private,"tenders",declaration
+Tenders.gs,getTenderBootstrapData_,81,96,16,private,"user",declaration
+Tenders.gs,validateTenderAssignee_,98,104,7,private,"userId companyId",declaration
+Tenders.gs,tenderRecordFromPayload_,106,145,40,private,"payload user existing",declaration
+Tenders.gs,saveTender_,147,170,24,private,"user payload",declaration
+Tenders.gs,getTenderDetails_,172,179,8,private,"user tenderId",declaration
+Tenders.gs,addTenderFollowup_,181,211,31,private,"user payload",declaration
+Tenders.gs,uniqueTenderEvents_,213,229,17,private,"events tendersById",declaration
+Tenders.gs,buildDailyTenderReport_,231,261,31,private,"date user companyId",declaration
+Tenders.gs,tenderReportHtml_,263,325,63,private,"report",declaration
+Tenders.gs,sendTenderWhatsAppSummary_,327,352,26,private,"report",declaration
+Tenders.gs,sendOneDailyTenderReport_,354,367,14,private,"reportDate actor companyId",declaration
+Tenders.gs,sendDailyTenderManagementReport,369,379,11,public,"reportDate actor companyId",declaration
+Tenders.gs,ensurePaymentBeneficiaryLine_,394,410,17,private,"value",declaration
+Tenders.gs,fillTemplate_,412,416,5,private,"template ctx",declaration
+Tenders.gs,tenderPaymentContext_,418,452,35,private,"user tender remarks",declaration
+Tenders.gs,ensureTenderChallanFolder_,454,460,7,private,"",declaration
+Tenders.gs,tenderPaymentTemplateDefaults_,462,473,12,private,"type",declaration
+Tenders.gs,sendTenderPaymentRequest_,475,551,77,private,"user payload",declaration
+Theme.gs,themeIsSuper_,26,28,3,private,"user",declaration
+Theme.gs,themeCleanHex_,31,39,9,private,"v",declaration
+Theme.gs,themeCleanColors_,41,46,6,private,"colors",declaration
+Theme.gs,themeCleanMode_,48,52,5,private,"m",declaration
+Theme.gs,themeCleanRef_,57,76,20,private,"ref knownCustoms",declaration
+Theme.gs,themeReadJson_,78,85,8,private,"key",declaration
+Theme.gs,themeValidView_,90,112,23,private,"ref customsById",declaration
+Theme.gs,themeReadCustoms_,114,136,23,private,"",declaration
+Theme.gs,themeRecentAudit_,138,145,8,private,"limit",declaration
+Theme.gs,getThemeState_,148,158,11,private,"user",declaration
+Theme.gs,saveMyThemePref_,161,171,11,private,"user payload",declaration
+Theme.gs,saveOrgDefault_,175,185,11,private,"user payload",declaration
+Theme.gs,saveCustomTheme_,188,201,14,private,"user payload",declaration
+Theme.gs,deleteCustomTheme_,205,215,11,private,"user payload",declaration
+Theme.gs,getThemeAudit_,219,221,3,private,"user",declaration
+WonHandover.gs,wonHandoverTeamLabel_,9,11,3,private,"team",declaration
+WonHandover.gs,wonHandoverSubjectKey_,13,15,3,private,"team",declaration
+WonHandover.gs,wonHandoverNoteKey_,17,19,3,private,"team",declaration
+WonHandover.gs,wonHandoverEmailKey_,21,23,3,private,"team",declaration
+WonHandover.gs,wonHandoverContact_,25,32,8,private,"handover",declaration
+WonHandover.gs,wonHandoverManpower_,34,65,32,private,"handover ctx",declaration
+WonHandover.gs,wonHandoverEsc_,67,69,3,private,"value",declaration
+WonHandover.gs,wonHandoverCustomerContext_,71,93,23,private,"handover",declaration
+WonHandover.gs,wonHandoverHtmlSection_,95,97,3,private,"title bodyHtml",declaration
+WonHandover.gs,wonHandoverHtmlTable_,99,103,5,private,"rows",declaration
+WonHandover.gs,wonHandoverEmailHtml_,105,168,64,private,"ctx handover team note",declaration
+WonHandover.gs,wonHandoverEmailText_,170,195,26,private,"ctx handover team",declaration
+WonHandover.gs,wonHandoverAttachments_,197,245,49,private,"user handover ctx",declaration
+WonHandover.gs,buildWonHandoverContext_,247,266,20,private,"user handover attach",declaration
+WonHandover.gs,sendWonHandoverEmails_,268,310,43,private,"user handover teams attach",declaration
+WonHandover.gs,saveWonHandover_,312,438,127,private,"user payload",declaration
+WonHandover.gs,getWonHandover_,440,449,10,private,"user payload",declaration
+WonHandover.gs,resendWonHandover_,451,465,15,private,"user payload",declaration
+WonHandover.gs,wonHandoverNotifiedText_,492,508,17,private,"h",declaration
+WonHandover.gs,siteHandoverSourceFor_,512,523,12,private,"contract",declaration
+WonHandover.gs,siteHandoverContractLabel_,525,532,8,private,"contract",declaration
+WonHandover.gs,siteHandoverTeams_,537,549,13,private,"",declaration
+WonHandover.gs,siteHandoverContactFor_,553,564,12,private,"clientId",declaration
+WonHandover.gs,getClientSiteHandover_,568,639,72,private,"user payload",declaration
+WonHandover.gs,sendClientSiteHandover_,643,703,61,private,"user payload",declaration
+WonHandover.gs,wonHandoverAttachLabel_,743,746,4,private,"key",declaration
+WonHandover.gs,wonHandoverAttachArg_,751,762,12,private,"raw",declaration
+WonHandover.gs,wonHandoverAwardGoes_,765,767,3,private,"ctx team",declaration
+WonHandover.gs,wonHandoverRecordsFor_,771,797,27,private,"sourceType sourceId hint",declaration
+WonHandover.gs,wonHandoverNewest_,799,801,3,private,"rows",declaration
+WonHandover.gs,wonHandoverClientDoc_,805,813,9,private,"clientId contractId categories",declaration
+WonHandover.gs,wonHandoverOrderDoc_,816,822,7,private,"orderId categories",declaration
+WonHandover.gs,wonHandoverSurveyFor_,826,831,6,private,"quote",declaration
+WonHandover.gs,wonHandoverDocText_,833,836,4,private,"doc",declaration
+WonHandover.gs,wonHandoverResolve_,841,924,84,private,"user rec",declaration
+WonHandover.gs,wonHandoverAttachOptions_,927,936,10,private,"user sourceType sourceId hint",declaration
+WonHandover.gs,wonHandoverAttachItemsOrNull_,940,942,3,private,"user sourceType sourceId hint",declaration
+WonHandover.gs,getHandoverAttachOptions_,946,970,25,private,"user payload",declaration
+WonHandover.gs,wonHandoverPickedAttachments_,975,1032,58,private,"user handover ctx attach",declaration
+WonHandover.gs,wonHandoverTooBig_,1036,1042,7,private,"blobs team",declaration
+WonHandover.gs,wonHandoverNoteAttached_,1045,1049,5,private,"result ctx team",declaration

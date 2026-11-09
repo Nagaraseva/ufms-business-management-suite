@@ -1,0 +1,538 @@
+legacy_file,legacy_action,business_purpose,new_module,new_api_endpoint,new_tables,migration_status,test_status,outstanding_issues
+AuthAndApi.gs,logout,migrated in phase 2,,/api/v1/auth/logout,sessions,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,ping,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,bootstrap,migrated in phase 2,,/api/v1/auth/me,"users, roles, permissions, tenant_branding",implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,calendarReminders,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getUserNotes,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveUserNote,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteUserNote,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getThemeState,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveMyThemePref,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveOrgDefault,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveCustomTheme,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteCustomTheme,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getThemeAudit,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getChatMessages,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,markChatRead,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,postChatMessage,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getLead,migrated in phase 2,,/api/v1/leads/:id,leads,implemented,covered,
+AuthAndApi.gs,createLead,migrated in phase 2,,/api/v1/leads,leads,implemented,covered,
+AuthAndApi.gs,createMarketingLead,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,updateLead,migrated in phase 2,,/api/v1/leads/:id,leads,implemented,covered,
+AuthAndApi.gs,addLeadFollowup,migrated in phase 2,,/api/v1/leads/:id/followups,lead_followups,implemented,covered,
+AuthAndApi.gs,addMarketingLeadFollowup,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,exportLeadBucket,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,sendJobCallEmail,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,exportStructuredData,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,scheduleSurvey,migrated in phase 2,,/api/v1/surveys,surveys,implemented,covered,
+AuthAndApi.gs,cancelSurvey,migrated in phase 2,,/api/v1/surveys/:id,surveys,implemented,covered,
+AuthAndApi.gs,downloadManual,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getSurvey,migrated in phase 2,,/api/v1/surveys/:id,surveys,implemented,covered,
+AuthAndApi.gs,saveSurveyInspection,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,uploadSurveyPhoto,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,surveyFormPdf,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getQuotation,migrated in phase 2,,/api/v1/quotations/:id,quotations,implemented,covered,
+AuthAndApi.gs,saveQuotation,migrated in phase 2,,/api/v1/quotations,"quotations, quotation_items, quotation_versions",implemented,covered,
+AuthAndApi.gs,addQuoteFollowup,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,generateQuotePdf,migrated in phase 2,,pending (phase 6),,implemented,covered,
+AuthAndApi.gs,generateSalaryBreakupPdf,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveSalaryBreakup,migrated in phase 2,,/api/v1/quotations (wageColumns),,implemented,covered,
+AuthAndApi.gs,getSalaryBreakups,migrated in phase 2,,pending (phase 2b),,implemented,covered,
+AuthAndApi.gs,getSlaDraft,,SLA & Client Care,POST /api/v1/sla,sla_agreements; complaints,partial,pending,no permission guard in legacy source; agreement creation done; SLA PDF draft deferred
+AuthAndApi.gs,generateSla,,SLA & Client Care,POST /api/v1/sla,sla_agreements; complaints,partial,pending,no permission guard in legacy source; record created; document generation deferred
+AuthAndApi.gs,slaRecentActivity,,SLA & Client Care,GET /api/v1/client-care/summary,sla_agreements; complaints,implemented,covered,live breach rate and average resolution
+AuthAndApi.gs,getClientSiteHandover,,SLA & Client Care,(pending),contracts,pending,n/a,mobilisation recorded; handover document deferred
+AuthAndApi.gs,sendClientSiteHandover,,Marketing & Communication,(pending),contracts,pending,n/a,email sending needs approved provider config
+AuthAndApi.gs,listSavedBreakups,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getSalaryBreakup,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,attachSavedBreakupToQuotation,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteSalaryBreakup,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,setSalaryBreakupSide,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,momFormData,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,momSiteOptions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,momListFor,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,momDashboard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMoms,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,searchMoms,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,finalizeMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,archiveMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,reopenMom,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteMom,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,duplicateMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMomActions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMyMomActions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getOverdueMomActions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updateMomActionStatus,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,assignMomAction,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,createFollowupFromAction,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uploadMomAttachment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteMomAttachment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMomTemplates,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveMomTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteMomTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getMomSettings,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveMomSettings,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,generateMomPdf,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emailMom,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,momEmailSuggestions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,setupMomModule,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,exportSalaryBreakupExcel,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveWonHandover,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getWonHandover,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,resendWonHandover,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getHandoverAttachOptions,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,sendTenderPaymentRequest,,Accounts & Finance,(pending),tender_payments,pending,n/a,accounts phase
+AuthAndApi.gs,requestTenderOrderPayment,,Accounts & Finance,(pending),tender_payments,pending,n/a,accounts phase
+AuthAndApi.gs,markTenderPaymentPaid,,Accounts & Finance,(pending),tender_payments,pending,n/a,accounts phase
+AuthAndApi.gs,listInvoices,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getInvoice,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getInvoiceFromTender,,Accounts & Finance,(pending),invoices,pending,n/a,no permission guard in legacy source; accounts phase
+AuthAndApi.gs,saveInvoice,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,cancelInvoice,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,recordReceipt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveReceipt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectReceipt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listBills,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getBill,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveBill,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,cancelBill,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,recordVendorPayment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveVendorPayment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectVendorPayment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listBankAccounts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveBankAccount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getBankBook,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAccountsOverview,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getReceivableAgeing,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getPayableAgeing,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getGstrSummary,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getTdsSummary,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getProfitLoss,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listAccountsApprovals,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getManagementApprovals,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveTenderPaymentByMgmt,,Accounts & Finance,(pending),tender_payments,pending,n/a,no permission guard in legacy source; maker-checker phase
+AuthAndApi.gs,rejectTenderPaymentByMgmt,,Accounts & Finance,(pending),tender_payments,pending,n/a,no permission guard in legacy source; maker-checker phase
+AuthAndApi.gs,approveIndentByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectIndentByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approvePurchaseRequestByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectPurchaseRequestByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveBackofficePaymentByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectBackofficePaymentByMgmt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,sendQuotationEmail,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveCompanyProfile,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,sendProfileEmail,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,downloadCompanyPresentation,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,downloadCompanyProfile,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveCompanyPresentationPpt,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,downloadCompanyPresentationPpt,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,companyPresentationStatus,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,sendBulkEmail,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getMarketingTemplates,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getMarketingTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveMarketingTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteMarketingTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getSavedRecipients,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveEmailRecipient,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteEmailRecipient,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,previewMarketingTemplate,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getClient,,Clients & Contracts,GET /api/v1/clients/:id,clients; client_contacts,implemented,covered,
+AuthAndApi.gs,getClientProfile,,Clients & Contracts,GET /api/v1/clients/:id,clients; client_contacts,implemented,covered,contacts and contracts included
+AuthAndApi.gs,saveClient,,Clients & Contracts,POST /api/v1/clients; PATCH /api/v1/clients/:id,clients; client_contacts (client_contacts),implemented,covered,"CLT-NNNN auto code, GSTIN/PAN normalised"
+AuthAndApi.gs,uploadClientDocument,,Documents,(pending),documents,pending,n/a,object storage not yet provisioned; no local disk storage by rule
+AuthAndApi.gs,saveClientContract,,Clients & Contracts,POST /api/v1/contracts,contracts,implemented,covered,CTR-YYYY-NNNN; DRAFT then ACTIVE
+AuthAndApi.gs,generateClientFinalPdf,,Creative Studio & Templates,(pending),templates,pending,n/a,PDF engine phase 8
+AuthAndApi.gs,generateClientFilePdf,,Creative Studio & Templates,(pending),templates,pending,n/a,PDF engine phase 8
+AuthAndApi.gs,clientProfilePdf,,Creative Studio & Templates,(pending),templates,pending,n/a,PDF engine phase 8
+AuthAndApi.gs,getContractRenewals,,Clients & Contracts,GET /api/v1/contracts/expiring,contracts,implemented,covered,no permission guard in legacy source; per-contract renewalAlertDays window
+AuthAndApi.gs,getOpenComplaints,,SLA & Client Care,GET /api/v1/complaints?openOnly=true,sla_agreements; complaints,implemented,covered,no permission guard in legacy source; breach flag recomputed on read
+AuthAndApi.gs,getClientComplaints,,SLA & Client Care,GET /api/v1/complaints?clientId=,sla_agreements; complaints,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,saveComplaint,,SLA & Client Care,POST /api/v1/complaints,sla_agreements; complaints,implemented,covered,"no permission guard in legacy source; TKT-YYYY-NNNN; active SLA auto-attached, dueAt derived"
+AuthAndApi.gs,updateComplaint,,SLA & Client Care,PATCH /api/v1/complaints/:id,sla_agreements; complaints,implemented,covered,no permission guard in legacy source; first response stamped; resolution stamped
+AuthAndApi.gs,complaintSummaryPdf,,Creative Studio & Templates,(pending),templates,pending,n/a,no permission guard in legacy source; PDF engine phase 8
+AuthAndApi.gs,getLoginHistory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,unlockLogin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getSafeguards,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,setSafeguard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,backupNow,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,setNightlyBackup,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getWageRevision,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveClientWageProfile,,HR & Workforce,(pending),minimum_wage_rates,pending,n/a,no permission guard in legacy source; manpower/payroll phase; per-client regime/zone profile deferred; allocation.category carries the category today
+AuthAndApi.gs,saveWageSkillMap,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,wageRevisionLetterPdf,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,wageRevisionLettersPdf,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getWinLossReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveSalesTargets,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,breakupWageContext,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,breakupFetchWages,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,wageNewRatesInfo,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesGet,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesRead,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesExtract,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesReview,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesApprove,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageNewRatesDiscard,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,generateTenderOrderFilePdf,,Creative Studio & Templates,(pending),templates,pending,n/a,PDF engine phase 8
+AuthAndApi.gs,saveTenderOrderBreakup,,Tender Management,(pending),"tenders""; tender_followups; tender_orders",pending,n/a,order cost breakup deferred to Accounts phase
+AuthAndApi.gs,getTender,,Tender Management,GET /api/v1/tenders/:id,"tenders""; tender_followups; tender_orders",implemented,covered,no permission guard in legacy source; drafts excluded from reads
+AuthAndApi.gs,saveTender,,Tender Management,POST /api/v1/tenders; PATCH /api/v1/tenders/:id,"tenders""; tender_followups; tender_orders",implemented,covered,TenderNo auto TND-YYYY-NNNN or operator number; Lead ID dropped by design
+AuthAndApi.gs,addTenderFollowup,,Tender Management,POST /api/v1/tenders/:id/followups,"tenders""; tender_followups; tender_orders",implemented,covered,NEW rejected; FINANCIALLY_WON auto-creates exactly one order
+AuthAndApi.gs,getTenderOrder,,Tender Management,GET /api/v1/tenders/:id (order included),"tenders""; tender_followups; tender_orders",implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,saveTenderOrder,,Tender Management,POST /api/v1/tenders/:id/followups,"tenders""; tender_followups; tender_orders",partial,pending,order auto-created on win; manual order editing not yet exposed
+AuthAndApi.gs,backfillMissingTenderOrders,,Tender Management,(not migrated),"tenders""; tender_followups; tender_orders",obsolete,n/a,one-off backfill of legacy missing orders; new model creates orders transactionally
+AuthAndApi.gs,uploadTenderOrderDocument,,Documents,(pending),documents,pending,n/a,object storage pending
+AuthAndApi.gs,getSDEntry,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listAITenders,,AI Assistant,(pending),tenders,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,getAITender,,AI Assistant,(pending),tenders,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,listUnattachedTenders,,AI Assistant,(pending),tenders,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,createAITender,,AI Assistant,(pending),tenders,pending,n/a,AI approval phase; must route through the same tender rules
+AuthAndApi.gs,createDraftTender,,AI Assistant,(pending),tender_drafts,pending,n/a,AI approval phase; DRAFT status exists in schema
+AuthAndApi.gs,confirmDraftTender,,AI Assistant,(pending),tender_drafts,pending,n/a,AI approval phase
+AuthAndApi.gs,discardDraftTender,,AI Assistant,(pending),tender_drafts,pending,n/a,AI approval phase
+AuthAndApi.gs,checkTenderDuplicates,,Tender Management,POST /api/v1/tenders (server-side check),"tenders""; tender_followups; tender_orders",implemented,covered,no permission guard in legacy source; case-insensitive per company
+AuthAndApi.gs,getAnalysisChanges,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,prefillTenderFromDocument,,AI Assistant,(pending),tender_drafts,pending,n/a,AI approval phase
+AuthAndApi.gs,attachAITender,,AI Assistant,(pending),tenders,pending,n/a,AI approval phase
+AuthAndApi.gs,updateAITenderMeta,,AI Assistant,(pending),tenders,pending,n/a,AI approval phase
+AuthAndApi.gs,listTenderDocuments,,Documents,(pending),documents,pending,n/a,no permission guard in legacy source; object storage pending
+AuthAndApi.gs,uploadTenderDocument,,Documents,(pending),documents,pending,n/a,object storage pending
+AuthAndApi.gs,replaceTenderDocument,,Documents,(pending),documents,pending,n/a,object storage pending
+AuthAndApi.gs,deleteTenderDocument,,Documents,(pending),documents,pending,n/a,object storage pending
+AuthAndApi.gs,extractTenderDocumentText,,AI Assistant,(pending),documents,pending,n/a,AI phase; extraction pipeline deferred
+AuthAndApi.gs,wageBootstrap,,HR & Workforce,GET /api/v1/statutory/legacy-defaults,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,no permission guard in legacy source; legacy constants surfaced explicitly with a review warning
+AuthAndApi.gs,wageDiagnose,,HR & Workforce,GET /api/v1/statutory/rate-sets/in-force,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,"no permission guard in legacy source; answers ""which set applies on this date"""
+AuthAndApi.gs,wageRateLookup,,HR & Workforce,GET /api/v1/statutory/minimum-wages/resolve,minimum_wage_rates,implemented,covered,no permission guard in legacy source; CONFIRMED beats PROVISIONAL; null instead of guessing
+AuthAndApi.gs,listWageRates,,HR & Workforce,GET /api/v1/statutory/rate-sets/:id,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,listWageZoneMap,,HR & Workforce,(pending),minimum_wage_rates,pending,n/a,no permission guard in legacy source; as above
+AuthAndApi.gs,wageServiceSectorMap,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,seedMinimumWages,,HR & Workforce,(not migrated),minimum_wage_rates,obsolete,n/a,seeding hardcoded gazette figures into a tenant is unsafe; tenants enter confirmed rates
+AuthAndApi.gs,resetMinimumWageSeed,,HR & Workforce,(not migrated),minimum_wage_rates,obsolete,n/a,paired with the seed above
+AuthAndApi.gs,saveWageRateSet,,HR & Workforce,POST /api/v1/statutory/rate-sets,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,effective-dated; overlaps refused
+AuthAndApi.gs,confirmWageRateSet,,HR & Workforce,POST /api/v1/statutory/rate-sets/:id/confirm,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,requires a source reference; locks the set
+AuthAndApi.gs,deleteWageRateSet,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,"sets are superseded, never deleted — history must survive"
+AuthAndApi.gs,clearWageRateSets,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,destructive bulk delete deliberately not carried over
+AuthAndApi.gs,loadKarnatakaRates,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,wageSheetsReport,,HR & Workforce,GET /api/v1/statutory/rate-sets,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,no permission guard in legacy source; replaced by the rate-set listing
+AuthAndApi.gs,purgeBlankWageRows,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,a Sheets artefact; relational tables cannot hold blank rows
+AuthAndApi.gs,saveWageRate,,HR & Workforce,POST /api/v1/statutory/rate-sets/:id/rates,statutory_rate_sets; statutory_rates; pt_slabs,implemented,covered,refused once the set is CONFIRMED
+AuthAndApi.gs,deleteWageRate,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,supersede the set instead of deleting a rate
+AuthAndApi.gs,saveWageZoneMap,,HR & Workforce,(pending),minimum_wage_rates,pending,n/a,zone map drives auto-resolution from a location string; manual resolve endpoint shipped first
+AuthAndApi.gs,deleteWageZoneMap,,HR & Workforce,(pending),minimum_wage_rates,pending,n/a,as above
+AuthAndApi.gs,thsBootstrap,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsSearch,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsListAreas,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsDiagnose,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,seedTakeHomeSalary,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsSaveManual,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsSaveArea,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsSetAreaStatus,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsSaveCategory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsHistory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsUploadPreview,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsUploadCommit,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,thsExport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uploadWageNotification,,HR & Workforce,(pending),statutory_rate_sets; statutory_rates; pt_slabs,pending,n/a,notification PDF storage waits on object storage; sourceReference is recorded now
+AuthAndApi.gs,clearWageNotifications,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,destructive; not carried over
+AuthAndApi.gs,linkWageNotification,,HR & Workforce,(pending),statutory_rate_sets; statutory_rates; pt_slabs,pending,n/a,as above
+AuthAndApi.gs,deleteWageNotification,,HR & Workforce,(not migrated),statutory_rate_sets; statutory_rates; pt_slabs,obsolete,n/a,destructive; not carried over
+AuthAndApi.gs,getWageNotificationLink,,HR & Workforce,(pending),statutory_rate_sets; statutory_rates; pt_slabs,pending,n/a,no permission guard in legacy source; as above
+AuthAndApi.gs,listWageNotifications,,HR & Workforce,(pending),statutory_rate_sets; statutory_rates; pt_slabs,pending,n/a,no permission guard in legacy source; as above
+AuthAndApi.gs,exportWageRateCard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,exportWageFloorCheck,,HR & Workforce,GET /api/v1/statutory/minimum-wages/floor-check,minimum_wage_rates; employees,implemented,covered,no permission guard in legacy source; export file deferred to the reports phase
+AuthAndApi.gs,askCrmAssistant,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,confirmAssistantAction,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAssistantInfo,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,assistantBgControl,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,draftLeadReply,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,testAIConnection,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,startTenderAnalysis,,AI Assistant,(pending),tender_analysis,pending,n/a,AI approval phase
+AuthAndApi.gs,runTenderAnalysisChunk,,AI Assistant,(pending),tender_analysis,pending,n/a,AI approval phase
+AuthAndApi.gs,finalizeTenderAnalysis,,AI Assistant,(pending),tender_analysis,pending,n/a,AI approval phase
+AuthAndApi.gs,cancelTenderAnalysis,,AI Assistant,(pending),tender_analysis,pending,n/a,AI approval phase
+AuthAndApi.gs,getTenderAnalysis,,AI Assistant,(pending),tender_analysis,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,listTenderAnalysisRuns,,AI Assistant,(pending),tender_analysis,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,saveAnalysisEdit,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,extractTenderBOQ,,AI Assistant,(pending),tender_analysis,pending,n/a,AI approval phase
+AuthAndApi.gs,listRequiredDocuments,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveRequiredDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteRequiredDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,matchCompanyDocuments,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,attachCompanyDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,detachCompanyDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listCompanyDocuments,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveCompanyDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,uploadCompanyDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteCompanyDocument,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listEligibilityCriteria,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEligibilityCriterion,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listChecklistItems,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveChecklistItem,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,deleteChecklistItem,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listClarifications,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveClarification,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,listBOQItems,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listTenderAIActivity,,AI Assistant,(pending),audit_log,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,exportTenderAI,,AI Assistant,(pending),tender_analysis,pending,n/a,no permission guard in legacy source; AI approval phase
+AuthAndApi.gs,exportCompanyDocuments,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveSDEntry,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,importSDBulk,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getTenderDailyReport,,Tender Management,GET /api/v1/tenders/metrics,"tenders""; tender_followups; tender_orders",implemented,covered,no permission guard in legacy source; counters parity-tested against legacy dashboard function
+AuthAndApi.gs,getTenderMonthlyReport,,Tender Management,(pending),"tenders""; tender_followups; tender_orders",pending,n/a,no permission guard in legacy source; monthly report phase 7
+AuthAndApi.gs,getFilteredTenderReport,,Tender Management,GET /api/v1/tenders (filters),"tenders""; tender_followups; tender_orders",partial,pending,no permission guard in legacy source; list filters done; export pending
+AuthAndApi.gs,sendTenderReportNow,,Marketing & Communication,(pending),"tenders""; tender_followups; tender_orders",pending,n/a,scheduled email reports deferred
+AuthAndApi.gs,sendMonthlyTenderReportNow,,Marketing & Communication,(pending),"tenders""; tender_followups; tender_orders",pending,n/a,scheduled email reports deferred
+AuthAndApi.gs,saveUser,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveProfilePhoto,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getProfilePhoto,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getProfilePhotos,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,changeMyPin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getDailyReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMonthlyInsights,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMonthlySalesReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getFilteredSalesReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,sendReportNow,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,sendMonthlySalesReportNow,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,saveSettings,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,downloadGmailEmails,,,/api/v1/* (to be mapped),,pending,pending,
+AuthAndApi.gs,getMyDailyReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveMyDailyReport,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getTeamDailyReports,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,exportDailyReports,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmailDirectory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updateEmailDirectoryEntry,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteEmailDirectoryEntry,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,exportEmailDirectory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmailDirectoryStats,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,captureEmailDirectoryAllTime,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,importEmailDirectoryFromCrm,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMarketingMailboxes,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,connectMarketingMailbox,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,disconnectMarketingMailbox,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,marketingOAuthStart,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,startMarketingSync,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,continueMarketingSync,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMarketingSyncJobs,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMarketingSyncJob,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMarketingContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMarketingContact,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updateMarketingContact,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,bulkMarketingContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,exportMarketingContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,mergeMarketingContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,convertMarketingContactToLead,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getMarketingDashboard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMarketingSegments,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveMarketingSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteMarketingSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,previewMarketingSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listMarketingSuppression,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,addMarketingSuppression,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,removeMarketingSuppression,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,installMarketingSyncTrigger,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uninstallMarketingSyncTrigger,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getSocialDashboard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listSocialPosts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,duplicateSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,submitPostForApproval,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,scheduleSocialPost,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,cancelSocialSchedule,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,publishSocialPostNow,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,generateSocialPostContent,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,generateSocialImageConcept,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,generateBulkContentPlan,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listSocialAccounts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,socialOAuthStart,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,disconnectSocialAccount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,validateSocialAccount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listSocialMedia,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uploadSocialMedia,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updateSocialMedia,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteSocialMedia,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listSocialTemplates,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveSocialTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteSocialTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updateSocialAnalytics,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listSocialAnalytics,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getSocialCalendar,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,installSocialScheduler,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uninstallSocialScheduler,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkAccounts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkConnectStart,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,disconnectEmkAccount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkAccountAllowed,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,testEmkAccount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,addEmkContact,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkContact,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,unsubscribeEmkContact,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,syncEmkFromCrm,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,exportEmkContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkImportPreview,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkImportContacts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkLists,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkList,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteEmkList,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkListMembers,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkListAddMembers,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkListRemoveMember,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkSegments,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteEmkSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,previewEmkSegment,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkTemplates,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmkTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteEmkTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,duplicateEmkTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,favoriteEmkTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkCampaigns,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,submitEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,reviewEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkQualityCheck,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,startEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,scheduleEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,pauseEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,resumeEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,cancelEmkCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkRecipients,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkScheduled,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmkDashboard,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmkAnalytics,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkUnsubscribed,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmkAudit,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,markEmkBounce,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkAiSubjects,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkAiBody,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkAiRewrite,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,emkAiPreview,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEmailDirectoryCaptureStatus,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,installEmailDirectoryTrigger,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,uninstallEmailDirectoryTrigger,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,bulkImportPreview,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,bulkImportCommit,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,bulkImportCancel,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getBulkImportTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getBulkImportHistory,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listEmployees,,HR & Workforce,GET /api/v1/employees,employees,implemented,covered,no permission guard in legacy source; PII masked; legacy had no pagination
+AuthAndApi.gs,getEmployee,,HR & Workforce,GET /api/v1/employees/:id,employees; employee_documents; employee_allocations,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,saveEmployee,,HR & Workforce,POST /api/v1/employees; PATCH /api/v1/employees/:id,employees,implemented,covered,no permission guard in legacy source; EMP-YYYY-NNNN auto code; Aadhaar/PAN/ bank AES-256-GCM encrypted (legacy stored plaintext)
+AuthAndApi.gs,deactivateEmployee,,HR & Workforce,POST /api/v1/employees/:id/deactivate,employees; employee_allocations,implemented,covered,no permission guard in legacy source; Status LEFT + leaving date + Active false; also releases live deployments
+AuthAndApi.gs,getEmployeeOptions,,HR & Workforce,GET /api/v1/employees/options,employees,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,uploadEmployeeDocument,,HR & Workforce,POST /api/v1/employees/:id/documents,employees; employee_documents,partial,pending,no permission guard in legacy source; register + expiry tracking done; binary needs object storage (Rule 4 forbids local disk)
+AuthAndApi.gs,deleteEmployeeDocument,,HR & Workforce,POST /api/v1/employees/:id/documents/:docId/delete,employees; employee_documents,implemented,covered,no permission guard in legacy source; soft delete for statutory retention
+AuthAndApi.gs,getHRSummary,,HR & Workforce,GET /api/v1/employees/summary,employees,implemented,covered,no permission guard in legacy source; parity-tested against getHRSummary_
+AuthAndApi.gs,listSalarySlips,,Payroll,GET /api/v1/payroll/slips,salary_slips,implemented,covered,no permission guard in legacy source; PII masked; slips attached to a run cannot be recomputed
+AuthAndApi.gs,getSalarySlip,,Payroll,GET /api/v1/payroll/slips/:id,salary_slips,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,previewSalarySlip,,Payroll,POST /api/v1/payroll/slips/generate (status=DRAFT),salary_slips,implemented,covered,no permission guard in legacy source; drafts are not consumed by a run
+AuthAndApi.gs,generateSalarySlip,,Payroll,POST /api/v1/payroll/slips/generate,salary_slips; attendance_records,implemented,covered,no permission guard in legacy source; days now come from recorded attendance; recomputation refused once the period is locked (D-P5-2)
+AuthAndApi.gs,emailSalarySlip,,Payroll,(pending),salary_slips,pending,n/a,no permission guard in legacy source; needs the notification module; messaging goes through the approval queue
+AuthAndApi.gs,getSalarySlipOptions,,Payroll,GET /api/v1/payroll/slips; GET /api/v1/employees/options,employees; salary_slips,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,cancelSalarySlip,,Payroll,PATCH /api/v1/payroll/slips/:id/cancel,salary_slips,implemented,covered,no permission guard in legacy source; refused for a slip already in a run; reason mandatory
+AuthAndApi.gs,listPayrollRuns,,Payroll,GET /api/v1/payroll/runs,payroll_runs,implemented,covered,no permission guard in legacy source
+AuthAndApi.gs,getPayrollRun,,Payroll,GET /api/v1/payroll/runs/:id,payroll_runs; payroll_run_items,implemented,covered,no permission guard in legacy source; returns the maker-checker state so the UI can explain a refusal
+AuthAndApi.gs,createPayrollRun,,Payroll,POST /api/v1/payroll/runs,payroll_runs; payroll_run_items,implemented,covered,no permission guard in legacy source; legacy jumped straight to LOCKED; now DRAFT with blocking findings computed at creation
+AuthAndApi.gs,updatePayrollRun,,Payroll,POST /api/v1/payroll/runs/:id/approve; /disburse,payroll_runs,implemented,covered,no permission guard in legacy source; DEFECT FIXED (D-P5-1): preparer could approve their own run; maker-checker now enforced
+AuthAndApi.gs,cancelPayrollRun,,Payroll,POST /api/v1/payroll/runs/:id/cancel,payroll_runs,implemented,covered,no permission guard in legacy source; refused once approved; slips released back to the pool
+AuthAndApi.gs,exportPayrollRun,,Payroll,GET /api/v1/payroll/runs/:id/export/bank-csv; /export/ecr,payroll_run_items,implemented,covered,no permission guard in legacy source; split into two audited exports; DEFECT FIXED (D-P5-3) CSV escaping and injection
+AuthAndApi.gs,listEsiRegisters,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getEsiRegister,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,createEsiRegisterFromPayroll,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,recordEsiFiling,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listPfRegisters,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getPfRegister,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,createPfRegisterFromPayroll,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,recordPfFiling,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,downloadEsiPfRegister,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listAssets,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,assignAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,returnAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,retireAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteAsset,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAssetOptions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAssetSummary,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listStockItems,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getStockItem,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveStockItem,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteStockItem,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listStockPurchases,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getStockPurchase,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveStockPurchase,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getLowStockAlerts,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getStockItemOptions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getLowStockCount,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listStockDistributions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getStockDistribution,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveStockDistribution,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getAdminErpSummary,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listVendors,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getVendor,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveVendor,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteVendor,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getVendorOptions,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listPurchaseOrders,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getPurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,savePurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,releasePurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,acknowledgePurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,receivePurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,cancelPurchaseOrder,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getPurchaseOrderPdf,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listIndents,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getIndent,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,saveIndent,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deleteIndent,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,sendIndentForApproval,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approveIndentByToken,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectIndentByToken,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listPurchaseRequestsAdmin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,getPurchaseRequestAdmin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,savePurchaseRequestAdmin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,deletePurchaseRequestAdmin,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,sendPurchaseRequestForApproval,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,convertPRToPO,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,approvePurchaseRequestByToken,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,rejectPurchaseRequestByToken,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,recordDistributionUtilisation,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,acknowledgeDistribution,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,sendDistributionEmail,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,generateDeliveryChallan,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,listPaymentStatus,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,updatePaymentStatus,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,reportPerSite,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,reportPerItem,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,reportStockLedger,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csBootstrap,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csSaveProject,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csListProjects,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csDeleteProject,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csDuplicateProject,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csScheduleProject,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csGenerate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csImprovePrompt,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csGenerateCopy,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csQualityCheck,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csGetAssetData,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csListTemplates,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csSaveTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csDeleteTemplate,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csGetBrandKit,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csSaveBrandKit,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csUploadLogo,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csGetBrandLogo,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csLoadProviders,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csSaveProviders,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csUsage,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csListCampaigns,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source
+AuthAndApi.gs,csSaveCampaign,,,/api/v1/* (to be mapped),,pending,pending,no permission guard in legacy source

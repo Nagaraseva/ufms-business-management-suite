@@ -1,0 +1,16 @@
+{
+  "name": "@ufms/shared",
+  "version": "0.2.0",
+  "private": true,
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./payroll/wage-engine": "./src/payroll/wage-engine.ts",
+    "./tenders/tender-rules": "./src/tenders/tender-rules.ts",
+    "./hr/employee-rules": {
+      "types": "./src/hr/employee-rules.ts",
+      "default": "./src/hr/employee-rules.ts"
+    },
+    "./payroll/run-rules": "./src/payroll/run-rules.ts"
+  }
+}

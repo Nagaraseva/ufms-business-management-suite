@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UFMS Business Management Suite API",
+    "version": "1.0",
+    "description": "Generated on bootstrap. This placeholder is replaced when the API starts — see apps/api/src/main.ts SwaggerModule.createDocument. All routes are under /api/v1/*, versioned. Platform routes require platform_admin."
+  },
+  "paths": {},
+  "_note": "Run the API (npm --workspace apps/api run dev) to regenerate the full spec with live decorators."
+}

@@ -1,17 +1,12 @@
 # Railway - Nixpacks config for Backend (apps/api)
 # Railway auto-detects Node.js + runs this. No Docker needed.
 
-[phases.setup]
-nixPkgs = ["nodejs_20", "openssl"]
-
-[phases.install]
-cmds = ["npm install"]
-
 [phases.build]
 cmds = [
   "npx prisma generate --schema packages/database/prisma/schema.prisma",
-  "npm --workspace apps/api run build"
+  "npm --workspace apps/api run build",
+  "npx tsc-alias -p apps/api/tsconfig.json"
 ]
 
 [start]
-cmd = "npx prisma migrate deploy --schema packages/database/prisma/schema.prisma && node apps/api/dist/main.js"
+cmd = "npx prisma migrate deploy --schema packages/database/prisma/schema.prisma && node apps/api/dist/apps/api/src/main.js"
